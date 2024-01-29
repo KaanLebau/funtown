@@ -26,8 +26,8 @@ function RegistrationView(props) {
     const validationSchema = Yup.object({
         firstName: Yup.string().required('First name required!'),
         lastName: Yup.string().required('Last name required!'),
-        username: Yup.string().required('Required!'),
-        email: Yup.string().email('Invalid email address!').required('Email required'),
+        username: Yup.string().required('Username required!'),
+        email: Yup.string().email('Invalid email address!').required('Email required!'),
         pnr: Yup.string().required('Person number required!'),
         password: Yup.string().required('Password required!'),
       });
@@ -38,6 +38,8 @@ function RegistrationView(props) {
       };
 
   return (
+    <div data-testid="registration-view" className="RegistrationView">
+
     <Formik initialValues={inititalValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
       <Form className='registration-form'>
         <div className="form-content">
@@ -46,43 +48,44 @@ function RegistrationView(props) {
         <div className='row'>
           <label htmlFor="firstName">First Name:</label>
           <Field type="text" id="firstName" name="firstName" placeholder="John"title="First name"/>
-          <ErrorMessage name="firstName" component="div" className='error-message'/>
+          <ErrorMessage data-testid="firstNameErr" name="firstName" component="div" className='error-message'/>
         </div>
 
         <div className='row'>
           <label htmlFor="lastName">Last Name:</label>
           <Field type="text" id="lastName" name="lastName" placeholder="Doe" title="Last name"/>
-          <ErrorMessage name="lastName" component="div" className='error-message'/>
+          <ErrorMessage data-testid="lastNameErr" name="lastName" component="div" className='error-message'/>
         </div>
 
         <div className='row'>
           <label htmlFor="username">Username:</label>
           <Field type="text" id="username" name="username" placeholder="Johnny"title="Username"/>
-          <ErrorMessage name="username" component="div" className='error-message'/>
+          <ErrorMessage data-testid="userNameErr" name="username" component="div" className='error-message'/>
         </div>
 
         <div className='row'>
           <label htmlFor="email">Email:</label>
           <Field type="email" id="email" name="email" placeholder="jhonny@doe.com" title="Email"/>
-          <ErrorMessage name="email" component="div" className='error-message'/>
+          <ErrorMessage data-testid="emailErr" name="email" component="div" className='error-message'/>
         </div>
 
         <div className='row'>
           <label htmlFor="pnr">Person nr:</label>
           <Field type="text" id="pnr" name="pnr" placeholder="YYYYMMDD-NNNN"title="Person number"/>
-          <ErrorMessage name="pnr" component="div" className='error-message'/>
+          <ErrorMessage data-testid="pnrErr"name="pnr" component="div" className='error-message'/>
         </div>
 
         <div className='row'>
           <label htmlFor="password">Password:</label>
           <Field type="password" id="password" name="password" placeholder="PassWord"title="Password"/>
-          <ErrorMessage name="password" component="div" className='error-message'/>
+          <ErrorMessage data-testid="passwordErr" name="password" component="div" className='error-message'/>
         </div>
 
         <button type="submit" title='Sumbit'>Submit</button>
         </div>
       </Form>
     </Formik>
+    </div>
   )
 }
 

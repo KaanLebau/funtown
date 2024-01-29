@@ -19,7 +19,7 @@ const HeadView = (props) => {
 
 
   return (
-  <div className='content'>
+  <div data-testid="head-view" className='content'>
     <h1 title="Homepage">Funtown</h1>
     <div className="control">
         {user && (

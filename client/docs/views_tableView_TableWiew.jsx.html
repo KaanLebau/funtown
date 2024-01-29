@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: views/tableView/TableWiew.jsx</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: views/tableView/TableWiew.jsx</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import "./tableView.scss";
+//import { FaCheckCircle, FaRegCircleXmark,FaCirclePause } from "react-icons/fa";
+import { FaCirclePause, FaRegCircleXmark } from "react-icons/fa6";
+import { FaEdit, FaCheckCircle } from "react-icons/fa";
+import { GrDocumentMissing } from "react-icons/gr";
+
+/*
+  &lt;div>&lt;FaCheckCircle title ="Accepted" className='accepted'/>&lt;/div>
+        &lt;div>&lt;FaRegCircleXmark title ="Rejected" className='rejected'/>&lt;/div>
+        &lt;div>&lt;FaCirclePause title ="Pending" className='unhandled'/>&lt;/div>
+*/
+/**
+ * View component for rendering a table using the Material-UI Data Grid.
+ *
+ * @component
+ * @example
+ * // Usage in another component
+ * import TableWiew from './path/to/TableWiew';
+ * // ...
+ * &lt;TableWiew rows={[]} columns={[]} />
+ *
+ * @param {Object} props - Component properties
+ * @param {Array} props.rows - An array of objects representing the rows in the table
+ * @param {Array} props.columns - An array of objects representing the columns in the table
+ * @returns {JSX.Element} The rendered TableWiew component
+ */
+function TableWiew(props) {
+  function handleGetId(row) {
+    props.applicant(row);
+  }
+
+  function selectIcon(status) {
+    if (status === "accepted") {
+      return &lt;FaCheckCircle title="Accepted" className="accepted" />;
+    } else if (status === "rejected") {
+      return &lt;FaRegCircleXmark title="Rejected" className="rejected" />;
+    } else if (status === "unhandled") {
+      return &lt;FaCirclePause title="Pending" className="unhandled" />;
+    }
+  }
+  return (
+    &lt;div data-testid="table-view" className="table-content">
+      &lt;h2>All job applications&lt;/h2>
+      {props.columns &amp;&amp; props.columns.length > 0 ? (
+        &lt;table data-testid="tabel" className="the-table">
+          &lt;thead className="table-head">
+            &lt;tr>
+              {props.columns.map((column) => (
+                &lt;th key={column} className="tabel-head">
+                  {column.charAt(0).toUpperCase() + column.slice(1)}
+                &lt;/th>
+              ))}
+            &lt;/tr>
+          &lt;/thead>
+          &lt;tbody className="table-body">
+            {props.rows.map((row, rowIndex) => (
+              &lt;tr
+                key={rowIndex}
+                className="table-row"
+                onClick={() => handleGetId(row)}
+              >
+                {props.columns.map((column, colIndex) => (
+                  &lt;td title={column} key={colIndex}>
+                    {column === "status" ? (
+                      &lt;div className={`status ${row[column]}`}>
+                        {row[column]} {selectIcon(row[column])}
+                      &lt;/div>
+                    ) : column === "handle" ? (
+                      &lt;div className={`keys ${row[column]}`}>
+                        {row[column]}{" "}
+                        &lt;FaEdit title="Handle" className="handle" />
+                      &lt;/div>
+                    ) : (
+                      &lt;div className={`keys ${row[column]}`}>{row[column]}&lt;/div>
+                    )}
+                  &lt;/td>
+                ))}
+              &lt;/tr>
+            ))}
+          &lt;/tbody>
+        &lt;/table>
+      ) : (
+        &lt;div className="no-data">
+          &lt;GrDocumentMissing
+            data-testid="no-data-icon"
+            title="No data loaded"
+            className="no-data-icon"
+          />
+          &lt;label htmlFor="" className="no-data-label" title="No data loaded">
+            No Data
+          &lt;/label>
+        &lt;/div>
+      )}
+    &lt;/div>
+  );
+}
+
+export default TableWiew;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HeadView.html">HeadView</a></li><li><a href="JobApplicationView.html">JobApplicationView</a></li><li><a href="LoginPage.html">LoginPage</a></li><li><a href="LoginView.html">LoginView</a></li><li><a href="RegistrationPage.html">RegistrationPage</a></li><li><a href="RegistrationView.html">RegistrationView</a></li><li><a href="TabelPresenter.html">TabelPresenter</a></li><li><a href="TableWiew.html">TableWiew</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#HeadPresenter">HeadPresenter</a></li><li><a href="global.html#JobApplicationPresenter">JobApplicationPresenter</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jan 29 2024 09:28:49 GMT+0100 (Central European Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

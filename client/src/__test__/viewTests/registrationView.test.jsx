@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import RegistrationView from '../../views/registrationView/RegistrationView'
@@ -27,40 +27,49 @@ describe('Registration view renders', () => {
         render(<RegistrationView onSubmit={mockSubmit} />)
         const userInteract = screen.getByRole('button') 
         
-            fireEvent.click(userInteract)
-        
-        await wait(()=>{
-            expect(screen.getByName("firstName")).not.toBe(null);
-            expect(screen.getByName("firstName")).toHaveTextContent("First name required!");
-            
-            expect(screen.getByName("lastName")).not.toBe(null);
-            expect(screen.getByName("lastName")).toHaveTextContent("Last name required!");
+        await act(async()=>{
 
-            expect(screen.getByName("username")).not.toBe(null);
-            expect(screen.getByName("username")).toHaveTextContent("Username required!");
-            
-            expect(screen.getByName("email")).not.toBe(null);
-            expect(screen.getByName("email")).toHaveTextContent("Email required!"); 
-
-            expect(screen.getByName("pnr")).not.toBe(null);
-            expect(screen.getByName("pnr")).toHaveTextContent("Person number required!"); 
-
-            expect(screen.getByName("password")).not.toBe(null);
-            expect(screen.getByName("password")).toHaveTextContent("Password required!");
+            await userEvent.click(userInteract)
         })
+        
+       
+            expect(screen.getByTestId("firstNameErr")).not.toBe(null);
+            expect(screen.getByTestId("firstNameErr")).toHaveTextContent("First name required!");
+            
+            expect(screen.getByTestId("lastNameErr")).not.toBe(null);
+            expect(screen.getByTestId("lastNameErr")).toHaveTextContent("Last name required!");
+
+            expect(screen.getByTestId("userNameErr")).not.toBe(null);
+            expect(screen.getByTestId("userNameErr")).toHaveTextContent("Username required!");
+            
+            expect(screen.getByTestId("emailErr")).not.toBe(null);
+            expect(screen.getByTestId("emailErr")).toHaveTextContent("Email required!"); 
+
+            expect(screen.getByTestId("pnrErr")).not.toBe(null);
+            expect(screen.getByTestId("pnrErr")).toHaveTextContent("Person number required!"); 
+
+            expect(screen.getByTestId("passwordErr")).not.toBe(null);
+            expect(screen.getByTestId("passwordErr")).toHaveTextContent("Password required!");
+        
     })
 
     test("wrong email err correcly", async()=>{
         render(<RegistrationView onSubmit={mockSubmit} />)
         const userInteract = screen.getByRole('button') 
         const inputEmail = screen.getByTitle("Email")
-        userEvent.type(inputEmail, 'test')
-        fireEvent.click(userInteract)
+        
+        await act(async() =>{
+            await userEvent.type(inputEmail, 'test')
+            await userEvent.click(userInteract)
+
+        })
+        
         await wait(()=>{
-            expect(screen.getByName("email")).not.toBe(null);
-            expect(screen.getByName("email")).toHaveTextContent("Invalid email address!");
+            expect(screen.getByTestId("emailErr")).not.toBe(null);
+            expect(screen.getByTestId("emailErr")).toHaveTextContent("Invalid email address!");
         })
     })
+
 
     test("user input correctly",async ()=>{
         render(<RegistrationView onSubmit={mockSubmit} />)
@@ -72,16 +81,17 @@ describe('Registration view renders', () => {
         const inputPnr = screen.getByTitle("Person number")
         const inputPassword = screen.getByTitle("Password")
 
-        userEvent.type(inputName, 'test name')
-        userEvent.type(inputLastName, 'test last name')
-        userEvent.type(inputEmail, 'test@email.com')
-        userEvent.type(inputPnr, '123456789')
-        userEvent.type(inputUsername, 'test user')
-        userEvent.type(inputPassword, 'test password')
+        await act(async ()=>{
+           await userEvent.type(inputName, 'test name')
+           await userEvent.type(inputLastName, 'test last name')
+           await userEvent.type(inputEmail, 'test@email.com')
+           await userEvent.type(inputPnr, '123456789')
+           await userEvent.type(inputUsername, 'test user')
+           await userEvent.type(inputPassword, 'test password')
+
+           await userEvent.click(userInteract)
+        })
         
-        fireEvent.click(userInteract)
-        
-        await wait(()=>{
             expect(mockSubmit).toHaveBeenCalledWith({
                 firstName: 'test name',
                 lastName: 'test last name',
@@ -89,8 +99,8 @@ describe('Registration view renders', () => {
                 pnr: '123456789',
                 username: 'test user',
                 password: 'test password',
-              }, expect.anything());
-        })
+              });
+
     })
    
 

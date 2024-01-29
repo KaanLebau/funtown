@@ -16,7 +16,7 @@ import './jobApplicationView.scss'
 function JobApplicationView(props) {
   
   return (
-    <div className='application-content'>
+    <div data-testid="job-application-view" className='application-content'>
         
         <label id="position" htmlFor="position">Position: </label>
         <select title='Positions'>

@@ -1,14 +1,13 @@
-import React from 'react'
-import RegistrationView from '../../views/registrationView/RegistrationView'
+import React from "react";
+import RegistrationView from "../../views/registrationView/RegistrationView";
 
 function RegistrationPresenter() {
-    function submit(user){
-        console.log("submit")
-        console.log(user)
-    }
+  function submit(user) {} //TODO integeration with backend to login
   return (
-    <div><RegistrationView onSubmit ={submit}/></div>
-  )
+    <div data-testid="registration-presenter">
+      <RegistrationView onSubmit={submit} />
+    </div>
+  );
 }
 
-export default RegistrationPresenter
+export default RegistrationPresenter;
