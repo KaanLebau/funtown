@@ -32,6 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "docs": "jsdoc -d docs -c jsdoc.conf.json",
+    "read-docs": "xdg-open ./docs/global.html || open ./docs/global.html || start ./docs/global.html",
     "coverage": "npm test -- --coverage --watchAll",
     "coverage-report": "xdg-open ./coverage/lcov-report/index.html || open ./coverage/lcov-report/index.html || start ./coverage/lcov-report/index.html"
   },
