@@ -9,6 +9,6 @@ export const userState = atom({
     username: "jhonny",
     email: "jhon@doe.com",
     pnr: "12342211-4444",
-    role: "applicant",
+    role: "recruiter",
   },
 });
