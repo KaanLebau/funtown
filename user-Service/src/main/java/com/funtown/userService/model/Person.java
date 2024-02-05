@@ -1,5 +1,6 @@
 package com.funtown.userService.model;
 
+import com.funtown.userService.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer person_id;
+    private Integer id;
 
     @Column(length = 255, nullable = true)
     private String name;
@@ -34,7 +35,8 @@ public class Person {
     private String password;
 
     @Column(nullable = true)
-    private Integer role_id;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(length = 255, nullable = true)
     private String username;
