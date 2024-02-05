@@ -1,16 +1,16 @@
 package dev.kaan.authservices.repository;
 
-import dev.kaan.authservices.model.Person;
+import dev.kaan.authservices.model.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 /**
- * <p>The PersonRepository interface serves as an abstraction layer for managing interactions with the persistence layer
+ * <p>The ClientRepository interface serves as an abstraction layer for managing interactions with the persistence layer
  *
- * concerning Person entities within the application. Extending JpaRepository grants this interface access to a wide range
+ * concerning Client entities within the application. Extending JpaRepository grants this interface access to a wide range
  *
- * of predefined CRUD (Create, Read, Update, Delete) operations for Person entities, thereby streamlining data access
+ * of predefined CRUD (Create, Read, Update, Delete) operations for Client entities, thereby streamlining data access
  *
  * and manipulation tasks.
  *</p>
@@ -22,13 +22,13 @@ import java.util.Optional;
  *
  * @see org.springframework.data.jpa.repository.JpaRepository
  */
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface ClientRepository extends JpaRepository<Client, Integer> {
 
     /**
      * Method to find a user by username<br>
-     * accepts username type String returns Person type Optional<Person>
+     * accepts username type String returns Client type Optional<Client>
      * @param username search parameter
      * @return Optional
      */
-    Optional<Person> findByUsername(String username);
+    Optional<Client> findByUsername(String username);
 }

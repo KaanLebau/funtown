@@ -1,40 +1,35 @@
 package dev.kaan.authservices.services.impl;
 
 import dev.kaan.authservices.model.AuthenticationRequest;
-import dev.kaan.authservices.model.Person;
+import dev.kaan.authservices.model.Client;
 import dev.kaan.authservices.model.Role;
-import dev.kaan.authservices.repository.PersonRepository;
-import dev.kaan.authservices.security.AuthenticationResponse;
+import dev.kaan.authservices.model.AuthenticationResponse;
 import dev.kaan.authservices.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
-private final PersonServiceImpl personService;
-private final PasswordEncoder passwordEncoder;
-private final JwtServiceImpl jwtService;
-private final AuthenticationManager authenticationManager;
+private final ClientServiceImpl PERSON_SERVICE;
+private final PasswordEncoder PASSWORD_ENCODER;
+private final JwtServiceImpl JWT_SERVICE;
+private final AuthenticationManager AUTHENTICATION_MANAGER;
 
     @Override
-    public AuthenticationResponse register(Person person) throws Exception {
-        Person client = Person.builder()
-                .name(person.getName())
-                .surename(person.getSurename())
-                .username(person.getUsername())
-                .password(passwordEncoder.encode(person.getPassword()))
-                .role(Role.APPLICANT)
-                .build();
-        personService.create(client);
-        String jwtToken = jwtService.generateToken(client);
+    public AuthenticationResponse register(Client record) throws Exception {
+        Client client = PERSON_SERVICE.create(
+                Client.builder()
+                    .username(record.getUsername())
+                    .password(PASSWORD_ENCODER.encode(record.getPassword()))
+                    .role(Role.APPLICANT)
+                    .build());
+        String jwtToken = JWT_SERVICE.generateToken(client);
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(jwtToken)
@@ -43,10 +38,10 @@ private final AuthenticationManager authenticationManager;
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+        AUTHENTICATION_MANAGER.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
         try{
-            Person client = personService.findByUsername(authenticationRequest.getUsername());
-            String jwtToken = jwtService.generateToken(client);
+            Client client = PERSON_SERVICE.findByUsername(authenticationRequest.getUsername());
+            String jwtToken = JWT_SERVICE.generateToken(client);
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(jwtToken)

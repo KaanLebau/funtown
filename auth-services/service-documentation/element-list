@@ -1,0 +1,8 @@
+dev.kaan.authservices
+dev.kaan.authservices.config
+dev.kaan.authservices.controller
+dev.kaan.authservices.model
+dev.kaan.authservices.repository
+dev.kaan.authservices.security
+dev.kaan.authservices.services
+dev.kaan.authservices.services.impl

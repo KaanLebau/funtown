@@ -1,12 +1,12 @@
 package dev.kaan.authservices.services;
 
 import dev.kaan.authservices.model.AuthenticationRequest;
-import dev.kaan.authservices.model.Person;
-import dev.kaan.authservices.security.AuthenticationResponse;
+import dev.kaan.authservices.model.Client;
+import dev.kaan.authservices.model.AuthenticationResponse;
 
 public interface AuthenticationService {
 
-    AuthenticationResponse register(Person person) throws Exception;
+    AuthenticationResponse register(Client client) throws Exception;
 
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest);
 

@@ -1,4 +1,4 @@
-package dev.kaan.authservices.security;
+package dev.kaan.authservices.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

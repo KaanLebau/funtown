@@ -1,18 +1,9 @@
 package dev.kaan.authservices.services;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
-import java.security.Key;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
 
 
@@ -21,7 +12,17 @@ public interface JwtService {
 
 
     /**
-     * Retrieves the username from the provided JWT token.
+     * Retrieves the username from the provided JWT token.<br>
+     *
+     * <b>example use:</b><br>
+     *
+     *
+     *<pre>
+     *     private final ClientServiceImpl PERSON_SERVICE<br>
+     *     String username = JWT_SERVICE.getUsername(JWT_TOKEN);
+     * </pre>
+     *
+     *
      *
      * @param jwtToken the JWT token from which to extract the username
      * @return the username extracted from the JWT token
@@ -41,21 +42,6 @@ public interface JwtService {
   String generateToken( UserDetails userDetails);
 
 
-    /**
-     *  <p>
-     *  This method generates a JWT token for the provided UserDetails object with additional
-     *  custom claims specified in the extraClaims parameter.
-     *  </p>
-     *
-     *  <p>
-     *  The token is set to expire after one minute by default.
-     *  </p>
-     *
-     * @param extraClaims additional custom claims to include in the JWT token
-     * @param userDetails the UserDetails object for which to generate the token
-     * @return the generated JWT token with additional custom claims
-     */
-  String generateToken(Map<String, Object> extraClaims, UserDetails userDetails);
 
     /**
      * Generates a refresh token for the provided UserDetails with a default refresh time of one day.

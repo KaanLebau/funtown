@@ -1,5 +1,6 @@
 package dev.kaan.authservices.model;
 
+import dev.kaan.authservices.config.AESConfig;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,43 +14,44 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * @author Kaan<br>
+ *
  * this object represents a client and encapsulates the following information
  *<pre>
  *     {<br>
  *          id: <b>type: </b>Integer <b>contains:</b> primary key for database. <br>
- *          name : <b>type: </b>String <b>contains:</b> clients name. <br>
- *          surename: <b>type:</b> String <b>contains:</b> clients last name. <br>
  *          username: <b>type:</b> String <b>contains: </b>clients username in app.<br>
- *          email: <b>type:</b> String <b>contains:</b> clients email.<br>
- *          ssn: <b>type:</b> String <b>contains:</b> clients Social Security Number.<br>
  *          password: <b>type: </b>String <b>contains:</b> clients password.<br>
  *          role: <b>type: </b>Enum <b>contains:</b> clients role in app.<br>
  *     }
  *
  *</pre>
  * <br>
- * which corresponds to the <b><i>person</i></b> table in the database.<br>
+ * which corresponds to the <b><i>client</i></b> table in the database.<br>
  *  the class <b>implements</b> <i>UserDetails</i> from spring security
- *
+ *@author Kaan<br>
  */
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "person")
-public class Person implements UserDetails {
+@Table(name = "client")
+public class Client implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
 
-    private String name;
-    private String surename;
+    @Column(name = "username")
+    @Convert(converter = AESConfig.class)
     private String username;
+
+    @Column(name = "password")
     private String password;
 
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
     private Role role ;
 
     /**

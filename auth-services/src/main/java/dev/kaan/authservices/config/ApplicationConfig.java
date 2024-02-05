@@ -1,6 +1,6 @@
 package dev.kaan.authservices.config;
 
-import dev.kaan.authservices.services.impl.PersonServiceImpl;
+import dev.kaan.authservices.services.impl.ClientServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @RequiredArgsConstructor
 public class ApplicationConfig {
-    private final PersonServiceImpl personService;
+    private final ClientServiceImpl personService;
 
     @Bean
     public AuthenticationProvider authenticationProvider(){

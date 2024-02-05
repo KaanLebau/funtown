@@ -1,7 +1,7 @@
-package dev.kaan.authservices.config;
+package dev.kaan.authservices.filter;
 
 import dev.kaan.authservices.services.JwtService;
-import dev.kaan.authservices.services.impl.PersonServiceImpl;
+import dev.kaan.authservices.services.impl.ClientServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -26,7 +26,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService JWT_SERVICE;
-    private final PersonServiceImpl PERSON_SERVICE;
+    private final ClientServiceImpl PERSON_SERVICE;
 
     /**
      * Performs filtering of incoming HTTP requests and handles JWT authentication.
@@ -56,16 +56,16 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request,@NonNull HttpServletResponse response,@NonNull FilterChain filterChain) throws ServletException, IOException {
         final String AUTH_HEADER = request.getHeader("Authentication");
         final String JWT_TOKEN;
-        final String username;
-        if(AUTH_HEADER == null || AUTH_HEADER.startsWith("Bearer ")){
+        final String USERNAME;
+        if(AUTH_HEADER == null || !AUTH_HEADER.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
         JWT_TOKEN = AUTH_HEADER.substring(7);
-        username = JWT_SERVICE.getUsername(JWT_TOKEN);
+        USERNAME = JWT_SERVICE.getUsername(JWT_TOKEN);
         // username provided NOT Authenticated
-        if((username != null) && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = this.PERSON_SERVICE.loadUserByUsername(username);// get user data from database
+        if((USERNAME != null) && SecurityContextHolder.getContext().getAuthentication() == null){
+            UserDetails userDetails = this.PERSON_SERVICE.loadUserByUsername(USERNAME);// get user data from database
             if(JWT_SERVICE.isTokenValid(JWT_TOKEN, userDetails)){ //checks if user or token is vaild or not
                 // creates authenticaton token
                 UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
