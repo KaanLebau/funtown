@@ -10,7 +10,33 @@ import javax.crypto.spec.SecretKeySpec;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 import java.util.Base64;
-
+/**
+ * The AESConfig class provides configuration for AES encryption and decryption.
+ * This class implements the AttributeConverter interface, enabling attribute value conversion
+ * between Java types and database column types.
+ *
+ * <p>
+ *     AESConfig utilizes the AES algorithm for encryption and decryption operations.
+ *     It uses a pre-defined key and the AES algorithm for cryptographic operations.
+ * </p>
+ *
+ * <p>
+ *     This configuration class ensures that the key and cipher instances are properly initialized
+ *     and reused to minimize resource usage and improve performance.
+ * </p>
+ *
+ * <p>
+ *     The {@code convertToDatabaseColumn} method encrypts the attribute value using the AES algorithm
+ *     and returns the encrypted database column value as a Base64-encoded string.
+ * </p>
+ *
+ * <p>
+ *     The {@code convertToEntityAttribute} method decrypts the encrypted database column value
+ *     using the AES algorithm and returns the decrypted attribute value.
+ * </p>
+ *
+ * @author Kaan
+ */
 @Configuration
 public class AESConfig implements AttributeConverter<Object, String> {
 
@@ -25,7 +51,7 @@ public class AESConfig implements AttributeConverter<Object, String> {
             key = new SecretKeySpec(KEY.getBytes(),HOLE);
         return key;
     }
-    private Cipher getCipher() throws GeneralSecurityException {
+    Cipher getCipher() throws GeneralSecurityException {
         if(cipher == null) {
             cipher = Cipher.getInstance(HOLE);
         }
@@ -64,5 +90,9 @@ public class AESConfig implements AttributeConverter<Object, String> {
         byte[] bytes = getCipher().doFinal(Base64.getDecoder().decode(data));
 
         return SerializationUtils.deserialize(bytes);
+    }
+
+    public void setCipher(Cipher mockCipher) {
+        cipher = mockCipher;
     }
 }
