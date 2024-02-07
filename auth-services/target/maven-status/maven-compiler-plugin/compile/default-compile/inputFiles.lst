@@ -1,0 +1,17 @@
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/model/Role.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/AuthenticationService.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/model/Client.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/AuthServicesApplication.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/JwtService.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/impl/ClientServiceImpl.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/ClientService.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/config/AESConfig.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/impl/JwtServiceImpl.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/repository/ClientRepository.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/model/AuthenticationRequest.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/config/SecurityConfig.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/security/AuthenticationResponse.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/controller/AuthenticationController.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/services/impl/AuthenticationServiceImpl.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/config/JwtAuthenticationFilter.java
+/home/kaan/Documents/funtown/auth-services/src/main/java/dev/kaan/authservices/config/ApplicationConfig.java
