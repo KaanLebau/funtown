@@ -1,7 +1,7 @@
 package com.funtown.userService.controller;
 
 import com.funtown.userService.model.CompetenceProfile;
-import com.funtown.userService.service.ICompetenceProfileService;
+import com.funtown.userService.service.CompetenceProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompetenceProfileController {
 
-    private final ICompetenceProfileService competenceProfileService;
+    private final CompetenceProfileService competenceProfileService;
 
     /**
      * Retrieves all competence profiles.

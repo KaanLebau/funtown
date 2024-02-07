@@ -4,7 +4,7 @@ import com.funtown.userService.model.Person;
 import java.util.List;
 import java.util.Optional;
 
-public interface IPersonService {
+public interface PersonService {
 
     List<Person> findAll();
 
@@ -16,3 +16,4 @@ public interface IPersonService {
 
     // Include any additional methods that your application requires.
 }
+

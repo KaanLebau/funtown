@@ -1,7 +1,7 @@
 package com.funtown.userService.controller;
 
 import com.funtown.userService.model.Person;
-import com.funtown.userService.service.IPersonService;
+import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonController {
 
-    private final IPersonService personService; // Reference to the interface
+    private final PersonService personService;
 
     // Get all persons
     @GetMapping

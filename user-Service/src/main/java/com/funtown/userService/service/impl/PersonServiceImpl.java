@@ -2,7 +2,7 @@ package com.funtown.userService.service.impl;
 
 import com.funtown.userService.model.Person;
 import com.funtown.userService.repository.PersonRepository;
-import com.funtown.userService.service.IPersonService;
+import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.Optional;
 
 /**
  * Service implementation for managing persons.
- * Implements {@link IPersonService} to provide CRUD operations for {@link Person} entities.
+ * Implements {@link PersonService} to provide CRUD operations for {@link Person} entities.
  */
 @Service
 @RequiredArgsConstructor
-public class PersonServiceImpl implements IPersonService {
+public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
 

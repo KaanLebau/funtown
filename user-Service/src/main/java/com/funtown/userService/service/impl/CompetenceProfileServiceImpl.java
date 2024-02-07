@@ -2,7 +2,7 @@ package com.funtown.userService.service.impl;
 
 import com.funtown.userService.model.CompetenceProfile;
 import com.funtown.userService.repository.CompetenceProfileRepository;
-import com.funtown.userService.service.ICompetenceProfileService;
+import com.funtown.userService.service.CompetenceProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.Optional;
 
 /**
  * Service implementation for managing competence profiles.
- * Implements {@link ICompetenceProfileService} to provide CRUD operations on {@link CompetenceProfile} entities.
+ * Implements {@link CompetenceProfileService} to provide CRUD operations on {@link CompetenceProfile} entities.
  */
 @Service
 @RequiredArgsConstructor
-public class CompetenceProfileServiceImpl implements ICompetenceProfileService {
+public class CompetenceProfileServiceImpl implements CompetenceProfileService {
 
     private final CompetenceProfileRepository competenceProfileRepository;
 

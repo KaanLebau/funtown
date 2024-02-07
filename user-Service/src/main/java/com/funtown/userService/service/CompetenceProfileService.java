@@ -8,7 +8,7 @@ import java.util.Optional;
  * Service interface for managing competence profiles.
  * Defines the operations available for manipulating {@link CompetenceProfile} entities.
  */
-public interface ICompetenceProfileService {
+public interface CompetenceProfileService {
 
     /**
      * Retrieves all competence profiles.
