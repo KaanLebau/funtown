@@ -1,29 +1,42 @@
 package com.funtown.userService.controller;
 
 import com.funtown.userService.model.CompetenceProfile;
-import com.funtown.userService.service.CompetenceProfileService;
+import com.funtown.userService.service.ICompetenceProfileService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller for handling requests related to Competence Profiles.
+ * Provides endpoints for CRUD operations on competence profiles.
+ */
 @RestController
 @RequestMapping("/api/competence-profiles")
 @RequiredArgsConstructor
 public class CompetenceProfileController {
 
-    private final CompetenceProfileService competenceProfileService;
+    private final ICompetenceProfileService competenceProfileService;
 
-    // Get all competence profiles
+    /**
+     * Retrieves all competence profiles.
+     *
+     * @return A list of {@link CompetenceProfile} instances.
+     */
     @GetMapping
     public List<CompetenceProfile> getAllCompetenceProfiles() {
         return competenceProfileService.findAll();
     }
 
-    // Get a single competence profile by ID
+    /**
+     * Retrieves a single competence profile by its ID.
+     *
+     * @param id The ID of the competence profile to retrieve.
+     * @return A {@link ResponseEntity} containing the requested {@link CompetenceProfile}
+     *         or a not found status if the competence profile does not exist.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<CompetenceProfile> getCompetenceProfileById(@PathVariable Integer id) {
         return competenceProfileService.findById(id)
@@ -31,14 +44,27 @@ public class CompetenceProfileController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Create a new competence profile
+    /**
+     * Creates a new competence profile.
+     *
+     * @param competenceProfile The {@link CompetenceProfile} to create.
+     * @return A {@link ResponseEntity} containing the created {@link CompetenceProfile}
+     *         with HTTP status {@link HttpStatus#CREATED}.
+     */
     @PostMapping
     public ResponseEntity<CompetenceProfile> createCompetenceProfile(@RequestBody CompetenceProfile competenceProfile) {
         CompetenceProfile savedCompetenceProfile = competenceProfileService.save(competenceProfile);
         return new ResponseEntity<>(savedCompetenceProfile, HttpStatus.CREATED);
     }
 
-    // Update an existing competence profile
+    /**
+     * Updates an existing competence profile.
+     *
+     * @param id The ID of the competence profile to update.
+     * @param competenceProfileDetails The updated competence profile details.
+     * @return A {@link ResponseEntity} containing the updated {@link CompetenceProfile}
+     *         or a not found status if the competence profile does not exist.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<CompetenceProfile> updateCompetenceProfile(@PathVariable Integer id, @RequestBody CompetenceProfile competenceProfileDetails) {
         return competenceProfileService.findById(id)
@@ -50,7 +76,12 @@ public class CompetenceProfileController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Delete a competence profile
+    /**
+     * Deletes a competence profile by its ID.
+     *
+     * @param id The ID of the competence profile to delete.
+     * @return A {@link ResponseEntity} indicating the outcome of the delete operation.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompetenceProfile(@PathVariable Integer id) {
         return competenceProfileService.findById(id)

@@ -1,9 +1,8 @@
 package com.funtown.userService.controller;
 
 import com.funtown.userService.model.Person;
-import com.funtown.userService.service.PersonService;
+import com.funtown.userService.service.IPersonService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonController {
 
-    private final PersonService personService;
+    private final IPersonService personService; // Reference to the interface
 
     // Get all persons
     @GetMapping
@@ -45,6 +44,7 @@ public class PersonController {
                 .map(person -> {
                     person.setName(personDetails.getName());
                     person.setEmail(personDetails.getEmail());
+                    // Here you might want to set more attributes as needed
                     Person updatedPerson = personService.save(person);
                     return ResponseEntity.ok().body(updatedPerson);
                 })
@@ -63,5 +63,4 @@ public class PersonController {
     }
 
     // Additional helper methods or endpoints can be added here
-
 }
