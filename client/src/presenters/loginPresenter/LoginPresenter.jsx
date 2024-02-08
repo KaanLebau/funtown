@@ -3,14 +3,22 @@ import LoginView from "../../views/loginView/LoginView";
 import { useRecoilState } from "recoil";
 import { userState } from "../../model/userModel";
 import { useNavigate } from "react-router-dom";
-//TODO eneble this import { login } from "../../integration/funtownApi.cjs";
+import apiModule from "../../integration/funtownApi";
+
 function LoginPresenter() {
   const [user, setUser] = useRecoilState(userState);
   const navigate = useNavigate();
 
-  const handleLogin = (credential) => {
+  async function handleLogin(credential) {
+    try {
+      const client = await apiModule.authenticate(
+        credential.username,
+        credential.password
+      );
+      console.log(client);
+    } catch (error) {}
     //TODO eneble this const user = login(credential.username, credential.password);
-
+    /*
     if (credential.username === "admin") {
       setUser({
         naturalId: "99",
@@ -33,8 +41,8 @@ function LoginPresenter() {
         role: "applicant",
       });
       navigate("/user");
-    }
-  };
+    }*/
+  }
   return (
     <div data-testid="login-presenter">
       <LoginView login={handleLogin} />

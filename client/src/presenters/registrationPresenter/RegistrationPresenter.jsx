@@ -5,10 +5,18 @@ import apiModule from "../../integration/funtownApi";
 
 function RegistrationPresenter() {
   const navigate = useNavigate();
-  function submit(user) {
+  async function submit(user) {
     const { username, password } = user;
     try {
-      apiModule.registration(username, password);
+      const client = await apiModule.registration(username, password);
+      console.log(
+        "******************* server respons *******************************"
+      );
+
+      console.log(client);
+      console.log(
+        "******************* user input *******************************"
+      );
       console.log(user);
       navigate("/user");
     } catch (error) {}
