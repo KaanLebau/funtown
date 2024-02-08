@@ -8,7 +8,7 @@ import dev.kaan.authservices.services.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+@CrossOrigin
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/auth")
