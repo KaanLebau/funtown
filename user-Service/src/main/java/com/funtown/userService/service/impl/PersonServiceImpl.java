@@ -1,9 +1,13 @@
 package com.funtown.userService.service.impl;
 
+import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
 import com.funtown.userService.repository.PersonRepository;
 import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -14,9 +18,12 @@ import java.util.Optional;
  */
 @Service
 @RequiredArgsConstructor
+
 public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
+
+    private final ModelMapper mapper;
 
     /**
      * Retrieves all persons stored in the database.
@@ -24,8 +31,13 @@ public class PersonServiceImpl implements PersonService {
      * @return A list of {@link Person} instances, which may be empty if no persons are found.
      */
     @Override
-    public List<Person> findAll() {
-        return personRepository.findAll();
+    public List<PersonDto> findAll() {
+       return personRepository.findAll().stream().map(
+               (person) -> {
+                    return mapper.map(person, PersonDto.class);
+               }
+       ).toList();
+
     }
 
     /**
@@ -35,8 +47,11 @@ public class PersonServiceImpl implements PersonService {
      * @return An {@link Optional} containing the found {@link Person} or empty if no person is found with the given ID.
      */
     @Override
-    public Optional<Person> findById(Integer id) {
-        return personRepository.findById(id);
+    public FullPersonDto findById(Integer id) throws Exception{
+        Person person = personRepository.findById(id).orElseThrow(
+                () -> new Exception("Person dosen't exit")
+        );
+        return mapper.map(person, FullPersonDto.class);
     }
 
     /**

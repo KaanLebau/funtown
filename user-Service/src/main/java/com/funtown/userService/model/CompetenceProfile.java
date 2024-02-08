@@ -34,12 +34,17 @@ public class CompetenceProfile {
     @Column(name = "id")
     private Integer competenceProfileId;
 
+    /*
     @Column(name = "person_id")
     private Integer personId;
-
+    */
     @Column(name = "competence_id")
     private Integer competenceId;
 
     @Column(name = "years_of_experience", precision = 4, scale = 2)
     private BigDecimal yearsOfExperience;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person person;
 }

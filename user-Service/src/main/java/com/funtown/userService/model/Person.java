@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 import java.time.LocalDate;
 /**
  * The Person class represents an entity for storing information about individuals in a user service application.
@@ -56,4 +58,7 @@ public class Person {
 
     @Column(length = 255, nullable = true)
     private String username;
+
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private List<CompetenceProfile> competenceProfiles;
 }

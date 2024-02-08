@@ -1,14 +1,16 @@
 package com.funtown.userService.service;
 
+import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
 import java.util.List;
 import java.util.Optional;
 
 public interface PersonService {
 
-    List<Person> findAll();
+    List<PersonDto> findAll();
 
-    Optional<Person> findById(Integer id);
+    FullPersonDto findById(Integer id) throws Exception;
 
     Person save(Person person);
 

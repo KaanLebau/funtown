@@ -1,5 +1,7 @@
 package com.funtown.userService.controller;
 
+import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
 import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
@@ -18,38 +20,48 @@ public class PersonController {
 
     // Get all persons
     @GetMapping
-    public List<Person> getAllPersons() {
+    public List<PersonDto> getAllPersons() {
         return personService.findAll();
     }
 
+
+
     // Get a single person by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Person> getPersonById(@PathVariable Integer id) {
-        return personService.findById(id)
-                .map(person -> ResponseEntity.ok().body(person))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<FullPersonDto> getPersonById(@PathVariable Integer id) {
+      try {
+          return ResponseEntity.ok(personService.findById(id));
+      } catch (Exception e){
+          return ResponseEntity.notFound().build();
+        }
     }
 
     // Create a new person
-    @PostMapping
+//    check no duplicate email and pnr and so on and so on
+
+    @PostMapping("/create")
     public ResponseEntity<Person> createPerson(@RequestBody Person person) {
         Person savedPerson = personService.save(person);
         return new ResponseEntity<>(savedPerson, HttpStatus.CREATED);
     }
 
     // Update an existing person
-    @PutMapping("/{id}")
+    /*
+        @PutMapping("/{id}")
     public ResponseEntity<Person> updatePerson(@PathVariable Integer id, @RequestBody Person personDetails) {
-        return personService.findById(id)
-                .map(person -> {
-                    person.setName(personDetails.getName());
-                    person.setEmail(personDetails.getEmail());
-                    // Here you might want to set more attributes as needed
-                    Person updatedPerson = personService.save(person);
-                    return ResponseEntity.ok().body(updatedPerson);
-                })
-                .orElseGet(() -> ResponseEntity.notFound().build());
+        try{
+            personService.findById(id).builder()
+                    .map(person -> {
+                        person.setName(personDetails.getName());
+                        person.setEmail(personDetails.getEmail());
+                        // Here you might want to set more attributes as needed
+                        Person updatedPerson = personService.save(person);
+                        return ResponseEntity.ok().body(updatedPerson);
+                    });
+        } catch(Exception e) {}
+
     }
+
 
     // Delete a person
     @DeleteMapping("/{id}")
@@ -63,4 +75,8 @@ public class PersonController {
     }
 
     // Additional helper methods or endpoints can be added here
+     */
+
+
+
 }

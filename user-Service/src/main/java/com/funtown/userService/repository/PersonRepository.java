@@ -30,4 +30,5 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      * @return An Optional containing the Person entity with the given email, if found.
      */
     Optional<Person> findByEmail(String email);
+    Optional<Person> findById(Integer id);
 }
