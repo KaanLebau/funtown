@@ -5,9 +5,9 @@
  * @author Kaan Özsan
  */
 
-//TODO eneble this import axios from "axios";
+import axios from "axios";
 
-//TODO eneble this const API_URL = "http://localhost:5000/api/v1"; // Your API endpoint
+const API_URL = "http://localhost:5000/api/v1"; // Your API endpoint
 
 /**
  * Makes a request to the backend API to authenticate a user.
@@ -38,17 +38,34 @@
  * }
  */
 
-//TODO eneble this async function login(username, password) {
-//TODO eneble this   try {
-//TODO eneble this     const response = await axios.post(`${API_URL}/login`, {
-//TODO eneble this       username: username,
-//TODO eneble this       password: password,
-//TODO eneble this     });
-//TODO eneble this     return response.data;
-//TODO eneble this   } catch (error) {
-//TODO eneble this     console.error("An error occurred during login:", error.response || error);
-//TODO eneble this     throw error;
-//TODO eneble this   }
-//TODO eneble this }
+async function login(username, password) {
+  try {
+    const response = await axios.post(`${API_URL}/login`, {
+      username: username,
+      password: password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("An error occurred during login:", error.response || error);
+    throw error;
+  }
+}
 
-//TODO eneble this module.exports = { login };
+async function register(username, password) {
+  try {
+    const response = await axios.post(`${API_URL}/register`, {
+      username: username,
+      password: password,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "An error occurred during registration:",
+      error.response || error
+    );
+    throw error;
+  }
+}
+
+const apiModule = { login, register };
+export default apiModule;

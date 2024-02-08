@@ -5,7 +5,7 @@ import RegistrationPage from "./pages/registerPage/RegistrationPage";
 import LoginPage from "./pages/loginPage/LoginPage";
 import UserPage from "./pages/userPage/UserPage";
 import RecruiterPage from "./pages/recruiterPage/RecruiterPage";
-import Rendertestin from "./__test__/Rendertestin.ignore";
+import NotFoundPage from "./pages/notFoundPage/NotFoundPage";
 
 /**
  * React component for the main App.
@@ -27,7 +27,8 @@ function App() {
             <Route path="/recuiter">
               <Route index element={<RecruiterPage />} />
             </Route>
-            <Route path="/test" element={<Rendertestin />} />
+
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </BrowserRouter>
       </div>
