@@ -10,6 +10,7 @@
     "@testing-library/jest-dom": "^6.2.1",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.6.7",
     "docdash": "^2.0.2",
     "formik": "^2.4.5",
     "jest": "^29.7.0",
@@ -29,11 +30,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build && npm run docs && npm run coverage",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "eject": "react-scripts eject",
     "docs": "jsdoc -d docs -c jsdoc.conf.json",
     "read-docs": "xdg-open ./docs/global.html || open ./docs/global.html || start ./docs/global.html",
-    "coverage": "npm test -- --coverage --watchAll",
+    "coverage": "npm test -- --coverage --watchAll --transformIgnorePatterns \"node_modules/(?!axios)/\"",
     "coverage-report": "xdg-open ./coverage/lcov-report/index.html || open ./coverage/lcov-report/index.html || start ./coverage/lcov-report/index.html"
   },
   "eslintConfig": {
@@ -55,6 +56,9 @@
     ]
   },
   "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!axios)/"
+    ],
     "transform": {
       "^.+\\.jsx?$": "babel-jest"
     },

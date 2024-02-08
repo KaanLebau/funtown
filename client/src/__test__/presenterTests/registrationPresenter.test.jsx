@@ -3,18 +3,33 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import RegistrationPresenter from "../../presenters/registrationPresenter/RegistrationPresenter";
+import { BrowserRouter } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
 const mockSubmit = jest.fn();
 
 describe("Registration presenter renders", () => {
   test("renders RegistrationView component", () => {
-    render(<RegistrationPresenter />);
+    render(
+      <BrowserRouter>
+        <RecoilRoot>
+          <RegistrationPresenter />
+        </RecoilRoot>
+      </BrowserRouter>
+    );
+
     expect(screen.getByTestId("registration-presenter")).toBeInTheDocument();
     expect(screen.getByTestId("registration-view")).toBeInTheDocument();
   });
 
   test("submits user data correctly", async () => {
-    render(<RegistrationPresenter />);
+    render(
+      <BrowserRouter>
+        <RecoilRoot>
+          <RegistrationPresenter />
+        </RecoilRoot>
+      </BrowserRouter>
+    );
     const inputUsername = "test user";
     const inputPassword = "test password";
 
