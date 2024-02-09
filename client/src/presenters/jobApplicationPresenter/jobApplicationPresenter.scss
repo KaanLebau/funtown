@@ -1,0 +1,26 @@
+.application-presenter {
+  background-color: #395b64;
+  border: 1px solid #e7f6f2;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  padding: 3vh;
+  width: inherit;
+  height: inherit;
+
+  button {
+    background: transparent;
+    color: #e7f6f2;
+    border: 1px solid #e7f6f2;
+    border-radius: 10px;
+    padding: 1vh;
+    font-size: 1em;
+    font-weight: bold;
+    margin: 1vh;
+    &:hover {
+      cursor: pointer;
+      background-color: #e7f6f2;
+      color: #395b64;
+    }
+  }
+}

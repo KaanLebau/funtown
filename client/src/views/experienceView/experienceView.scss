@@ -1,0 +1,65 @@
+.experience-view {
+  border: 1px solid #e7f6f2;
+  border-radius: 20px;
+  background-color: #395b64;
+  padding: 2vh;
+  width: 350px;
+  .experience-text {
+    background: transparent;
+    color: #e7f6f2;
+    padding-bottom: 5px;
+  }
+  .experience {
+    background: transparent;
+    color: #e7f6f2;
+    padding: 0.5vh;
+    .pos {
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      display: flex;
+      align-items: center;
+      &:hover {
+        cursor: pointer;
+      }
+      p {
+        background: transparent;
+      }
+    }
+  }
+  .newExp {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+
+    .add-button {
+      color: #e7f6f2;
+      border-radius: 10px;
+      padding: 1vh;
+      font-weight: bold;
+      background-color: #395b64;
+      margin: 2px;
+      &:hover {
+        border: 1px solid #e7f6f2;
+        border-radius: 10px;
+        background-color: #e7f6f2;
+        color: #395b64;
+        cursor: pointer;
+      }
+    }
+    select {
+      background: transparent;
+      padding: 1vh;
+      border-radius: 10px;
+      color: #e7f6f2;
+      font-weight: bold;
+      margin: 2px;
+      border: 1px solid #e7f6f2;
+    }
+  }
+  .noPosition {
+    background: transparent;
+    color: #e7f6f2;
+  }
+}
