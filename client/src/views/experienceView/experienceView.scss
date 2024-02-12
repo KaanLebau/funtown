@@ -1,65 +1,114 @@
-.experience-view {
+.competence-view {
+  background: transparent;
+  color: #e7f6f2;
   border: 1px solid #e7f6f2;
+  margin: 10px;
+  padding: 10px;
   border-radius: 20px;
-  background-color: #395b64;
-  padding: 2vh;
-  width: 350px;
-  .experience-text {
+  width: 400px;
+  .exp-view-title {
     background: transparent;
     color: #e7f6f2;
-    padding-bottom: 5px;
+    text-align: left;
   }
-  .experience {
+  .list {
     background: transparent;
-    color: #e7f6f2;
-    padding: 0.5vh;
-    .pos {
+    .no-experience {
+      background: transparent;
+      color: #e7f6f2;
+      font-size: 2em;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .experience {
       background: transparent;
       display: flex;
       justify-content: space-between;
-      display: flex;
       align-items: center;
-      &:hover {
-        cursor: pointer;
+      padding: 10px;
+
+      select {
+        background: transparent;
+        color: #e7f6f2;
+        padding: 1px;
+        border: 1px solid #e7f6f2;
+        option {
+          background-color: #395b64;
+          color: #e7f6f2;
+        }
       }
       p {
         background: transparent;
       }
-    }
-  }
-  .newExp {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: transparent;
+      .not-saved {
+        background: transparent;
+        color: red;
+      }
 
-    .add-button {
-      color: #e7f6f2;
-      border-radius: 10px;
-      padding: 1vh;
-      font-weight: bold;
-      background-color: #395b64;
-      margin: 2px;
-      &:hover {
-        border: 1px solid #e7f6f2;
-        border-radius: 10px;
-        background-color: #e7f6f2;
-        color: #395b64;
-        cursor: pointer;
+      .the-experience {
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        width: 100%;
+      }
+      .icons-right {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        .icon {
+          background: transparent;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .icons-left {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        .icon {
+          background: transparent;
+          &:hover {
+            cursor: pointer;
+          }
+        }
       }
     }
-    select {
-      background: transparent;
-      padding: 1vh;
-      border-radius: 10px;
-      color: #e7f6f2;
-      font-weight: bold;
-      margin: 2px;
-      border: 1px solid #e7f6f2;
-    }
   }
-  .noPosition {
+  .full-experience {
     background: transparent;
     color: #e7f6f2;
+    font-size: 1em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .controller {
+    background: transparent;
+    select {
+      background: transparent;
+      color: #e7f6f2;
+      border: 1px solid #e7f6f2;
+      padding: 1vh;
+      border-radius: 10px;
+      font-weight: bold;
+      margin: 10px;
+      option {
+        background: transparent;
+        background-color: #395b64;
+        color: #e7f6f2;
+        border-radius: 10px;
+      }
+    }
   }
 }

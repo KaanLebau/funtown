@@ -11,6 +11,31 @@ export const userState = atom({
     pnr: "12342211-4444",
     role: "recruiter",
     experience: [],
+    availability: [],
+  },
+});
+
+export const availabilitySelectorState = selector({
+  key: "availabilitySelectorState",
+  get: ({ get }) => get(userState).availability,
+  set: ({ get, set }, newValue) => {
+    if (!Array.isArray(newValue)) {
+      console.error("New value is not an array:", newValue);
+      return;
+    }
+    const isValidValue = newValue.every(
+      (availability) =>
+        typeof availability === "object" &&
+        "from" in availability &&
+        "to" in availability
+    );
+    if (!isValidValue) {
+      console.error("Invalid value format:", newValue);
+      return;
+    }
+    let newState = { ...get(userState) };
+    newState.availability = newValue;
+    set(userState, newState);
   },
 });
 
@@ -18,7 +43,6 @@ export const experienceSelectorState = selector({
   key: "experienceSelectorState",
   get: ({ get }) => get(userState).experience,
   set: ({ get, set }, newValue) => {
-    // Ensure newValue is an array
     if (!Array.isArray(newValue)) {
       console.error("New value is not an array:", newValue);
       return;
@@ -35,15 +59,9 @@ export const experienceSelectorState = selector({
       return;
     }
 
-    // Get the current state and update the experience property with the new value
     let newState = { ...get(userState) };
     newState.experience = newValue;
 
-    // Set the updated state
-    //set(userState, newState);
-    //let newState = get(userState);
-    //newState.experience.push(newValue);
-    //console.log(newState);
     set(userState, newState);
   },
 });

@@ -67,6 +67,51 @@ function selectStatusIcon(status) {
     );
   }
 }
+/**
+ * View component for displaying detailed applicant information.
+ *
+ * @component
+ * @example
+ * // Usage in another component
+ * import DetailedApplicationView from './path/to/DetailedApplicationView';
+ * // ...
+ * const applicationData = {
+ *   position: "roller coaster operation",
+ *   fullName: "John Doe",
+ *   experience: "2 years",
+ *   fromDate: "2023-01-01",
+ *   toDate: "2023-12-31",
+ *   status: "accepted"
+ * };
+ * const editing = true;
+ * const statusOptions = ["accepted", "rejected", "unhandled"];
+ *
+ * <DetailedApplicationView
+ *   application={applicationData}
+ *   editing={editing}
+ *   status={statusOptions}
+ *   edit={() => console.log("Edit button clicked")}
+ *   save={() => console.log("Save button clicked")}
+ *   cancel={() => console.log("Cancel button clicked")}
+ *   updateStatus={(status) => console.log("Status updated to:", status)}
+ * />
+ *
+ * @param {Object} props - Component properties
+ * @param {Object} props.application - An object representing applicant information
+ * @param {string} props.application.position - The position applied for
+ * @param {string} props.application.fullName - The full name of the applicant
+ * @param {string} props.application.experience - The experience of the applicant
+ * @param {string} props.application.fromDate - The start date of the applicant's period
+ * @param {string} props.application.toDate - The end date of the applicant's period
+ * @param {string} props.application.status - The status of the application
+ * @param {boolean} props.editing - A boolean indicating whether the application is being edited
+ * @param {Array} props.status - An array of strings representing status options
+ * @param {Function} props.edit - Function to handle edit action
+ * @param {Function} props.save - Function to handle save action
+ * @param {Function} props.cancel - Function to handle cancel action
+ * @param {Function} props.updateStatus - Function to handle status update
+ * @returns {JSX.Element} The rendered DetailedApplicationView component
+ */
 function DetailedApplicationView(props) {
   return (
     <div

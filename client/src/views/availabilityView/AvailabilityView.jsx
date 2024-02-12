@@ -1,7 +1,6 @@
 import React from "react";
 
 function AvailabilityView(props) {
-  console.log(props.availList);
   return (
     <div data-testId="availability-view" className="availabilityView">
       {props.availList.length === 0 ? (

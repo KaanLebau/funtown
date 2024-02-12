@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 function NotFoundPage() {
   const location = useLocation();
   return (
-    <div data-testid="not-found-page" className="not-found">
+    <div data-testid="not-found" className="not-found">
       <div data-testid="not-found-page" className="not-found-page">
         <p data-testid="info-text">The page you are looking</p>
         <p data-testid="info-path">{location.pathname}</p>
