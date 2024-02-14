@@ -1,0 +1,16 @@
+.head-presenter {
+  height: 15vh;
+  width: 100vw;
+  min-height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 1vh;
+
+  h1 {
+    margin-top: 2vh;
+    color: #e7f6f2;
+  }
+}

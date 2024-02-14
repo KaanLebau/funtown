@@ -1,23 +1,28 @@
 import { atom, selector } from "recoil";
 
-export const userState = atom({
-  key: "currentUser",
+export const currentUserState = atom({
+  key: "currentUserState",
   default: {
     naturalId: "1",
     firstName: "Jhon",
     lastName: "Doe",
-    username: "jhonny",
+    username: "Johny",
     email: "jhon@doe.com",
     pnr: "12342211-4444",
-    role: "recruiter",
+    role: "APPLICANT", //"APPLICANT" & "RECRUITER"
     experience: [],
     availability: [],
   },
 });
 
+export const userLoggedIn = atom({
+  key: "userLoggedIn",
+  default: true,
+});
+
 export const availabilitySelectorState = selector({
   key: "availabilitySelectorState",
-  get: ({ get }) => get(userState).availability,
+  get: ({ get }) => get(currentUserState).availability,
   set: ({ get, set }, newValue) => {
     if (!Array.isArray(newValue)) {
       console.error("New value is not an array:", newValue);
@@ -33,22 +38,20 @@ export const availabilitySelectorState = selector({
       console.error("Invalid value format:", newValue);
       return;
     }
-    let newState = { ...get(userState) };
+    let newState = { ...get(currentUserState) };
     newState.availability = newValue;
-    set(userState, newState);
+    set(currentUserState, newState);
   },
 });
 
 export const experienceSelectorState = selector({
   key: "experienceSelectorState",
-  get: ({ get }) => get(userState).experience,
+  get: ({ get }) => get(currentUserState).experience,
   set: ({ get, set }, newValue) => {
     if (!Array.isArray(newValue)) {
       console.error("New value is not an array:", newValue);
       return;
     }
-
-    // Verify that each element in the array has the expected structure
     const isValidValue = newValue.every(
       (item) =>
         typeof item === "object" && "position" in item && "experience" in item
@@ -59,9 +62,9 @@ export const experienceSelectorState = selector({
       return;
     }
 
-    let newState = { ...get(userState) };
+    let newState = { ...get(currentUserState) };
     newState.experience = newValue;
 
-    set(userState, newState);
+    set(currentUserState, newState);
   },
 });

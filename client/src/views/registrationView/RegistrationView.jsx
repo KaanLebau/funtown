@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./registrationView.scss";
+import { languageSelector } from "../../model/languageModel";
+import { useRecoilValue } from "recoil";
 /**
  * Renders the registration view for user registration.
  * This component provides a registration form for users to input their information,
@@ -15,6 +17,7 @@ import "./registrationView.scss";
  * @return {JSX.Element} The registration view component.
  */
 function RegistrationView(props) {
+  const language = useRecoilValue(languageSelector);
   const inititalValues = {
     firstName: "",
     lastName: "",
@@ -25,15 +28,26 @@ function RegistrationView(props) {
   };
   const validationSchema = Yup.object({
     firstName: Yup.string()
-      .min(2, "Too Short!")
-      .required("First name required!"),
-    lastName: Yup.string().min(2, "Too Short!").required("Last name required!"),
-    username: Yup.string().min(1, "Too Short!").required("Username required!"),
+      .min(2, language.firstnameConstrain)
+      .required(language.firstnameReq),
+    lastName: Yup.string()
+      .min(2, language.lastnameConstrain)
+      .required(language.lastnameReq),
+    username: Yup.string()
+      .min(5, language.usernameContrain)
+      .required(language.usernameReq),
     email: Yup.string()
-      .email("Invalid email address!")
-      .required("Email required!"),
-    pnr: Yup.string().required("Person number required!"),
-    password: Yup.string().required("Password required!"),
+      .email(language.emailConstrain)
+      .required(language.emailReq),
+    pnr: Yup.string()
+      .matches(
+        /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])-\d{4}$/,
+        language.pnrConstrain
+      )
+      .required(language.pnrReq),
+    password: Yup.string()
+      .min(8, language.passwordConstrain)
+      .required(language.passwordReq),
   });
   const handleSubmit = (values, { setSubmitting }) => {
     // Call the onSubmit function from the presenter with the form values
@@ -51,13 +65,13 @@ function RegistrationView(props) {
         <Form className="registration-form">
           <div className="form-content">
             <div className="row">
-              <label htmlFor="firstName">First Name:</label>
+              <label htmlFor="firstName">{language.firstname}:</label>
               <Field
                 type="text"
                 id="firstName"
                 name="firstName"
                 placeholder="John"
-                title="First name"
+                title={language.firstname}
               />
               <ErrorMessage
                 data-testid="firstNameErr"
@@ -68,13 +82,13 @@ function RegistrationView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="lastName">Last Name:</label>
+              <label htmlFor="lastName">{language.lastname}:</label>
               <Field
                 type="text"
                 id="lastName"
                 name="lastName"
                 placeholder="Doe"
-                title="Last name"
+                title={language.lastname}
               />
               <ErrorMessage
                 data-testid="lastNameErr"
@@ -85,13 +99,13 @@ function RegistrationView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="username">{language.username}:</label>
               <Field
                 type="text"
                 id="username"
                 name="username"
                 placeholder="Johnny"
-                title="Username"
+                title={language.username}
               />
               <ErrorMessage
                 data-testid="userNameErr"
@@ -102,13 +116,13 @@ function RegistrationView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="email">Email:</label>
+              <label htmlFor="email">{language.email}:</label>
               <Field
                 type="email"
                 id="email"
                 name="email"
                 placeholder="jhonny@doe.com"
-                title="Email"
+                title={language.email}
               />
               <ErrorMessage
                 data-testid="emailErr"
@@ -119,13 +133,13 @@ function RegistrationView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="pnr">Person nr:</label>
+              <label htmlFor="pnr">{language.pnr}:</label>
               <Field
                 type="text"
                 id="pnr"
                 name="pnr"
                 placeholder="YYYYMMDD-NNNN"
-                title="Person number"
+                title={language.pnr}
               />
               <ErrorMessage
                 data-testid="pnrErr"
@@ -136,13 +150,13 @@ function RegistrationView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="password">Password:</label>
+              <label htmlFor="password">{language.password}:</label>
               <Field
                 type="password"
                 id="password"
                 name="password"
                 placeholder="PassWord"
-                title="Password"
+                title={language.password}
               />
               <ErrorMessage
                 data-testid="passwordErr"
@@ -152,8 +166,8 @@ function RegistrationView(props) {
               />
             </div>
 
-            <button type="submit" title="Sumbit">
-              Submit
+            <button type="submit" title={language.submit}>
+              {language.submit}
             </button>
           </div>
         </Form>

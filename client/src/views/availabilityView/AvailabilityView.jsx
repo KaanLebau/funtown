@@ -1,16 +1,28 @@
-import React from "react";
+import "./availabilityView.scss";
 
 function AvailabilityView(props) {
+  console.log(props);
   return (
-    <div data-testId="availability-view" className="availabilityView">
-      {props.availList.length === 0 ? (
+    <div data-testId="availability-view" className="availability-wiew">
+      <p className="availability-view-titel">Available times</p>
+      {props.availabilityList.length === 0 ? (
         <p className="no-avail">No Availability</p>
       ) : (
-        <div>
-          some list
-          <div>{console.log(props.availList.length)}</div>
-        </div>
+        props.availabilityList.map((item, index) => (
+          <div className="availability">
+            <div className="icons-left">aleert icon</div>
+            <div>
+              {item.from} - {item.to}
+            </div>
+            <div className="icons-right">icnos</div>
+          </div>
+        ))
       )}
+      <div className="controller">
+        <input className="date-selector" type="date" name="from" id="from" />
+        <input className="date-selector" type="date" name="to" id="to" />
+        <button>add</button>
+      </div>
     </div>
   );
 }

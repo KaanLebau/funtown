@@ -3,6 +3,8 @@ import HeadPresenter from "../../presenters/headPresenter/HeadPresenter";
 import { useNavigate } from "react-router-dom";
 import { HiLogin } from "react-icons/hi";
 import { FaWpforms } from "react-icons/fa6";
+import { languageSelector } from "../../model/languageModel";
+import { useRecoilValue } from "recoil";
 import "./welcomePage.scss";
 
 /**
@@ -21,6 +23,7 @@ import "./welcomePage.scss";
  */
 
 function WelcomePage() {
+  const language = useRecoilValue(languageSelector);
   const [direction, setDirection] = useState("");
   const navigate = useNavigate();
 
@@ -30,9 +33,6 @@ function WelcomePage() {
 
   return (
     <div data-testid="welcome-page" className="content">
-      <div className="head">
-        <HeadPresenter />
-      </div>
       <div className="welcome-content">
         <div
           data-testid="to-login-page"
@@ -41,7 +41,7 @@ function WelcomePage() {
           onClick={() => setDirection("login")}
         >
           <HiLogin className="icon" title="To login" />
-          Login
+          {language.Login}
         </div>
         <div
           data-testid="to-registration-page"
@@ -50,7 +50,7 @@ function WelcomePage() {
           onClick={() => setDirection("registration")}
         >
           <FaWpforms className="icon" title="To registration" />
-          Register
+          {language.Register}
         </div>
       </div>
     </div>

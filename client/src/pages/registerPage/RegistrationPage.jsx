@@ -19,10 +19,6 @@ import "./registrationPage.scss";
 function RegistrationPage() {
   return (
     <div data-testid="registration-page" className="content">
-      <div className="head">
-        <HeadPresenter />
-      </div>
-
       <div className="form">
         <RegistrationPresenter />
       </div>

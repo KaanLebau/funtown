@@ -7,6 +7,8 @@ import {
   IoMdCreate,
 } from "react-icons/io";
 import "./experienceView.scss";
+import { languageSelector } from "../../model/languageModel";
+import { useRecoilValue } from "recoil";
 /**
  * View component for displaying and managing user experience data.
  *
@@ -46,17 +48,18 @@ import "./experienceView.scss";
  * @returns {JSX.Element} The rendered ExperienceView component
  */
 function ExperienceView(props) {
+  const language = useRecoilValue(languageSelector);
   const positionRef = useRef(null);
   const experienceRef = useRef(null);
   const experienceUpdateRef = useRef(null);
 
   return (
     <div data-testid="exp-view" className="competence-view">
-      <p className="exp-view-title">Your competence</p>
+      <p className="exp-view-title">{language.applicationCompetenceTitle}</p>
       <div className="list">
         {props.experience.length === 0 ? (
           <p data-testid="no-experience" className="no-experience">
-            Add your experiences
+            {language.competenceEmpty}
           </p>
         ) : (
           props.experience.map((exp, index) => (
@@ -79,7 +82,7 @@ function ExperienceView(props) {
                 ) : (
                   <select
                     ref={experienceUpdateRef}
-                    title="Experience"
+                    title={language.competenceExperience}
                     data-testid="experience-alternatives"
                     defaultValue={exp.selectedExperience}
                   >
@@ -97,7 +100,7 @@ function ExperienceView(props) {
                   <IoMdCreate
                     className="icon"
                     data-testid="edit-experience-icon"
-                    title="Edit experience"
+                    title={language.editExperience}
                     onClick={() => props.editExperience(index)}
                   />
                 ) : (
@@ -105,13 +108,13 @@ function ExperienceView(props) {
                     <IoIosRemoveCircle
                       className="icon"
                       data-testid="remove-experience-icon"
-                      title="Remove experience"
+                      title={language.removeExperience}
                       onClick={() => props.removeExperience(index)}
                     />
                     <IoMdRefreshCircle
                       className="icon"
                       data-testid="update-experience-icon"
-                      title="Update experience"
+                      title={language.updateExperience}
                       onClick={() =>
                         props.updateExperience({
                           index: index,
@@ -131,20 +134,18 @@ function ExperienceView(props) {
           ))
         )}
       </div>
+
       {props.experience.length === props.positions.length ? (
-        <p className="full-experience">
-          All availabel positions <br />
-          are filled with experience
-        </p>
+        <p className="full-experience">{language.competenceFull}</p>
       ) : (
         <div className="controller">
           <select
             ref={positionRef}
-            title="Positions"
+            title={language.competencePosition}
             data-testid="position-alternatives"
           >
             <option value="" disabled selected>
-              Position
+              {language.competencePosition}
             </option>{" "}
             {/* Default option */}
             {props.positions.map((item, index) => {
@@ -163,11 +164,11 @@ function ExperienceView(props) {
 
           <select
             ref={experienceRef}
-            title="Experience"
+            title={language.competenceExperience}
             data-testid="experience-alternatives"
           >
             <option value="" disabled selected>
-              Experience
+              {language.competenceExperience}
             </option>{" "}
             {props.experienceOption.map((item, index) => (
               <option key={index} value={item}>
@@ -178,7 +179,7 @@ function ExperienceView(props) {
           <button
             data-testid="add-experience-button"
             className="add-button"
-            title="Add experience"
+            title={language.addExperience}
             disabled={!positionRef || !experienceRef}
             onClick={() =>
               props.addExperience({
@@ -187,7 +188,7 @@ function ExperienceView(props) {
               })
             }
           >
-            add
+            {language.add}
           </button>
         </div>
       )}

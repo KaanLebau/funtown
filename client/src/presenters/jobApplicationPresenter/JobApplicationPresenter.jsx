@@ -4,13 +4,17 @@ import { useEffect, useState } from "react";
 import AvailabilityView from "../../views/availabilityView/AvailabilityView";
 import ExperiencePresenter from "../experiencePresenter/ExperiencePresenter";
 import { useRecoilValue } from "recoil";
-import { experienceSelectorState } from "../../model/businessModel";
+import { experienceSelectorState } from "../../model/userModel";
+import AvailabilityPresenter from "../availabilityPresenter/AvailabilityPresenter";
+import { languageSelector } from "../../model/languageModel";
+
 /**
  *
  * @param {*} props
  * @returns  {JSX.Element}
  */
 function JobApplicationPresenter(props) {
+  const language = useRecoilValue(languageSelector);
   const experience = useRecoilValue(experienceSelectorState);
   const [availList, setAvailList] = useState([]);
   const [experienceList, setExperienceList] = useState(experience);
@@ -28,16 +32,26 @@ function JobApplicationPresenter(props) {
       className="application-presenter"
     >
       <div data-testid="conteiner-title" className="conteiner-title">
-        Apply for a job
+        {language.applicationTitle}
       </div>
-      <ExperiencePresenter
-        experience={experienceList}
-        updateList={setExperienceList}
-      />
-      <AvailabilityView availList={availList} setAvailList={setAvailList} />
-
-      <button onClick={handleApply}>Apply</button>
-      <button onClick={handleCancel}>Cancel</button>
+      <div className="lists">
+        <ExperiencePresenter
+          experience={experienceList}
+          updateList={setExperienceList}
+        />
+        <AvailabilityPresenter
+          availList={availList}
+          setAvailList={setAvailList}
+        />
+      </div>
+      <div className="buttons">
+        <button title={language.apply} onClick={handleApply}>
+          {language.apply}
+        </button>
+        <button title={language.cancel} onClick={handleCancel}>
+          {language.cancel}
+        </button>
+      </div>
     </div>
   );
 }

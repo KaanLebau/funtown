@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./loginView.scss";
+import { languageSelector } from "../../model/languageModel";
+import { useRecoilValue } from "recoil";
 
 /**
  * React component for the login view.
@@ -13,13 +15,14 @@ import "./loginView.scss";
  * @return {JSX.Element} The rendered login view component.
  */
 function LoginView(props) {
+  const language = useRecoilValue(languageSelector);
   const inititalValues = {
     username: "",
     password: "",
   };
   const validationSchema = Yup.object({
-    username: Yup.string().required("Username required!"),
-    password: Yup.string().required("Password required!"),
+    username: Yup.string().required(language.usernameReq),
+    password: Yup.string().required(language.passwordReq),
   });
   const handleSubmit = (values, { setSubmitting }) => {
     props.login(values);
@@ -36,14 +39,14 @@ function LoginView(props) {
         <Form className="registration-form">
           <div className="form-content">
             <div className="row">
-              <label htmlFor="username">Username:</label>
+              <label htmlFor="username">{language.username}:</label>
               <Field
                 data-testid="input-username"
                 type="text"
                 id="username"
                 name="username"
                 placeholder="Johnny"
-                title="Username"
+                title={language.username}
               />
               <ErrorMessage
                 data-testid="userNameErr"
@@ -54,14 +57,14 @@ function LoginView(props) {
             </div>
 
             <div className="row">
-              <label htmlFor="password">Password:</label>
+              <label htmlFor="password">{language.password}:</label>
               <Field
                 data-testid="input-password"
                 type="password"
                 id="password"
                 name="password"
                 placeholder="PassWord"
-                title="Password"
+                title={language.password}
               />
               <ErrorMessage
                 data-testid="passwordErr"
@@ -71,8 +74,12 @@ function LoginView(props) {
               />
             </div>
 
-            <button data-testid="button-submit" type="submit" title="Sumbit">
-              Submit
+            <button
+              data-testid="button-submit"
+              type="submit"
+              title={language.submit}
+            >
+              {language.submit}
             </button>
           </div>
         </Form>

@@ -17,6 +17,19 @@
     margin-bottom: 10px;
   }
 
+  .lists {
+    display: flex;
+    gap: 10px;
+    background: transparent;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    gap: 10px;
+  }
   button {
     background: transparent;
     color: #e7f6f2;
