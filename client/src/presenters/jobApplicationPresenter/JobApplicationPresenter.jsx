@@ -7,6 +7,7 @@ import { useRecoilValue } from "recoil";
 import { experienceSelectorState } from "../../model/userModel";
 import AvailabilityPresenter from "../availabilityPresenter/AvailabilityPresenter";
 import { languageSelector } from "../../model/languageModel";
+import { useNavigate } from "react-router-dom";
 
 /**
  *
@@ -14,6 +15,7 @@ import { languageSelector } from "../../model/languageModel";
  * @returns  {JSX.Element}
  */
 function JobApplicationPresenter(props) {
+  const navigate = useNavigate();
   const language = useRecoilValue(languageSelector);
   const experience = useRecoilValue(experienceSelectorState);
   const [availList, setAvailList] = useState([]);
@@ -21,9 +23,15 @@ function JobApplicationPresenter(props) {
 
   function handleCancel() {
     console.log("cancel");
+    navigate("/user/dashboard", { replace: true });
   }
   function handleApply() {
     console.log("apply");
+
+    navigate("/notification", {
+      replace: true,
+      state: { redirect: "/user/dashboard", code: 211 },
+    });
   }
 
   return (

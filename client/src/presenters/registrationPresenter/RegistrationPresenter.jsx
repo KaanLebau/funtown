@@ -7,19 +7,33 @@ function RegistrationPresenter() {
   const navigate = useNavigate();
   async function submit(user) {
     const { username, password } = user;
+    console.log(username);
+    console.log(password);
     try {
-      const client = await apiModule.registration(username, password);
+      //const client = await apiModule.registration(username, password);
       console.log(
         "******************* server respons *******************************"
       );
 
-      console.log(client);
-      console.log(
-        "******************* user input *******************************"
+      //console.log(client);
+      //console.log(
+      // "******************* user input *******************************"
+      //);
+      //console.log(user);
+      navigate("/notification", {
+        replace: true,
+        state: { redirect: "/user/dashboard", code: 201 },
+      });
+    } catch (error) {
+      console.error(
+        "An error occurred during registration:",
+        error.response || error
       );
-      console.log(user);
-      navigate("/user");
-    } catch (error) {}
+      navigate("/notification", {
+        replace: true,
+        state: { redirect: "/user/dashboard", code: 401 },
+      });
+    }
   }
   return (
     <div data-testid="registration-presenter">

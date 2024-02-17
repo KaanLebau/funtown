@@ -1,9 +1,12 @@
 import HeadView from "../../views/headView/HeadView";
-import { useEffect } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
-import { currentUserState } from "../../model/userModel";
+import { currentUserState, userLoggedIn } from "../../model/userModel";
 import "./headPresenter.scss";
-import { userLanguageState } from "../../model/languageModel";
+import {
+  userLanguageState,
+  availableLanguagesList,
+  languageSelector,
+} from "../../model/languageModel";
 import { useNavigate } from "react-router-dom";
 /**
  * HeadPresenter component that renders the HeadView with the user and logout function.
@@ -13,17 +16,29 @@ import { useNavigate } from "react-router-dom";
 const HeadPresenter = () => {
   const navigate = useNavigate();
   const user = useRecoilValue(currentUserState);
-  const [, setRecoilValue] = useRecoilState(userLanguageState);
+  const active = useRecoilValue(userLoggedIn);
+  const [, setLanguage] = useRecoilState(userLanguageState);
+  const languageList = useRecoilValue(availableLanguagesList);
+  const language = useRecoilValue(languageSelector);
+  /**
+   * Function to logout the userPuser
+   */
   function logout() {
     user = null;
   }
-  function handleLanguageChange(language) {
-    console.log(language);
-    setRecoilValue(language);
+  /**
+   * Function to handle language change
+   * @param {string} language - The new language to set
+   */
+  function handleLanguageChange(newLanguage) {
+    setLanguage(newLanguage);
   }
+  /**
+   * Function to handle page redirect
+   * @param {string} page - The page to redirect to
+   */
   function handleRedirect(page) {
     navigate(`./${page}`);
-    console.log(page);
   }
 
   return (
@@ -36,6 +51,9 @@ const HeadPresenter = () => {
         logout={logout}
         changeLanguage={handleLanguageChange}
         redirect={handleRedirect}
+        language={language}
+        active={active}
+        languageList={languageList}
       />
     </div>
   );

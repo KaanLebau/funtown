@@ -1,6 +1,24 @@
 import { atom, selector } from "recoil";
 
 /**
+ * Effect for managing a Recoil state value in localStorage.
+ * This effect retrieves the value from localStorage on initialization and stores it back when the value changes.
+ * @param {string} key - The key under which the value is stored in localStorage.
+ * @returns {Function} A function that acts as the effect handler.
+ */
+const localStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+    onSet((newValue) => {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+
+/**
  * Atom representing the user's selected language.
  * Handles the change event when a language is selected from the dropdown menu.
  * Updates the user's selected language in the Recoil atom and invokes the `changeLanguage` callback.
@@ -10,6 +28,7 @@ import { atom, selector } from "recoil";
 export const userLanguageState = atom({
   key: "userLanguageState",
   default: "en",
+  effects: [localStorageEffect("userLanguageState")],
 });
 
 /**
@@ -94,6 +113,7 @@ export const languageSelector = selector({
         cancel: "Cancel",
         remove: "Remove",
         apply: "Apply",
+        back: "Back",
         addExperience: "Add experience",
         updateExperience: "Update experience",
         editExperience: "Edit experience",
@@ -109,6 +129,18 @@ export const languageSelector = selector({
         competenceEmpty: "Add your experiences",
         competenceFull: "All available positions are filled with experience",
         schedule: "Schedule",
+        //Notification related
+        unknown: "Unknown error",
+        unknownDesc: "Unexpected error code",
+        unAuth: "Unauthorized",
+        unAuthDesc: "You are not authorized for this page ",
+        redirect: "Redirecting to ",
+        registered: "New user registred",
+        registredDesc: "You can now apply for a job",
+        applied: "Application sent",
+        appliedDesc: "Your available periods are registered",
+        competence: "Competencies sent",
+        competenceDesc: "Your competencies matrix is updated",
       },
       swe: {
         //page relaterade information
@@ -146,6 +178,7 @@ export const languageSelector = selector({
         cancel: "Avbryt",
         remove: "Ta bort",
         apply: "Ansök",
+        back: "Tillbaka",
         addExperience: "Lägg till erfarenhet",
         updateExperience: "Updatera erfarenhet",
         editExperience: "Redigera experience",
@@ -162,6 +195,18 @@ export const languageSelector = selector({
         competenceFull:
           "Alla tillgängliga befattningar är fyllda med erfarenhet.",
         schedule: "Schema",
+        //Notification related
+        unknown: "Okänd fel",
+        unknownDesc: "Oförväntad error kode ",
+        unAuth: "Obehörig",
+        unAuthDesc: "Du är inte behörig för den här sidan",
+        redirect: "Omdirigera till ",
+        registered: "Ny användare registrerad",
+        registredDesc: "Du kan nu ansäka om ett jobb",
+        applied: "Ansökan skickad",
+        appliedDesc: "Dina lediga perioder registreras",
+        competence: "Kompetenser skickas",
+        competenceDesc: "Din kompetensmatris är uppdaterad",
       },
     };
 
