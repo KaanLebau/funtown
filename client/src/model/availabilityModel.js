@@ -17,11 +17,11 @@ const availabilityModel = {
         (newFromDate <= fromDate && newToDate >= toDate) || // New period encapsulates existing period
         (newFromDate < fromDate && newToDate > toDate) // New period entirely overlaps existing period
       ) {
-        return { overlap: true, date: date };
+        return { overlap: true };
       }
     }
 
-    return { overlap: false, from: null, to: null };
+    return { overlap: false };
   },
   _isValidDate: function (dateString) {
     const regex = /^\d{4}-\d{2}-\d{2}$/;
@@ -40,23 +40,24 @@ const availabilityModel = {
 
     switch (errCode) {
       case 1:
+        // eslint-disable-next-line no-throw-literal
         throw { code: 1, msg: "from is not a date" };
       case 2:
+        // eslint-disable-next-line no-throw-literal
         throw { code: 2, msg: "to is not a date" };
       case 3:
+        // eslint-disable-next-line no-throw-literal
         throw { code: 3, msg: "Both from and to are not dates" };
       default:
         break;
     }
     const newFromDate = new Date(availability.from);
     const newToDate = new Date(availability.to);
-    const { overlap, date: overlapingDate } = this._checkOverlap(
-      newFromDate,
-      newToDate
-    );
+    const { overlap } = this._checkOverlap(newFromDate, newToDate);
     if (!overlap) {
       this.dates = [...this.dates, availability];
     } else {
+      // eslint-disable-next-line no-throw-literal
       throw { code: 4, msg: "overlaping dates" };
     }
   },
