@@ -1,8 +1,11 @@
 package com.funtown.application.service;
 
 import com.funtown.application.model.Availability;
+import java.util.List;
 
 public interface AvailabilityService {
-    Availability getByPersonId(Integer id) throws Exception;
-    void saveAvailability(Availability availability);
+    List<Availability> findByPersonId(Integer id) throws Exception;
+    Availability findById(Integer id) throws Exception;
+    List<Availability> findAll();
+    void save(Availability availability);
 }
