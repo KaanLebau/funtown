@@ -7,7 +7,10 @@ import com.funtown.userService.repository.PersonRepository;
 import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +22,33 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 
-public class PersonServiceImpl implements PersonService {
+public class PersonServiceImpl implements PersonService, UserDetailsService {
 
     private final PersonRepository personRepository;
 
     private final ModelMapper mapper;
+    /**
+     * Retrieves the user details for the given username.
+     *
+     * @param username The username of the user.
+     * @return The UserDetails object representing the user with the given username.
+     * @throws UsernameNotFoundException If the user is not found or the username/password are null.
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Person person = personRepository.findByUsername(username);
+
+        // check if person doesn't exist or username/password are null
+        if (person == null || person.getUsername() == null || person.getPassword() == null) {
+            throw new UsernameNotFoundException("Not found: " + username);
+        }
+
+        // use the role of the actual person
+        return User.withUsername(person.getUsername())
+                .password(person.getPassword())
+                .roles(person.getRole().name())
+                .build();
+    }
 
     /**
      * Retrieves all persons stored in the database.
