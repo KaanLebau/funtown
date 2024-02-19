@@ -4,7 +4,11 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/auth-services/pom.xml" />
+=======
+        <option value="$PROJECT_DIR$/user-Service/pom.xml" />
+>>>>>>> origin/user-Service-Develop
       </list>
     </option>
     <option name="workspaceImportForciblyTurnedOn" value="true" />
