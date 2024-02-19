@@ -25,7 +25,6 @@ public class JwtUtil {
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
 
-
     /**
      * Extracts all claims from the token using the secret key.
      *
