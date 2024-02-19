@@ -6,6 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * The Competence class represents a competence entity in the system.
+ * It contains the following properties:
+ * - id: The unique identifier of the competence.
+ * - name: The name of the competence.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

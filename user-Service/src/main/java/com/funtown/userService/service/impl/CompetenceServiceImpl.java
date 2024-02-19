@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+/**
+ * This class is an implementation of the CompetenceService interface.
+ * It provides methods to interact with the CompetenceRepository and perform CRUD operations on Competence objects.
+ */
 @Service
 @RequiredArgsConstructor
 public class CompetenceServiceImpl implements CompetenceService {
