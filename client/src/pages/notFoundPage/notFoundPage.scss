@@ -1,0 +1,22 @@
+.not-found {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  width: 100%;
+  .not-found-page {
+    display: flex;
+    flex-direction: column;
+    background-color: #395b64;
+    border: 1px solid #e7f6f2;
+    border-radius: 20px;
+    padding: 25px;
+    color: #e7f6f2;
+    font-size: 1.5em;
+    font-weight: bold;
+    gap: 5px;
+    p {
+      background: transparent;
+    }
+  }
+}

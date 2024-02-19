@@ -3,22 +3,34 @@ import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import LoginPage from "../../views/loginView/LoginView";
-
+import { RecoilRoot } from "recoil";
 const mockSubmit = jest.fn();
 
 describe("Job application view renders", () => {
   test("labels correctly", () => {
-    render(<LoginPage />);
+    render(
+      <RecoilRoot>
+        <LoginPage />
+      </RecoilRoot>
+    );
     expect(screen.getByText("Username:")).toBeInTheDocument();
     expect(screen.getByText("Password:")).toBeInTheDocument();
   });
   test("button correctly", () => {
-    render(<LoginPage />);
+    render(
+      <RecoilRoot>
+        <LoginPage />
+      </RecoilRoot>
+    );
     expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
   test("error messages correctly", async () => {
-    render(<LoginPage onSubmit={mockSubmit} />);
+    render(
+      <RecoilRoot>
+        <LoginPage onSubmit={mockSubmit} />
+      </RecoilRoot>
+    );
     const userInteract = screen.getByRole("button");
 
     await act(async () => {
@@ -37,7 +49,11 @@ describe("Job application view renders", () => {
   });
 
   test("user input correctly", async () => {
-    render(<LoginPage login={mockSubmit} />);
+    render(
+      <RecoilRoot>
+        <LoginPage login={mockSubmit} />
+      </RecoilRoot>
+    );
     const userInteract = screen.getByTestId("button-submit");
     const inputUsername = screen.getByTestId("input-username");
     const inputPassword = screen.getByTestId("input-password");

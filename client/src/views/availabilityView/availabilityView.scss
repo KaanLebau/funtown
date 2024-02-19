@@ -1,0 +1,62 @@
+.availability-wiew {
+  background: transparent;
+  color: #e7f6f2;
+  border: 1px solid #e7f6f2;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  width: 400px;
+  .availability-view-titel {
+    background: transparent;
+    text-align: left;
+    font-weight: bold;
+  }
+  .availability {
+    display: flex;
+    background: transparent;
+    padding: 10px;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 100%;
+    .icons-right {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 15px;
+      .icon {
+        background: transparent;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .icons-left {
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 15px;
+      .icon {
+        background: transparent;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .controller {
+    background: transparent;
+    .date-selector {
+      color: #e7f6f2;
+      background: transparent;
+      border: 1px solid #e7f6f2;
+      padding: 1vh;
+      border-radius: 10px;
+      font-weight: bold;
+      margin: 10px;
+    }
+  }
+}

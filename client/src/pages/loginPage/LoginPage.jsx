@@ -17,9 +17,6 @@ import LoginPresenter from "../../presenters/loginPresenter/LoginPresenter";
 function LoginPage() {
   return (
     <div data-testid="login-page" className="content">
-      <div className="head">
-        <HeadPresenter />
-      </div>
       <div className="form">
         <LoginPresenter />
       </div>

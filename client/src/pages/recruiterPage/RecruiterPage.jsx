@@ -88,9 +88,6 @@ const elements = [
 function RecruiterPage() {
   return (
     <div data-testid="recruiter-page" className="recuiter-page">
-      <div>
-        <HeadPresenter />
-      </div>
       <div className="work-plane">
         <div className="aplications">
           <RecruiterWorkPlanePresenter applicants={elements} />

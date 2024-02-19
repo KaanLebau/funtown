@@ -1,24 +1,65 @@
 import JobApplicationView from "../../views/jobApplicationView/JobApplicationView";
-import { currentPositions } from "../../model/businessModel";
+import "./jobApplicationPresenter.scss";
+import { useEffect, useState } from "react";
+import AvailabilityView from "../../views/availabilityView/AvailabilityView";
+import ExperiencePresenter from "../experiencePresenter/ExperiencePresenter";
 import { useRecoilValue } from "recoil";
+import { experienceSelectorState } from "../../model/userModel";
+import AvailabilityPresenter from "../availabilityPresenter/AvailabilityPresenter";
+import { languageSelector } from "../../model/languageModel";
+import { useNavigate } from "react-router-dom";
+
 /**
  *
  * @param {*} props
  * @returns  {JSX.Element}
  */
 function JobApplicationPresenter(props) {
-  const positions = useRecoilValue(currentPositions);
+  const navigate = useNavigate();
+  const language = useRecoilValue(languageSelector);
+  const experience = useRecoilValue(experienceSelectorState);
+  const [availList, setAvailList] = useState([]);
+  const [experienceList, setExperienceList] = useState(experience);
+
+  function handleCancel() {
+    console.log("cancel");
+    navigate("/user/dashboard", { replace: true });
+  }
+  function handleApply() {
+    console.log("apply");
+
+    navigate("/notification", {
+      replace: true,
+      state: { redirect: "/user/dashboard", code: 211 },
+    });
+  }
 
   return (
-    <div data-testid="job-application-presenter">
-      <JobApplicationView
-        position={positions}
-        experience={[
-          0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.1, 1.2, 1.3, 1.4, 1.5,
-          1.6, 1.7, 1.8, 1.9, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.1,
-          3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9,
-        ]}
-      />
+    <div
+      data-testid="job-application-presenter"
+      className="application-presenter"
+    >
+      <div data-testid="conteiner-title" className="conteiner-title">
+        {language.applicationTitle}
+      </div>
+      <div className="lists">
+        <ExperiencePresenter
+          experience={experienceList}
+          updateList={setExperienceList}
+        />
+        <AvailabilityPresenter
+          availList={availList}
+          setAvailList={setAvailList}
+        />
+      </div>
+      <div className="buttons">
+        <button title={language.apply} onClick={handleApply}>
+          {language.apply}
+        </button>
+        <button title={language.cancel} onClick={handleCancel}>
+          {language.cancel}
+        </button>
+      </div>
     </div>
   );
 }

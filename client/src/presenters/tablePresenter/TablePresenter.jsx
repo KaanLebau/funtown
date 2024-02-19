@@ -4,7 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { FaRegCircleXmark } from "react-icons/fa6";
 import { FaCirclePause } from "react-icons/fa6";
 import { useRecoilValue } from "recoil";
-import { userState } from "../../model/userModel";
+import { currentUserState } from "../../model/userModel";
 
 /**
  * Presenter component for rendering a table with specific data, including status icons.
@@ -19,7 +19,7 @@ import { userState } from "../../model/userModel";
  * @returns {JSX.Element} The rendered TabelPresenter component
  */
 function TabelPresenter(props) {
-  const user = useRecoilValue(userState);
+  const user = useRecoilValue(currentUserState);
 
   function handleApplicant(id) {
     props.applicant(id);
