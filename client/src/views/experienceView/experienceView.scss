@@ -1,11 +1,10 @@
 .competence-view {
-  background: transparent;
+  background: #395b64;
   color: #e7f6f2;
   border: 1px solid #e7f6f2;
-  margin: 10px;
   padding: 10px;
   border-radius: 20px;
-  width: 400px;
+  width: auto;
   .exp-view-title {
     background: transparent;
     color: #e7f6f2;
@@ -92,6 +91,25 @@
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+  }
+  .dashboard-check {
+    background: transparent;
+    color: #e7f6f2;
+    button {
+      background: transparent;
+      color: #e7f6f2;
+      border: 1px solid #e7f6f2;
+      border-radius: 10px;
+      padding: 1vh;
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1vh;
+      &:hover {
+        cursor: pointer;
+        background-color: #e7f6f2;
+        color: #395b64;
+      }
+    }
   }
   .controller {
     background: transparent;

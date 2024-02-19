@@ -12,6 +12,7 @@ const availabilityModel = {
       const toDate = new Date(date.to);
 
       if (
+        (newToDate === fromDate && newToDate === toDate) || // New period starts within existing period
         (newToDate >= fromDate && newToDate <= toDate) || // New period ends within existing period
         (newFromDate <= fromDate && newToDate >= toDate) || // New period encapsulates existing period
         (newFromDate < fromDate && newToDate > toDate) // New period entirely overlaps existing period
@@ -22,7 +23,31 @@ const availabilityModel = {
 
     return { overlap: false, from: null, to: null };
   },
+  _isValidDate: function (dateString) {
+    const regex = /^\d{4}-\d{2}-\d{2}$/;
+    return regex.test(dateString);
+  },
+
   add: function (availability) {
+    let errCode = 0;
+
+    if (!this._isValidDate(availability.from)) {
+      errCode += 1;
+    }
+    if (!this._isValidDate(availability.to)) {
+      errCode += 2;
+    }
+
+    switch (errCode) {
+      case 1:
+        throw { code: 1, msg: "from is not a date" };
+      case 2:
+        throw { code: 2, msg: "to is not a date" };
+      case 3:
+        throw { code: 3, msg: "Both from and to are not dates" };
+      default:
+        break;
+    }
     const newFromDate = new Date(availability.from);
     const newToDate = new Date(availability.to);
     const { overlap, date: overlapingDate } = this._checkOverlap(
@@ -30,13 +55,9 @@ const availabilityModel = {
       newToDate
     );
     if (!overlap) {
-      this.dates.push(availability);
+      this.dates = [...this.dates, availability];
     } else {
-      throw new Error(
-        `Overlap found between ${newFromDate.toISOString().split("T")[0]} and ${
-          newToDate.toISOString().split("T")[0]
-        } with ${overlapingDate.from} - ${overlapingDate.to}`
-      );
+      throw { code: 4, msg: "overlaping dates" };
     }
   },
 
@@ -97,22 +118,3 @@ const availabilityModel = {
 };
 
 export default availabilityModel;
-
-// Example usage:
-availabilityModel.add({ from: "2024-02-10", to: "2024-02-15" });
-//availabilityModel.add("2024-02-20", "2024-02-25");
-availabilityModel.show();
-
-//availabilityModel.update(0, "2024-02-11", "2024-02-16");
-//availabilityModel.show();
-
-//availabilityModel.remove(1);
-//availabilityModel.show();
-
-const dates = [
-  { from: "2024-01-10", to: "2024-01-15" },
-  { from: "2024-03-10", to: "2024-03-15" },
-];
-
-availabilityModel.init(dates);
-availabilityModel.show();

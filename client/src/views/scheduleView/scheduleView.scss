@@ -1,0 +1,105 @@
+@import "react-big-calendar/lib/sass/styles";
+.schedule-view {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: #395b64;
+  border: 1px solid #e7f6f2;
+  border-radius: 20px;
+  color: #e7f6f2;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+
+  .schedule-view-title-container {
+    transform: rotate(270deg);
+    height: fit-content;
+    margin-right: 20px;
+    margin-left: 20px;
+    background: transparent;
+  }
+  .schedule-view-title {
+    background: transparent;
+  }
+  .schedule-view-calender-conteiner {
+    background: transparent;
+    //height: 100%;
+    //width: 100%;
+    background: transparent;
+    flex: 1; /* Expand to fill remaining space */
+    display: flex; /* Ensure calendar container expands to fill its parent */
+    flex-direction: column; /* Ensure proper stacking of child elements */
+    align-items: stretch; /* Stretch children to fill cross-axis */
+    justify-content: stretch; /* Stretch children to fill main-axis */
+    height: 100%; /* Cover entire height of parent */
+    .schedule-view-calender {
+      flex: 1;
+      //height: 100%;
+      //width: 100%;
+      background: transparent;
+      .rbc-calendar {
+        height: 100%;
+        padding: 10px;
+        background-color: #395b64;
+        border: 1px solid #e7f6f2;
+        border-radius: 20px;
+        color: #e7f6f2;
+        width: 100%;
+
+        .rbc-header {
+          background-color: #395b64;
+          span {
+            background: transparent;
+          }
+        }
+
+        .rbc-event-content {
+          background: transparent;
+        }
+
+        .rbc-mount-view {
+          height: 200px;
+        }
+
+        .rbc-row {
+          height: 15px;
+          background-color: #395b64;
+        }
+        .rbc-row-segment {
+          background-color: #395b64;
+        }
+        .rbc-day-bg {
+          background-color: #395b64;
+        }
+        .rbc-date-cell {
+          background-color: #395b64;
+        }
+        .rbc-toolbar {
+          color: #e7f6f2;
+          background-color: #395b64;
+          button {
+            background-color: #395b64;
+            color: #e7f6f2;
+            &:hover {
+              background-color: #e7f6f2;
+              color: #395b64;
+            }
+          }
+        }
+        .rbc-toolbar-label {
+          color: #e7f6f2;
+          background-color: #395b64; /* Change color of toolbar messages */
+        }
+        .rbc-btn-primary {
+          background-color: green; /* Change background color of primary buttons */
+        }
+
+        .rbc-btn-primary:hover {
+          background-color: darkgreen; /* Change background color of primary buttons on hover */
+        }
+      }
+    }
+  }
+}

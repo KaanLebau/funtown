@@ -20,8 +20,8 @@ import { useRecoilValue } from "recoil";
  * const positions = ["Position 1", "Position 2", "Position 3"];
  * const experienceOption = ["Experience 1", "Experience 2", "Experience 3"];
  * const experience = [
- *   { selectedPosition: "Position 1", selectedExperience: "Experience 1" },
- *   { selectedPosition: "Position 2", selectedExperience: "Experience 2" },
+ *   { position: "Position 1", experience: "Experience 1" },
+ *   { position: "Position 2", experience: "Experience 2" },
  * ];
  * const editStates = [false, true, false];
  *
@@ -71,20 +71,16 @@ function ExperienceView(props) {
               </div>
 
               <div className="the-experience">
-                <p className="the-experience-position">
-                  {exp.selectedPosition}
-                </p>
+                <p className="the-experience-position">{exp.position}</p>
 
                 {!props.editStates[index] ? (
-                  <p className="the-experience-experience">
-                    {exp.selectedExperience}
-                  </p>
+                  <p className="the-experience-experience">{exp.experience}</p>
                 ) : (
                   <select
                     ref={experienceUpdateRef}
                     title={language.competenceExperience}
                     data-testid="experience-alternatives"
-                    defaultValue={exp.selectedExperience}
+                    defaultValue={exp.experience}
                   >
                     {props.experienceOption.map((item, index) => (
                       <option key={index} value={item}>
@@ -119,10 +115,10 @@ function ExperienceView(props) {
                         props.updateExperience({
                           index: index,
                           updated: {
-                            selectedPosition: exp.selectedPosition,
-                            selectedExperience: experienceUpdateRef.current
+                            position: exp.position,
+                            experience: experienceUpdateRef.current
                               ? experienceUpdateRef.current.value
-                              : exp.selectedExperience,
+                              : exp.experience,
                           },
                         })
                       }
@@ -136,7 +132,17 @@ function ExperienceView(props) {
       </div>
 
       {props.experience.length === props.positions.length ? (
-        <p className="full-experience">{language.competenceFull}</p>
+        <div className="dashboard-check">
+          <p className="full-experience">{language.competenceFull}</p>
+          {props.dashboard && (
+            <button
+              onClick={() => props.dashboardUpdate()}
+              title={language.update}
+            >
+              {language.update}
+            </button>
+          )}
+        </div>
       ) : (
         <div className="controller">
           <select
@@ -144,14 +150,12 @@ function ExperienceView(props) {
             title={language.competencePosition}
             data-testid="position-alternatives"
           >
-            <option value="" disabled selected>
+            <option value="" disabled defaultValue>
               {language.competencePosition}
             </option>{" "}
             {/* Default option */}
             {props.positions.map((item, index) => {
-              if (
-                !props.experience.some((exp) => exp.selectedPosition === item)
-              ) {
+              if (!props.experience.some((exp) => exp.position === item)) {
                 return (
                   <option key={index} value={item}>
                     {item}
@@ -167,7 +171,7 @@ function ExperienceView(props) {
             title={language.competenceExperience}
             data-testid="experience-alternatives"
           >
-            <option value="" disabled selected>
+            <option value="" disabled defaultValue>
               {language.competenceExperience}
             </option>{" "}
             {props.experienceOption.map((item, index) => (
