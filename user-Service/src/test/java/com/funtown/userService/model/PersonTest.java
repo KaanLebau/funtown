@@ -1,4 +1,5 @@
 package com.funtown.userService.model;
+
 import com.funtown.userService.enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,10 +9,20 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Test class for {@link Person}.
+ * This class contains unit tests to verify the behavior and associations of the Person class,
+ * including the handling of competence profiles and basic field validation.
+ */
 public class PersonTest {
 
     private Person person;
 
+    /**
+     * Sets up the testing environment before each test.
+     * Initializes a {@link Person} instance with a linked {@link CompetenceProfile}
+     * to test the association between Person and CompetenceProfile.
+     */
     @BeforeEach
     public void setUp() {
         // Initialize Person with a CompetenceProfile to test the association
@@ -35,6 +46,11 @@ public class PersonTest {
         competenceProfile.setPerson(person);
     }
 
+    /**
+     * Tests the fields of a {@link Person} instance for correctness.
+     * Verifies that each field of the Person class is correctly assigned and retrievable,
+     * and that the association with {@link CompetenceProfile} is properly maintained.
+     */
     @Test
     public void testPersonFields() {
         assertEquals(Integer.valueOf(1), person.getId());
@@ -54,6 +70,11 @@ public class PersonTest {
         assertEquals(new BigDecimal("3.5"), competenceProfile.getYearsOfExperience());
     }
 
+    /**
+     * Tests the association between {@link Person} and {@link CompetenceProfile} for correctness.
+     * Specifically, it verifies that the competenceProfiles list within a Person object
+     * correctly manages additions and reflects updates to the association.
+     */
     @Test
     public void testCompetenceProfilesAssociation() {
         // Verify the competenceProfiles association works correctly
