@@ -5,6 +5,7 @@ import dev.kaan.authservices.model.Client;
 import dev.kaan.authservices.model.Role;
 import dev.kaan.authservices.model.AuthenticationResponse;
 import dev.kaan.authservices.services.AuthenticationService;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,9 +28,12 @@ private final AuthenticationManager AUTHENTICATION_MANAGER;
                 Client.builder()
                     .username(record.getUsername())
                     .password(PASSWORD_ENCODER.encode(record.getPassword()))
-                    .role(Role.APPLICANT)
+                    .role(record.getRole())
                     .build());
         String jwtToken = JWT_SERVICE.generateToken(client);
+        Claims claims = JWT_SERVICE.getAllClaims(jwtToken);
+        System.out.println("username teeeestttt: "+ claims.getSubject());
+        System.out.println("rolesssss teeeestttt: "+ claims.get("roles").toString());
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(jwtToken)

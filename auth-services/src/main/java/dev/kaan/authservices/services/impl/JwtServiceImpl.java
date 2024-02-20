@@ -10,10 +10,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.core.GrantedAuthority;
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -50,7 +51,9 @@ public class JwtServiceImpl implements JwtService {
         return Jwts
                 .builder()
                 .setSubject(userDetails.getUsername())
-                .setSubject(userDetails.getAuthorities().toString())
+                .claim("roles", userDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList()))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey())
@@ -65,14 +68,13 @@ public class JwtServiceImpl implements JwtService {
         return claimsTFunction.apply(CLAIMS);
     }
 
-    private Claims getAllClaims(String jwtToken){
+    public Claims getAllClaims(String jwtToken){
         return Jwts
                 .parserBuilder()
                 .setSigningKey(getSignInKey())
                 .build()
-                .parseClaimsJwt(jwtToken)
+                .parseClaimsJws(jwtToken)
                 .getBody();
-
     }
 
     private Key getSignInKey() {
