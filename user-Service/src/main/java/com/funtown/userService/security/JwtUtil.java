@@ -6,6 +6,8 @@ import io.jsonwebtoken.SignatureException;
 import jakarta.annotation.PostConstruct;
 import lombok.Getter;
 import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -57,10 +59,13 @@ public class JwtUtil {
      * @param token the JWT token
      * @return String the username extracted from the token
      */
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
+    Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
+    public String extractUsername(String token) {
+        String username = extractClaim(token, Claims::getSubject);
+        logger.debug("Extracted username from token: {}", username);
+        return username;
+    }
     /**
      * Extracts the expiration date from the token.
      *
