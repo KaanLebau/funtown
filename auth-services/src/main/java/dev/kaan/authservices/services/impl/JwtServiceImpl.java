@@ -27,11 +27,14 @@ public class JwtServiceImpl implements JwtService {
     private long tokenRefreshExpiration;
 
     public String generateToken( UserDetails userDetails){
-        return tokenGenerator(userDetails,tokenExpiration);
+        String token = tokenGenerator(userDetails,tokenExpiration);
+        System.out.println("Generated JWT token: " + token);
+        return token;
     }
-
     public String generateRefreshToken(UserDetails userDetails) {
-        return tokenGenerator(userDetails, tokenRefreshExpiration);
+        String token = tokenGenerator(userDetails, tokenRefreshExpiration);
+        System.out.println("Generated Refresh JWT token: " + token);
+        return token;
     }
     public boolean isTokenValid(String jwtToken, UserDetails userDetails){
         final String USERNAME = getUsername(jwtToken);

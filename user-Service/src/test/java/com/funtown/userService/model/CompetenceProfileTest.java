@@ -30,7 +30,7 @@ public class CompetenceProfileTest {
                 .pnr("123456789")
                 .email("john.doe@example.com")
                 .password("password")
-                .role(Role.USER)
+                .role(Role.ADMIN)
                 .username("johndoe")
                 .competenceProfiles(Collections.emptyList())
                 .build();

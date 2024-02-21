@@ -18,13 +18,5 @@ public enum Role {
     /**
      * Represents the role of an Applicant.
      */
-    APPLICANT,
-    /**
-     * Represents a user in the system.
-     *
-     * The USER constant is a role within the system. It is part of the Role enum and
-     * represents a generic user. The Role enum also includes specific roles such as
-     * Administrator, Recruiter, and Applicant.
-     */
-    USER
+    APPLICANT
 }

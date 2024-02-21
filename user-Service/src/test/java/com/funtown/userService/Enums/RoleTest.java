@@ -21,7 +21,7 @@ public class RoleTest {
     @Test
     public void testEnumValuesExist() {
         // Verify that all expected roles are present in the enum
-        assertTrue(EnumSet.of(Role.ADMIN, Role.RECRUITER, Role.APPLICANT, Role.USER).equals(EnumSet.allOf(Role.class)),
+        assertTrue(EnumSet.of(Role.ADMIN, Role.RECRUITER, Role.APPLICANT).equals(EnumSet.allOf(Role.class)),
                 "Role enum does not contain the expected values.");
     }
 }
