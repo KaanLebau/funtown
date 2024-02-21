@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
 <<<<<<< HEAD
+<<<<<<< HEAD
         <module name="auth-services" />
 =======
         <module name="user-Service" />
@@ -22,6 +23,18 @@
 =======
       <module name="user-Service" options="-parameters" />
 >>>>>>> origin/user-Service-Develop
+=======
+        <module name="application" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="application" options="-parameters" />
+>>>>>>> origin/app-token
     </option>
   </component>
 </project>

@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+<<<<<<< HEAD
+=======
+      <module fileurl="file://$PROJECT_DIR$/application/application.iml" filepath="$PROJECT_DIR$/application/application.iml" />
+>>>>>>> origin/app-token
       <module fileurl="file://$PROJECT_DIR$/.idea/funtown.iml" filepath="$PROJECT_DIR$/.idea/funtown.iml" />
     </modules>
   </component>
