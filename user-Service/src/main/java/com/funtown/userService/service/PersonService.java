@@ -3,6 +3,9 @@ package com.funtown.userService.service;
 import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import java.util.List;
 
 /**
@@ -18,6 +21,8 @@ public interface PersonService {
      * @return a list of {@link PersonDto} representing all persons.
      */
     List<PersonDto> findAll();
+
+    UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
      * Finds a single person by their identifier.

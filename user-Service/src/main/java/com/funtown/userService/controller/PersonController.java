@@ -3,13 +3,19 @@ package com.funtown.userService.controller;
 import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
+import com.funtown.userService.security.JwtUtil;
 import com.funtown.userService.service.PersonService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * The PersonController class manages HTTP requests related to person entities within the userService.
@@ -19,8 +25,59 @@ import java.util.List;
 @RequestMapping("/api/persons")
 @RequiredArgsConstructor
 public class PersonController {
-
+    @Autowired
     private final PersonService personService;
+    private final JwtUtil jwtUtil;
+    private final UserDetailsService userDetailsService;
+    /**
+     * Test endpoint to verify JWT token.
+     *
+     * @param request HttpServletRequest received from the client.
+     * @return ResponseEntity with HTTP status OK if the JWT token is valid or Unauthorized if it's not.
+     */
+    @GetMapping("/test-token")
+    @Secured("ROLE_APPLICANT")
+    public String verifyJwtToken(HttpServletRequest request) {
+      /*  String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String jwt = authHeader.substring(7);
+            if (jwtUtil.validateToken(jwt, userDetailsService.loadUserByUsername(jwtUtil.extractUsername(jwt)))) {
+                return ResponseEntity.ok("JWT token is valid.");
+            }
+        }*/
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("PRINCIPAL:");
+        System.out.println(auth.getPrincipal());
+        System.out.println("roles:");
+        List<String> list = auth.getAuthorities().stream().map(Object::toString).toList();
+        for (String str : list ){
+            System.out.println(str);
+        }
+        return "welcome Applicant";
+    }
+
+    @GetMapping("/rec-token")
+    @Secured("ROLE_RECRUITER")
+    public String recruiterTest(HttpServletRequest request) {
+      /*  String authHeader = request.getHeader("Authorization");
+
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            String jwt = authHeader.substring(7);
+            if (jwtUtil.validateToken(jwt, userDetailsService.loadUserByUsername(jwtUtil.extractUsername(jwt)))) {
+                return ResponseEntity.ok("JWT token is valid.");
+            }
+        }*/
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println("PRINCIPAL:");
+        System.out.println(auth.getPrincipal());
+        System.out.println("roles:");
+        List<String> list = auth.getAuthorities().stream().map(Object::toString).toList();
+        for (String str : list ){
+            System.out.println(str);
+        }
+        return "welcome Recruiter";
+    }
 
     /**
      * Retrieves a list of all persons.
