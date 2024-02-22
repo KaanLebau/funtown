@@ -1,6 +1,7 @@
 package com.funtown.application.controllers;
 
 import com.funtown.application.model.Availability;
+import com.funtown.application.model.api.UpdateStatusRequest;
 import com.funtown.application.service.AvailabilityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -88,10 +89,13 @@ private final AvailabilityService service;
    }
 
    // update status only for recruiter
-
-   /*
-   rabi rec token : eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJyYWJpIiwicm9sZXMiOlsiUkVDUlVJVEVSIl0sImlhdCI6MTcwODU1ODQyMiwiZXhwIjoxNzA4NTY0NDIyfQ.YxwW_VYJLiXMvV3K6fEKjf52clSp_f4ihWMBoaPVe5mCXItsAmPbrgzU5A9xNqjK
-   yosse app token : eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJ5b3NzZSIsInJvbGVzIjpbIkFQUExJQ0FOVCJdLCJpYXQiOjE3MDg1NTg0NzUsImV4cCI6MTcwODU2NDQ3NX0.8TH2Gs-fGtc9yuZDJPGmg9_97XFG930-OgU5L97-vxOJ4rnItw74wfxo-UUwX2kk
-   dinh app token : eyJhbGciOiJIUzM4NCJ9.eyJzdWIiOiJkaW5oIiwicm9sZXMiOlsiQVBQTElDQU5UIl0sImlhdCI6MTcwODU1ODUxMSwiZXhwIjoxNzA4NTY0NTExfQ.9v8P7dPY_TCotkj8ulcRP5KY1CDWMGPPocyVaVHvm6opEuqhKX6_v7pdC4nfoJ8Y
-    */
+   @PutMapping("/update-status")
+   @Secured("ROLE_RECRUITER")
+   public ResponseEntity<Availability> changeStatus(@RequestBody UpdateStatusRequest request){
+      try{
+         return ResponseEntity.ok(service.updateStatus(request));
+      } catch (Exception e){
+         return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+      }
+   }
 }

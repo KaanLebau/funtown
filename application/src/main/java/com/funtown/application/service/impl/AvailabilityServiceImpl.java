@@ -1,6 +1,7 @@
 package com.funtown.application.service.impl;
 
 import com.funtown.application.model.Availability;
+import com.funtown.application.model.api.UpdateStatusRequest;
 import com.funtown.application.repository.AvailabilityRepository;
 import com.funtown.application.service.AvailabilityService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,14 @@ public class AvailabilityServiceImpl implements AvailabilityService {
             throw new Exception("could not create availability");
         }
         return av;
+    }
+
+    @Override
+    public Availability updateStatus(UpdateStatusRequest request) throws Exception {
+        Availability av = repository.findById(request.id()).orElseThrow(
+                () -> new Exception("could not find availability")
+        );
+        av.setStatus(request.status());
+        return repository.save(av);
     }
 }
