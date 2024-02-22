@@ -33,12 +33,15 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        final String AUTH_HEADER = request.getHeader("Authentication");
+        System.out.println("FILTER");
+        final String AUTH_HEADER = request.getHeader("Authorization");
+        System.out.println("authHeader: "+ AUTH_HEADER);
         if(AUTH_HEADER == null || !AUTH_HEADER.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
         String token = AUTH_HEADER.substring(7);
+        System.out.println("TOKEN : "+ token);
             try{
                 // Validate and parse the JWT token
                 Claims claims = Jwts.parserBuilder()
@@ -49,6 +52,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                 // Extract user details from the token
                 // maybe check if user is already authenticated or not
                 String username = claims.getSubject();
+                System.out.println("filter username : "+ username);
                 // You can extract other user claims here as needed
                 List<GrantedAuthority> authorities = extractAuthoritiesFromToken(claims);
                 // Set user details in the security context
@@ -69,14 +73,11 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> extractAuthoritiesFromToken(Claims claims) {
         List<String> roles = (List<String>) claims.get("roles");
+        System.out.println("filter roles : " + roles);
         if (roles != null || roles.size() != 0) {
-           List<GrantedAuthority> auths =  roles.stream().map(
-                    (String role) -> {
-                       GrantedAuthority gauth =  new SimpleGrantedAuthority("ROLE_" + role);
-                       return gauth;
-                    }
-            ).toList();
-            return auths;
+            return roles.stream().map(
+                     (String role) -> (GrantedAuthority) new SimpleGrantedAuthority("ROLE_" + role)
+             ).toList();
         } else {
             return Collections.emptyList();
         }
