@@ -1,7 +1,5 @@
-import JobApplicationView from "../../views/jobApplicationView/JobApplicationView";
 import "./jobApplicationPresenter.scss";
-import { useEffect, useState } from "react";
-import AvailabilityView from "../../views/availabilityView/AvailabilityView";
+import { useState } from "react";
 import ExperiencePresenter from "../experiencePresenter/ExperiencePresenter";
 import { useRecoilValue } from "recoil";
 import { experienceSelectorState } from "../../model/userModel";
@@ -46,6 +44,7 @@ function JobApplicationPresenter(props) {
         <ExperiencePresenter
           experience={experienceList}
           updateList={setExperienceList}
+          dashboard={false}
         />
         <AvailabilityPresenter
           availList={availList}

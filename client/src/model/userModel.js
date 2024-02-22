@@ -6,10 +6,10 @@ export const currentUserState = atom({
     naturalId: "1",
     firstName: "Jhon",
     lastName: "Doe",
-    username: "Johny",
+    username: "Jhonny",
     email: "jhon@doe.com",
-    pnr: "12342211-4444",
-    role: "APPLICANT", //"APPLICANT" & "RECRUITER"
+    pnr: "11112233-4444",
+    role: "RECRUITER", //"APPLICANT" & "RECRUITER"
     experience: [],
     availability: [],
   },

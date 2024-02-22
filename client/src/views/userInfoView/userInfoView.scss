@@ -1,0 +1,40 @@
+.user-info-view {
+  border: 1px solid #e7f6f2;
+  padding: 2vh;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  gap: 10px;
+  background-color: #395b64;
+  margin-bottom: 2em;
+  .user-info-title {
+    background: transparent;
+    color: #e7f6f2;
+    align-self: flex-start;
+    font-weight: bold;
+  }
+  .avatar {
+    align-self: center;
+    background-color: yellowgreen;
+    border-radius: 50%;
+    border: 1px solid #e7f6f2;
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .row {
+    background: transparent;
+    display: flex;
+    color: #e7f6f2;
+    font-size: 1em;
+    label {
+      margin-right: 5px;
+      background: transparent;
+    }
+    p {
+      background: transparent;
+    }
+  }
+}

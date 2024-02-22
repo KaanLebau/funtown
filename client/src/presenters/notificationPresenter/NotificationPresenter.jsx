@@ -71,7 +71,14 @@ function NotificationPresenter(props) {
     return () => clearTimeout(timeout);
   }, [navigate]);
 
-  return <NotificationView information={information} />;
+  return (
+    <div
+      data-testid="notification-presenter-componenet"
+      className="notifications-presenter"
+    >
+      <NotificationView information={information} />;
+    </div>
+  );
 }
 
 export default NotificationPresenter;

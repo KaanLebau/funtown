@@ -6,7 +6,7 @@ import { atom, selector } from "recoil";
  * @param {string} key - The key under which the value is stored in localStorage.
  * @returns {Function} A function that acts as the effect handler.
  */
-const localStorageEffect =
+export const localStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
@@ -84,8 +84,25 @@ export const languageSelector = selector({
         Register: "Register",
         register: "register",
         dashboard: "Dashboard",
+        competenceTitle: "Competence Information",
+        userInfoTitle: "User Information",
+        appliedApplications: "Applications status",
+        noAppliedApplication: "You have no current job applications",
+        //Schedule component
+        userScheduleTitle: "Your schedule",
+        recruiterScheduleTitle: "Schedule for current assigned positions ",
+        today: "Today",
+        nextMonth: "Next month",
+        previousMonth: "Previous month",
+        //tabel Component
+        from: "Från",
+        to: "Till",
+        status: "Status",
+        contact: "Kontakt",
+        position: "Befattning",
         //user related information
         username: "Username",
+        name: "Name",
         password: "Password",
         firstname: "First name",
         lastname: "Last name",
@@ -114,10 +131,20 @@ export const languageSelector = selector({
         remove: "Remove",
         apply: "Apply",
         back: "Back",
+        update: "Update",
         addExperience: "Add experience",
         updateExperience: "Update experience",
         editExperience: "Edit experience",
         removeExperience: "Remove experience",
+        //availability component
+        availability: "Availability",
+        availabilityTitle: "Available perods",
+        datePlaceholder: "mm/dd/yyyy",
+        noAvailability: "No period registered",
+        dateOverlap: "Selected period overlaps the previous period",
+        missingFrom: "From date missing",
+        missingTo: "To date missing",
+        missingDate: "No date specified",
         // Application
         applicationTitle: "Apply for a job",
         applicationCompetenceTitle: "Your Competence",
@@ -149,8 +176,27 @@ export const languageSelector = selector({
         Register: "Registrera",
         register: "registrera",
         dashboard: "Användarpanel",
+        competenceTitle: "Kompetensinformation",
+        userInfoTitle: "Användar information",
+        appliedApplications: "Ansökningsstatus",
+        noAppliedApplication: "Du har inga aktuella jobbansökningar",
+
+        //Schedule component
+        userScheduleTitle: "Din schemaläggning",
+        recruiterScheduleTitle: "Schema för aktuella tilldelade befattningar",
+        today: "Idag",
+        nextMonth: "Nästa månad",
+        previousMonth: "Förra månad",
+
+        //tabel Component
+        from: "Från",
+        to: "Till",
+        status: "Status",
+        contact: "Kontakt",
+        position: "Befattning",
         //user related information
         username: "Användarnamn",
+        name: "Namn",
         password: "Lösenord",
         firstname: "Förnamn",
         lastname: "Efternamn",
@@ -179,10 +225,19 @@ export const languageSelector = selector({
         remove: "Ta bort",
         apply: "Ansök",
         back: "Tillbaka",
+        update: "Uppdatera",
         addExperience: "Lägg till erfarenhet",
         updateExperience: "Updatera erfarenhet",
         editExperience: "Redigera experience",
         removeExperience: "Ta bort experience",
+        availability: "Tillgänglighet",
+        availabilityTitle: "Tillgängliga perioder",
+        datePlaceholder: "mm/dd/åååå",
+        noAvailability: "Ingen period registrerad",
+        dateOverlap: "Vald period överlappar föregående period",
+        missingFrom: "Från datum saknas",
+        missingTo: "Till datum saknas",
+        missingDate: "Ingen datum specificerad",
         // Application
         applicationTitle: "Ansöka om ett jobb",
         applicationCompetenceTitle: "Din kompetens",

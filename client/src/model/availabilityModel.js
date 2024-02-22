@@ -1,3 +1,12 @@
+class OverlappingDatesError extends Error {
+  constructor(code, message) {
+    super(message);
+    this.name = this.constructor.name;
+    this.code = code;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}
+
 const availabilityModel = {
   dates: [],
 
@@ -11,32 +20,67 @@ const availabilityModel = {
       const fromDate = new Date(date.from);
       const toDate = new Date(date.to);
 
-      if (
-        (newToDate >= fromDate && newToDate <= toDate) || // New period ends within existing period
-        (newFromDate <= fromDate && newToDate >= toDate) || // New period encapsulates existing period
-        (newFromDate < fromDate && newToDate > toDate) // New period entirely overlaps existing period
-      ) {
-        return { overlap: true, date: date };
+      // Check if new period starts within existing period
+      if (newFromDate >= fromDate && newFromDate <= toDate) {
+        return { overlap: true };
+      }
+
+      // Check if new period ends within existing period
+      if (newToDate >= fromDate && newToDate <= toDate) {
+        return { overlap: true };
+      }
+
+      // Check if new period encapsulates existing period
+      if (newFromDate <= fromDate && newToDate >= toDate) {
+        return { overlap: true };
+      }
+
+      // Check if new period entirely overlaps existing period
+      if (newFromDate < fromDate && newToDate > toDate) {
+        return { overlap: true };
       }
     }
 
-    return { overlap: false, from: null, to: null };
+    return { overlap: false };
   },
+
+  _isValidDate: function (dateString) {
+    const regex =
+      /^(?:19|20)\d{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$/;
+    return regex.test(dateString);
+  },
+
   add: function (availability) {
+    let errCode = 0;
+
+    if (!this._isValidDate(availability.from)) {
+      errCode += 1;
+    }
+    if (!this._isValidDate(availability.to)) {
+      errCode += 2;
+    }
+
+    switch (errCode) {
+      case 1:
+        // eslint-disable-next-line no-throw-literal
+        throw new OverlappingDatesError(1, "from is not a date");
+      case 2:
+        // eslint-disable-next-line no-throw-literal
+        throw new OverlappingDatesError(2, "to is not a date");
+      case 3:
+        // eslint-disable-next-line no-throw-literal
+        throw new OverlappingDatesError(3, "no date provided");
+      default:
+        break;
+    }
     const newFromDate = new Date(availability.from);
     const newToDate = new Date(availability.to);
-    const { overlap, date: overlapingDate } = this._checkOverlap(
-      newFromDate,
-      newToDate
-    );
+    const { overlap } = this._checkOverlap(newFromDate, newToDate);
     if (!overlap) {
-      this.dates.push(availability);
+      this.dates = [...this.dates, availability];
     } else {
-      throw new Error(
-        `Overlap found between ${newFromDate.toISOString().split("T")[0]} and ${
-          newToDate.toISOString().split("T")[0]
-        } with ${overlapingDate.from} - ${overlapingDate.to}`
-      );
+      // eslint-disable-next-line no-throw-literal
+      throw new OverlappingDatesError(4, "overlaping dates");
     }
   },
 
@@ -97,22 +141,3 @@ const availabilityModel = {
 };
 
 export default availabilityModel;
-
-// Example usage:
-availabilityModel.add({ from: "2024-02-10", to: "2024-02-15" });
-//availabilityModel.add("2024-02-20", "2024-02-25");
-availabilityModel.show();
-
-//availabilityModel.update(0, "2024-02-11", "2024-02-16");
-//availabilityModel.show();
-
-//availabilityModel.remove(1);
-//availabilityModel.show();
-
-const dates = [
-  { from: "2024-01-10", to: "2024-01-15" },
-  { from: "2024-03-10", to: "2024-03-15" },
-];
-
-availabilityModel.init(dates);
-availabilityModel.show();

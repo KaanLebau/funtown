@@ -19,18 +19,21 @@ function ExperiencePresenter(props) {
   const experienceOption = useRecoilValue(experienceOptions);
   const positions = useRecoilValue(positionOptions);
   const [experience, setExperience] = useState(props.experience);
-
   const [editStates, setEditStates] = useState(
     Array(experience.length).fill(false)
   );
 
+  function apiCall() {
+    console.log("implement api call ");
+  }
+
   function handleAdd(exp) {
     setExperience([
       ...experience,
-      { selectedPosition: exp.position, selectedExperience: exp.experience },
+      { position: exp.position, experience: exp.experience },
     ]);
     setEditStates([...editStates, false]);
-    props.updateList(experience);
+    apiCall();
   }
   function selectExperience(index) {
     setEditStates((prevStates) =>
@@ -44,7 +47,7 @@ function ExperiencePresenter(props) {
       index === data.index ? data.updated : exp
     );
     setExperience(updatedExperienceList);
-    props.updateList(experience);
+    apiCall();
   }
   function handleRemove(indexToRemove) {
     setExperience((prevExperience) =>
@@ -63,6 +66,8 @@ function ExperiencePresenter(props) {
       editExperience={selectExperience}
       updateExperience={handleUpdate}
       removeExperience={handleRemove}
+      dashboard={props.dashboard}
+      dashboardUpdate={() => props.updateExperience()}
     />
   );
 }
