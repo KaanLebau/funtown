@@ -43,6 +43,7 @@ describe("AvailabilityView component", () => {
         </RecoilRoot>
       </BrowserRouter>
     );
+    // eslint-disable-next-line testing-library/no-node-access
     expect(screen.getByTestId("availability-list").children.length).toBe(
       availabilityList.length
     );
@@ -98,6 +99,7 @@ describe("AvailabilityView component", () => {
     const fromInput = screen.getByTestId("availability-from-selector");
     const toInput = screen.getByTestId("availability-to-selector");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(fromInput, "2022-03-01");
       await userEvent.type(toInput, "2022-03-05");
@@ -125,6 +127,7 @@ describe("AvailabilityView component", () => {
     );
 
     const addButton = screen.getByText("Add");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       userEvent.click(addButton);
     });
@@ -148,6 +151,7 @@ describe("AvailabilityView component", () => {
     );
 
     const removeIcon = screen.getByTestId("availability-list-element-icon");
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       userEvent.click(removeIcon);
     });
