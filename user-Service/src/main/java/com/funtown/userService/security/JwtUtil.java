@@ -4,10 +4,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
+import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
@@ -19,12 +23,24 @@ import java.util.function.Function;
  * user details.
  * </p>
  */
+@Setter
+@Getter
 @Component
 public class JwtUtil {
 
+    /**
+     * -- GETTER --
+     *  Gets the secret key used for JWT token processing.
+     *
+     *
+     * -- SETTER --
+     *  Sets the secret key to be used for JWT token processing.
+     *
+     @return the secret key
+      * @param secretKey the secret key to set
+     */
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
-
 
     /**
      * Extracts all claims from the token using the secret key.
@@ -43,10 +59,13 @@ public class JwtUtil {
      * @param token the JWT token
      * @return String the username extracted from the token
      */
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
+    Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
+    public String extractUsername(String token) {
+        String username = extractClaim(token, Claims::getSubject);
+        logger.debug("Extracted username from token: {}", username);
+        return username;
+    }
     /**
      * Extracts the expiration date from the token.
      *
@@ -94,6 +113,7 @@ public class JwtUtil {
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
+        if(isTokenExpired(token)) System.out.println("NOOOOOOOOOO");
         return !isTokenExpired(token) && username.equals(userDetails.getUsername());
     }
     @PostConstruct

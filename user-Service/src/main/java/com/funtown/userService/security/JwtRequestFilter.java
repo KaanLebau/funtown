@@ -1,9 +1,16 @@
 package com.funtown.userService.security;
 
+import com.funtown.userService.service.PersonService;
 import io.jsonwebtoken.ExpiredJwtException;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,7 +20,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-
 import java.io.IOException;
 
 /**
@@ -25,24 +31,15 @@ import java.io.IOException;
  * </p>
  */
 @Component
+@RequiredArgsConstructor
 public class JwtRequestFilter extends OncePerRequestFilter {
 
     private static final Logger logger = LoggerFactory.getLogger(JwtRequestFilter.class);
 
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
+    private final PersonService personService;
 
-    /**
-     * Constructs a new JwtRequestFilter with the given JwtUtil and UserDetailsService.
-     *
-     * @param jwtUtil             Utility class for working with JWTs.
-     * @param userDetailsService  Service to load user-specific data.
-     */
-    @Autowired
-    public JwtRequestFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService) {
-        this.jwtUtil = jwtUtil;
-        this.userDetailsService = userDetailsService;
-    }
 
     /**
      * Filters incoming requests to authenticate users based on JWT tokens.
@@ -60,27 +57,30 @@ public class JwtRequestFilter extends OncePerRequestFilter {
      * @throws IOException if an I/O error occurs during request processing.
      */
     @Override
-    protected void doFilterInternal(jakarta.servlet.http.HttpServletRequest request, jakarta.servlet.http.HttpServletResponse response, jakarta.servlet.FilterChain filterChain)
+    protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws jakarta.servlet.ServletException, IOException {
         final String authHeader = request.getHeader("Authorization");
         String username = null;
         String jwt = null;
-
-        if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")){
+            filterChain.doFilter(request, response);
+            return;
+        }
             jwt = authHeader.substring(7);  // Exclude Bearer prefix
             try {
                 username = jwtUtil.extractUsername(jwt);
+                System.out.println("Username: " + username);
             } catch (ExpiredJwtException e) {
                 logger.warn("The token has expired", e);
             } catch (Exception e) {
                 logger.warn("Unable to parse JWT", e);
             }
-        }
+
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = null;
             try {
-                userDetails = userDetailsService.loadUserByUsername(username);
+                userDetails = personService.loadUserByUsername(username);
             } catch (UsernameNotFoundException e) {
                 logger.error("User not found: {}", username);
             }
