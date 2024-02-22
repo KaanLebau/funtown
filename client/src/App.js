@@ -83,7 +83,20 @@ function App() {
               </Route>
             </Route>
             <Route path="/recruiter">
-              <Route index element={<RecruiterPage />} />
+              <Route
+                index
+                element={
+                  !isLoggedIn & <LoginPage /> && user.role === "RECRUITER" ? (
+                    <RecruiterPage />
+                  ) : (
+                    <Navigate
+                      to="/notification"
+                      state={{ redirect: "/user/dashboard", code: 401 }}
+                      replace
+                    />
+                  )
+                }
+              />
               <Route
                 path="dashboard"
                 element={

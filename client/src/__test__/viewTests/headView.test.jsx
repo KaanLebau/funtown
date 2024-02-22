@@ -62,7 +62,7 @@ const languageList = [
 ];
 
 describe("Head view renders", () => {
-  test.only("No user logged in and Language icon and selector correctly", () => {
+  test("No user logged in and Language icon and selector correctly", () => {
     render(
       <RecoilRoot>
         <HeadView languageList={languageList} active={false} />
@@ -73,7 +73,7 @@ describe("Head view renders", () => {
     expect(screen.getByTestId("language-icon")).toBeInTheDocument();
     expect(screen.getAllByRole("option").length).toBe(2);
   });
-  test.only("An user with RECRUITER role logged in and recruiter tools render correctly", () => {
+  test("An user with RECRUITER role logged in and recruiter tools render correctly", () => {
     const user = { role: "RECRUITER" };
     render(
       <RecoilRoot>
@@ -104,7 +104,7 @@ describe("Head view renders", () => {
     ).toBeInTheDocument();
   });
 
-  test.only("An user with APPLICANT role logged in and applicant tools render correctly", () => {
+  test("An user with APPLICANT role logged in and applicant tools render correctly", () => {
     const user = { role: "APPLICANT" };
     render(
       <RecoilRoot>
