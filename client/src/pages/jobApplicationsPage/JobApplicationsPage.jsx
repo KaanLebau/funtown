@@ -1,7 +1,7 @@
 import React from "react";
 
 function JobApplicationsPage() {
-  return <div>JobApplicationsPage</div>;
+  return <div data-testid="job-applications-page">JobApplicationsPage</div>;
 }
 
 export default JobApplicationsPage;
