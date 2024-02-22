@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  postgres:
+    image: postgres
+    container_name: postgres_sql
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5401:5432"
+    volumes:
+      #- pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    command: [ "postgres", "-c", "log_statement=all" ]
+
+  frontend:
+    image: moukhtar99/funtown-frontend:v1.0
+    depends_on:
+      - "postgres"
+    ports:
+      - 3000:3000
+
+  application:
+    image: moukhtar99/funtown-application:v1.0
+    depends_on:
+      - "postgres"
+
+  user_service:
+    image: moukhtar99/funtown-user_service:v1.0
+    depends_on:
+      - "postgres"
+
+#start using sudo docker-compose -f funtown-services.yaml up
