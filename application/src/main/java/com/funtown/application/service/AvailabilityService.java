@@ -4,8 +4,8 @@ import com.funtown.application.model.Availability;
 import java.util.List;
 
 public interface AvailabilityService {
-    List<Availability> findByPersonId(Integer id) throws Exception;
+    List<Availability> findByUserName(String userName) throws Exception;
     Availability findById(Integer id) throws Exception;
     List<Availability> findAll();
-    void save(Availability availability);
+    Availability save(Availability availability) throws Exception;
 }

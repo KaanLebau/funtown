@@ -36,10 +36,10 @@ public class Availability {
     private Integer personId;
 
     /**
-     * The name of the person associated with this availability.
+     * The username of the person associated with this availability.
      */
     @Column(nullable = false)
-    private String name;
+    private String userName;
 
     /**
      * The start date of the availability period.

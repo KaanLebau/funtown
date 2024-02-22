@@ -12,8 +12,8 @@ import java.util.List;
 public class AvailabilityServiceImpl implements AvailabilityService {
     private final AvailabilityRepository repository;
     @Override
-    public List<Availability> findByPersonId(Integer id) throws Exception {
-        return repository.findByPersonId(id)
+    public List<Availability> findByUserName(String userName) throws Exception {
+        return repository.findByUserName(userName)
                 .orElseThrow(()-> new Exception("no availability with this person id exists")
                 );
     }
@@ -30,7 +30,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return repository.findAll();
     }
 
-    public void save(Availability availability){
-        repository.save(availability);
+    public Availability save(Availability availability) throws Exception{
+        Availability av = null;
+        try {
+            av = repository.save(availability);
+        } catch (Exception e){
+            throw new Exception("could not create availability");
+        }
+        return av;
     }
 }

@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AvailabilityRepository extends JpaRepository<Availability, Integer> {
-    Optional<List<Availability>> findByPersonId(Integer id);
+    Optional<List<Availability>> findByUserName(String userName);
 }
 
