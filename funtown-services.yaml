@@ -16,19 +16,20 @@ services:
     command: [ "postgres", "-c", "log_statement=all" ]
 
   frontend:
-    image: funtown/frontend
+    image: moukhtar99/funtown-frontend:v1.0
     depends_on:
       - "postgres"
     ports:
       - 3000:3000
 
   application:
-    image: funtown/application
+    image: moukhtar99/funtown-application:v1.0
     depends_on:
       - "postgres"
 
   user_service:
-    image: funtown/user_service
+    image: moukhtar99/funtown-user_service:v1.0
     depends_on:
       - "postgres"
 
+#start using sudo docker-compose -f funtown-services.yaml up
