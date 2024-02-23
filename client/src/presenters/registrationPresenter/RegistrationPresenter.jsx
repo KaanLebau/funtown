@@ -10,12 +10,12 @@ function RegistrationPresenter() {
     console.log(username);
     console.log(password);
     try {
-      //const client = await apiModule.registration(username, password);
+      const client = await apiModule.registration(username, password);
       console.log(
         "******************* server respons *******************************"
       );
 
-      //console.log(client);
+      console.log(client);
       //console.log(
       // "******************* user input *******************************"
       //);

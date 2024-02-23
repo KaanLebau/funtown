@@ -52,9 +52,10 @@ async function authenticate(username, password) {
 
 async function registration(username, password) {
   try {
-    const response = await axios.post(`${API_URL}/register`, {
+    const response = await axios.post(`${API_URL}/registration`, {
       username: username,
       password: password,
+      role: "APPLICANT"
     });
     console.log(response);
     return response.data;

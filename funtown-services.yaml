@@ -15,21 +15,32 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     command: [ "postgres", "-c", "log_statement=all" ]
 
-  frontend:
-    image: moukhtar99/funtown-frontend:v1.0
-    depends_on:
-      - "postgres"
-    ports:
-      - 3000:3000
+  #frontend:
+   # image: moukhtar99/funtown-frontend:v1.0
+    #depends_on:
+     # - "postgres"
+    #ports:
+     # - 3000:3000
 
   application:
     image: moukhtar99/funtown-application:v1.0
     depends_on:
       - "postgres"
+    ports:
+      - "8090:8090"
 
   user_service:
     image: moukhtar99/funtown-user_service:v1.0
     depends_on:
       - "postgres"
+    ports:
+      - "5050:5050"
+
+  auth_services:
+    image: rabi97/funtown-auth_services:v1.0
+    depends_on:
+      - "postgres"
+    ports:
+      - "5000:5000"
 
 #start using sudo docker-compose -f funtown-services.yaml up
