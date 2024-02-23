@@ -38,14 +38,7 @@ public class PersonController {
     @GetMapping("/test-token")
     @Secured("ROLE_APPLICANT")
     public String verifyJwtToken(HttpServletRequest request) {
-      /*  String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            if (jwtUtil.validateToken(jwt, userDetailsService.loadUserByUsername(jwtUtil.extractUsername(jwt)))) {
-                return ResponseEntity.ok("JWT token is valid.");
-            }
-        }*/
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("PRINCIPAL:");
         System.out.println(auth.getPrincipal());
@@ -60,14 +53,7 @@ public class PersonController {
     @GetMapping("/rec-token")
     @Secured("ROLE_RECRUITER")
     public String recruiterTest(HttpServletRequest request) {
-      /*  String authHeader = request.getHeader("Authorization");
 
-        if (authHeader != null && authHeader.startsWith("Bearer ")) {
-            String jwt = authHeader.substring(7);
-            if (jwtUtil.validateToken(jwt, userDetailsService.loadUserByUsername(jwtUtil.extractUsername(jwt)))) {
-                return ResponseEntity.ok("JWT token is valid.");
-            }
-        }*/
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         System.out.println("PRINCIPAL:");
         System.out.println(auth.getPrincipal());
