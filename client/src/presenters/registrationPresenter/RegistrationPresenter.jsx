@@ -16,7 +16,9 @@ function RegistrationPresenter() {
     try {
       const client = await apiModule.registration(username, password);
       const decoded = jwtDecode(client.access_token);
-      const role = decoded.role.slice(1, -1);
+      console.log(decoded);
+     const role = decoded.roles[0];
+     console.log(role);
       setUser({
         ...user,
         firstName: input.firstName,

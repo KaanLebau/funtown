@@ -22,6 +22,15 @@ public interface PersonService {
      */
     List<PersonDto> findAll();
 
+    /**
+     * Loads a user by their username.
+     *
+     * <p>This method retrieves a {@link UserDetails} object representing a user based on their username.</p>
+     *
+     * @param username the username of the user to load.
+     * @return a {@link UserDetails} object representing the loaded user.
+     * @throws UsernameNotFoundException if the user with the given username is not found.
+     */
     UserDetails loadUserByUsername(String username) throws UsernameNotFoundException;
 
     /**
@@ -43,11 +52,20 @@ public interface PersonService {
     Person save(Person person);
 
     /**
-     * Deletes a given person entity from the application.
+     * Deletes a person from the database based on their ID.
      *
-     * @param person the {@link Person} entity to delete.
+     * @param id The ID of the person to delete.
+     * @return true if the person is successfully deleted, false otherwise.
      */
-    void delete(Person person);
+    boolean deletePerson(Integer id);
 
-    // Include any additional methods that your application requires.
+    /**
+     * Updates a person with the given ID in the database.
+     *
+     * @param id            The ID of the person to update.
+     * @param personDetails The {@link Person} object containing the updated details.
+     * @return A {@link Person} object representing the updated person if the update was successful,
+     *         or null if the person is not found in the database.
+     */
+    Person updatePerson(Integer id, Person personDetails);
 }

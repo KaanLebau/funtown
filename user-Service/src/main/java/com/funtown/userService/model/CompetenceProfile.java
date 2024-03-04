@@ -34,10 +34,6 @@ public class CompetenceProfile {
     @Column(name = "id")
     private Integer competenceProfileId;
 
-    /*
-    @Column(name = "person_id")
-    private Integer personId;
-    */
     @Column(name = "competence_id")
     private Integer competenceId;
 

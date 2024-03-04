@@ -3,6 +3,9 @@ package com.funtown.userService.config;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
 
 /**
  * Configuration class for setting up model mapping in the application.
@@ -27,5 +30,22 @@ public class ModelMapperConfig {
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
+    }
+    @Configuration
+    public class CorsConfig implements WebMvcConfigurer {
+
+        /**
+         * Configures Cross-Origin Resource Sharing (CORS) for the application.
+         * CORS defines a way in which a browser and server can interact to determine whether it is safe to allow the requested resource to be shared.
+         *
+         * @param registry the CorsRegistry to be configured
+         */
+        @Override
+        public void addCorsMappings(CorsRegistry registry) {
+            registry.addMapping("/**")
+                    .allowedOrigins("http://localhost:3000")
+                    .allowedMethods("GET", "POST", "PUT", "DELETE")
+                    .allowCredentials(true);
+        }
     }
 }

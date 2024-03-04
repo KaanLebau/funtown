@@ -28,7 +28,7 @@ private final AuthenticationManager AUTHENTICATION_MANAGER;
                 Client.builder()
                     .username(record.getUsername())
                     .password(PASSWORD_ENCODER.encode(record.getPassword()))
-                    .role(record.getRole())
+                    .role(Role.APPLICANT)
                     .build());
         String jwtToken = JWT_SERVICE.generateToken(client);
         Claims claims = JWT_SERVICE.getAllClaims(jwtToken);
