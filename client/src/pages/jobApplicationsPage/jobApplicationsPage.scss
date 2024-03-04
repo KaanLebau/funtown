@@ -1,13 +1,41 @@
 .job-application-page {
-  width: 100%;
+  padding: 10px;
+  width: 90%;
   height: 70vh;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   color: #e7f6f2;
   font-size: xx-large;
   font-weight: bolder;
-  border: 1px solid #e7f6f2;
-  border-radius: 15px;
-  background-color: #395b64;
+
+  .right {
+    width: 20%;
+    height: 100%;
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .left {
+    width: 75%;
+    height: 100%;
+    border: 1px solid brown;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .job-application-page-detailed-info {
+      border: 5px solid #0a926e;
+      width: 100%;
+      height: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
 }

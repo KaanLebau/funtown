@@ -13,13 +13,18 @@ import {
   FaRegTimesCircle,
 } from "react-icons/fa";
 import { GrDocumentMissing } from "react-icons/gr";
+import { languageSelector } from "../../model/languageModel";
+import { useRecoilValue } from "recoil";
+import { positionOptions } from "../../model/businessModel";
+import { statusOptions } from "../../model/businessModel";
+import { useRef } from "react";
 function selectPositionIcon(position) {
   if (position === "roller coaster operation") {
     return (
       <FaUserGear
         data-testid="roller-coaster-icon"
         title="Roller coster"
-        className="user-icon"
+        className="position-icon"
       />
     );
   } else if (position === "lotteries") {
@@ -27,7 +32,7 @@ function selectPositionIcon(position) {
       <FaUserTag
         data-testid="lotteries-icon"
         title="Lotteries"
-        className="user-icon"
+        className="position-icon"
       />
     );
   } else if (position === "ticket sales") {
@@ -35,7 +40,7 @@ function selectPositionIcon(position) {
       <FaUserTie
         data-testid="ticket-sales-icon"
         title="Ticket sales"
-        className="user-icon"
+        className="position-icon"
       />
     );
   }
@@ -46,7 +51,7 @@ function selectStatusIcon(status) {
       <FaCheckCircle
         data-testid="accepted-icon"
         title="Accepted"
-        className="accepted"
+        className="status-icon"
       />
     );
   } else if (status === "rejected") {
@@ -54,7 +59,7 @@ function selectStatusIcon(status) {
       <FaRegCircleXmark
         data-testid="rejected-icon"
         title="Rejected"
-        className="rejected"
+        className="status-icon"
       />
     );
   } else if (status === "unhandled") {
@@ -62,7 +67,7 @@ function selectStatusIcon(status) {
       <FaCirclePause
         data-testid="unhandled-icon"
         title="Pending"
-        className="unhandled"
+        className="status-icon"
       />
     );
   }
@@ -113,119 +118,255 @@ function selectStatusIcon(status) {
  * @returns {JSX.Element} The rendered DetailedApplicationView component
  */
 function DetailedApplicationView(props) {
+  const language = useRecoilValue(languageSelector);
+  const positionList = useRecoilValue(positionOptions);
+  const statusList = useRecoilValue(statusOptions);
+  const positionRef = useRef(null);
+  const statusRef = useRef(null);
+
   return (
     <div
       data-testid="detailed-application-view"
       className="detailed-application-view"
     >
-      <h1 data-testid="componenet-header">Applicant Information:</h1>
-      {props.application ? (
-        <div className="applicant-info">
-          <div className="job">
-            <p className={`icon-row ${props.application.status}`}>
-              {selectPositionIcon(props.application.position)}
-            </p>
-            <p className="info-row">{props.application.position}</p>
-          </div>
-
-          <div className="applicant">
-            <p
-              data-testid="detailed-application-view-fullname"
-              className="info-row"
+      <div className="detailed-application-view-top">
+        <div
+          data-testid="detailed-application-view-title"
+          className="detailed-application-view-title"
+        >
+          <p>{language.detailedAplicantTitle}</p>
+        </div>
+      </div>
+      <div className="detailed-application-view-middle">
+        <div
+          data-testid="detailed-application-view-content"
+          className="detailed-application-view-content"
+        >
+          {props.application ? (
+            <div
+              data-testid="applicant-with-data"
+              className="applicant-with-data"
             >
-              Name: {props.application.fullName}
-            </p>
-            <p
-              data-testid="detailed-application-view-experinece"
-              className="info-row"
-            >
-              Experience: {props.application.experience}
-            </p>
-          </div>
-
-          <div className="period">
-            <p className="period-info">Period</p>
-            <div className="from-to">
-              <p
-                data-testid="detailed-application-view-from"
-                className="period-info"
+              <div
+                data-testid="applicant-with-data-right"
+                className="applicant-with-data-right"
               >
-                From: {props.application.fromDate}
-              </p>
-              <p
-                data-testid="detailed-application-view-to"
-                className="period-info"
+                {props.editing ? (
+                  <div className="updating-application-status">
+                    <p className="updating-application-label">
+                      {language.competencePosition}
+                    </p>
+                    <select
+                      ref={positionRef}
+                      title={language.competencePosition}
+                      data-testid="position-alternatives"
+                    >
+                      <option value="" disabled defaultValue>
+                        {language.competencePosition}
+                      </option>{" "}
+                      {/* Default option */}
+                      {positionList.map((item, index) => (
+                        <option key={index} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                    <p className="updating-application-label">
+                      {language.status}
+                    </p>
+                    <select
+                      ref={statusRef}
+                      title={language.competencePosition}
+                      data-testid="position-alternatives"
+                    >
+                      <option value="" disabled defaultValue>
+                        {language.competencePosition}
+                      </option>{" "}
+                      {/* Default option */}
+                      {statusList.map((item, index) => (
+                        <option key={index} value={item}>
+                          {item}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ) : (
+                  <div className="current-application-status">
+                    {props.application.status === "accepted" ? (
+                      <div
+                        data-testid="applicant-status"
+                        className="applicant-status"
+                      >
+                        <div
+                          data-testid="aplicant-status-icon-container"
+                          className="aplicant-status-icon-container"
+                        >
+                          {selectPositionIcon(props.application.position)}
+                          {selectStatusIcon(props.application.status)}
+                        </div>
+                        <div
+                          data-testid="applicant-status-info-container"
+                          className="applicant-status-info-container"
+                        >
+                          <p className="label"> {language.acceptedPosition}:</p>
+                          <p className="position">
+                            {props.application.position}
+                          </p>
+                          <p className="label">{language.contactPerson}:</p>
+                          <p className="contact">{props.application.contact}</p>
+                        </div>
+                      </div>
+                    ) : props.application.status === "rejected" ? (
+                      <div
+                        data-testid="applicant-status"
+                        className="applicant-status"
+                      >
+                        <div
+                          data-testid="aplicant-status-icon-container"
+                          className="aplicant-status-icon-container"
+                        >
+                          {selectStatusIcon(props.application.status)}
+                        </div>
+                        <div
+                          data-testid="applicant-status-info-container"
+                          className="applicant-status-info-container"
+                        >
+                          <p
+                            data-testid="status-position-label"
+                            className="label"
+                          >
+                            {" "}
+                            {language.status}:
+                          </p>
+                          <p data-testid="status-position" className="position">
+                            {props.application.status}
+                          </p>
+                          <p
+                            data-testid="status-contact-label"
+                            className="label"
+                          >
+                            {language.contactPerson}:
+                          </p>
+                          <p data-testid="status-contact" className="contact">
+                            {props.application.contact}
+                          </p>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="applicant-status">
+                        <div className="aplicant-status-icon-container">
+                          {selectStatusIcon(props.application.status)}
+                        </div>
+                        <div className="applicant-status-info-container">
+                          <p className="label"> {language.status}:</p>
+                          <p className="position">{props.application.status}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              <div
+                data-testid="applicant-with-data-middle"
+                className="applicant-with-data-middle"
               >
-                To: {props.application.toDate}
-              </p>
-            </div>
-          </div>
+                <div data-testid="person-info" className="person-info">
+                  <p data-testid="person-info-name-label" className="label">
+                    {language.name}:
+                  </p>
+                  <p data-testid="person-info-name" className="name">
+                    {props.application.fullName}
+                  </p>
+                  <hr />
 
-          {!props.editing ? (
-            <div className="status">
-              <p>{selectStatusIcon(props.application.status)}</p>
-              <p>{props.application.status}</p>
+                  <p
+                    data-testid="person-info-date-from-label"
+                    className="label"
+                  >
+                    {language.from}:
+                  </p>
+                  <p data-testid="person-info-date-from" className="date">
+                    {props.application.fromDate}
+                  </p>
+                  <p data-testid="person-info-date-to-label" className="label">
+                    {language.to}:
+                  </p>
+                  <p data-testid="person-info-date-to" className="date">
+                    {props.application.toDate}
+                  </p>
+                </div>
+              </div>
+              <div className="applicant-with-data-left">
+                <p className="applicant-experience-title">
+                  {language.applicantExperience}
+                </p>
+                {props.application.experience.length === 0 ? (
+                  <>
+                    <GrDocumentMissing className="no-data-icon" />
+                    <p className="no-data-msg">{language.noExperinece}</p>
+                  </>
+                ) : (
+                  props.application.experience.map((exp, index) => (
+                    <div
+                      key={index}
+                      data-testid="experience"
+                      className="applicant-experience"
+                    >
+                      <p
+                        data-testid="applicant-experience-position"
+                        className="experience-position"
+                      >
+                        {exp.position}
+                      </p>
+                      <p
+                        data-testid="applicant-experience-duration"
+                        className="experience-duration"
+                      >
+                        {exp.experience}
+                      </p>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           ) : (
-            <div className="status">
-              <select
-                className="status-select"
-                data-testid="status-select-element"
-                title="Status"
-                onChange={(e) => {
-                  props.updateStatus(e.target.value);
-                }}
-              >
-                <option value="option1">Select status </option>
-                {props.status.map((item, index) => (
-                  <option key={index} value={item}>
-                    {item}
-                  </option>
-                ))}
-              </select>
+            <div className="aplicant-with-no-data">
+              <GrDocumentMissing className="no-data-icon" />
+              <p className="no-data-msg">{language.noData}</p>
             </div>
           )}
-
-          <div className="buttons">
-            {!props.editing ? (
-              <button onClick={props.edit} className="the-button">
-                Edit{" "}
-                <FaEdit data-testid="edit-icon" title="Edit" className="icon" />
-              </button>
-            ) : (
-              <div className="buttons">
-                <button onClick={props.save} className="the-button">
-                  Save
-                  <FaRegSave
-                    data-testid="save-icon"
-                    title="Save"
-                    className="icon"
-                  />
-                </button>
-                <button onClick={props.cancel} className="the-button">
-                  <label htmlFor=""></label>Cancel
-                  <FaRegTimesCircle
-                    data-testid="cancel-icon"
-                    title="Cancel"
-                    className="icon"
-                  />
-                </button>
-              </div>
-            )}
+        </div>
+      </div>
+      <div className="detailed-application-view-bottom">
+        {props.editing ? (
+          <div
+            data-testid="detailed-application-view-bottom-controller"
+            className="detailed-application-view-bottom-controller"
+          >
+            <button
+              data-testid="detailed-application-view-bottom-button-edit"
+              onClick={props.edit}
+            >
+              {language.applicantUpdate}
+            </button>
+            <button
+              data-testid="detailed-application-view-bottom-button-edit"
+              onClick={props.edit}
+            >
+              {language.cancel}
+            </button>
           </div>
-        </div>
-      ) : (
-        <div className="no-data">
-          <GrDocumentMissing
-            data-testid="detailed-application-no-data-icon"
-            title="No data loaded"
-            className="no-data-icon"
-          />
-          <label htmlFor="" className="no-data-label" title="No data loaded">
-            No Data
-          </label>
-        </div>
-      )}
+        ) : (
+          <div className="detailed-application-view-bottom-controller">
+            <button
+              data-testid="detailed-application-view-bottom-button-edit"
+              onClick={props.edit}
+            >
+              {language.applicantHandle}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

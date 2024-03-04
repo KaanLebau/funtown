@@ -3,6 +3,12 @@ import DetailedApplicationView from "../../views/detailedApplicationView/Detaile
 import { useRecoilValue } from "recoil";
 import { statusOptions } from "../../model/businessModel";
 
+/**
+ * DetailedApplicationPresenter component function.
+ *
+ * @param {Object} props - the props object
+ * @return {JSX.Element} the DetailedApplicationPresenter component
+ */
 function DetailedApplicationPresenter(props) {
   const statusList = useRecoilValue(statusOptions);
   const [application, setApplication] = useState(props.theApplicant);
@@ -14,14 +20,18 @@ function DetailedApplicationPresenter(props) {
     setEditing(!editing);
   }
   function handleStatus(status) {
-    setUpdate({ ...updated, ["status"]: status });
+    console.log("h");
+    //setUpdate({ ...updated, ["status"]: status });
   }
   useEffect(() => {
     setApplication(props.theApplicant);
     setUpdate(props.theApplicant);
   }, [application, updated, props.theApplicant]);
   return (
-    <div data-testid="detailed-application-presenter">
+    <div
+      style={{ width: "inherit", height: "100%" }}
+      data-testid="detailed-application-presenter"
+    >
       <DetailedApplicationView
         application={application}
         editing={editing}

@@ -4,179 +4,292 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   padding: 3vh;
   width: inherit;
   height: inherit;
+  .detailed-application-view-top {
+    flex: 1;
+    background: transparent;
+    margin-bottom: 10px;
 
-  h1 {
-    background: transparent;
-    margin-bottom: 10vh;
-  }
-  p {
-    background: transparent;
-  }
-
-  .applicant-info {
-    background: transparent;
     display: flex;
-    margin-bottom: 3vh;
+    align-items: center;
+    justify-content: center;
+    .detailed-application-view-title {
+      background: transparent;
 
-    .job {
+      p {
+        font-size: 5vh;
+        background: transparent;
+      }
+    }
+  }
+  .detailed-application-view-middle {
+    background: transparent;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 4;
+    padding: 30px;
+    .detailed-application-view-content {
+      border: 1px solid #e7f6f2;
+      border-radius: 20px;
       background: transparent;
-      font-weight: bold;
+      width: 100%;
+      height: 100%;
 
-      .icon-row {
-        background-color: #e7f6f2;
-        margin: 3vh;
-        padding: 2vh;
-        border-radius: 50%;
-        &.accepted {
-          background-color: rgb(2, 174, 2);
-        }
-        &.rejected {
-          background-color: red;
-        }
-        &.unhandled {
-          background-color: yellow;
-        }
-      }
-    }
-    .applicant {
-      background: transparent;
-      width: 20vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3vh;
-      .info-row {
+      .applicant-with-data {
         background: transparent;
-        font-weight: bold;
-        border-bottom: 1px solid #e7f6f2;
-      }
-    }
-    .period {
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 4vh;
-      font-weight: bold;
-      .period-info {
-        background: transparent;
-        padding: 1vh;
-        border-bottom: 1px solid #e7f6f2;
-      }
-      .from-to {
-        background: transparent;
-        display: flex;
-        gap: 2vh;
-        border-bottom: 1px solid #e7f6f2;
-      }
-    }
-
-    .icon-row {
-      background-color: #e7f6f2;
-      margin: 3vh;
-      padding: 2vh;
-      border-radius: 50%;
-      &.accepted {
-        background-color: rgb(2, 174, 2);
-      }
-    }
-
-    .user-icon {
-      font-size: 60px;
-      border-radius: 1px solid #e7f6f2;
-      background: transparent;
-      color: #395b64;
-    }
-    p {
-      background: transparent;
-    }
-
-    .status {
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 2vh;
-      font-weight: bold;
-      .accepted {
-        font-size: 30px;
-        justify-self: flex-end;
-        background: transparent;
-        color: rgb(2, 174, 2);
-        margin-left: 5px;
-      }
-      .rejected {
-        font-size: 30px;
-        justify-self: flex-end;
-        background: transparent;
-        margin-left: 5px;
-        color: red;
-        margin-left: 5px;
-      }
-      .unhandled {
-        font-size: 30px;
-        justify-self: flex-end;
-        background: transparent;
-        color: yellow;
-        margin-left: 5px;
-      }
-      select {
-        //background: #395b64;
-        background-color: #395b64;
-        color: #e7f6f2;
-        border: 1px solid #e7f6f2;
-        padding: 1vh;
-        border-radius: 10px;
-        font-size: large;
-        height: 100px;
-      }
-    }
-    .buttons {
-      background: transparent;
-      display: flex;
-      flex-direction: column;
-      padding: 2vh;
-      gap: 2vh;
-      .the-button {
-        border: 1px solid #e7f6f2;
-        color: #e7f6f2;
-        border-radius: 15px;
-        background: transparent;
-        padding: 2vh;
-        justify-content: space-between;
-        gap: 2vh;
-        min-width: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
-        .icon {
+        padding: 3vh;
+        gap: 4vh;
+
+        .applicant-with-data-right {
           background: transparent;
-          font-size: large;
+          min-width: 250px;
+          border-radius: 10px;
+          border: 1px solid #e7f6f2;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .updating-application-status {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .updating-application-label {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              margin-bottom: 10px;
+              align-self: flex-start;
+            }
+            select {
+              align-self: flex-end;
+              background: transparent;
+              color: #e7f6f2;
+              border: 1px solid #e7f6f2;
+              padding: 1vh;
+              border-radius: 10px;
+              font-weight: bold;
+              margin: 10px;
+              option {
+                background: transparent;
+                background-color: #395b64;
+                color: #e7f6f2;
+                border-radius: 10px;
+              }
+            }
+          }
+          .current-application-status {
+            background: transparent;
+          }
+          .applicant-status {
+            flex: 1;
+            background: transparent;
+            padding: 5px;
+
+            .aplicant-status-icon-container {
+              background: transparent;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .position-icon {
+                background: transparent;
+                font-size: 8vh;
+
+                align-self: flex-start;
+                justify-self: flex-start;
+              }
+              .status-icon {
+                background: transparent;
+                font-size: 2vh;
+
+                align-self: flex-start;
+                justify-self: flex-start;
+              }
+            }
+
+            .applicant-status-info-container {
+              background: transparent;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .label {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 2vh;
+                justify-self: left;
+                align-self: flex-start;
+                margin-left: 10px;
+              }
+              .position {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 3vh;
+                align-self: flex-end;
+                width: 70%;
+              }
+              .contact {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 2vh;
+                align-self: flex-end;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+        .applicant-with-data-middle {
+          flex: 2;
+          background: transparent;
+          border: 1px solid #e7f6f2;
+          border-radius: 10px;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .person-info {
+            background: transparent;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-end;
+              margin-left: 10px;
+            }
+            .date {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-start;
+              margin-left: 10px;
+            }
+            .label {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-start;
+            }
+          }
+        }
+        .applicant-with-data-left {
+          background: transparent;
+          flex: 3;
+          border: 1px solid #e7f6f2;
+          border-radius: 10px;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .applicant-experience-title {
+            background: transparent;
+            color: #e7f6f2;
+            font-weight: bold;
+            font-size: 3vh;
+            margin-bottom: 20px;
+          }
+          .applicant-experience {
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e7f6f2;
+            .experience-position,
+            .experience-duration {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              margin-left: 10px;
+            }
+          }
+          .no-data-icon {
+            background: transparent;
+            font-size: 5vh;
+            color: rgb(173, 25, 25);
+            margin: 15px;
+          }
+          .no-data-msg {
+            background: transparent;
+            font-size: 3vh;
+            color: #e7f6f2;
+            margin: 15px;
+          }
+        }
+      }
+      .aplicant-with-no-data {
+        background: transparent;
+        .no-data-icon {
+          background: transparent;
+          font-size: 5vh;
+          color: rgb(173, 25, 25);
+          margin: 15px;
+        }
+        .no-data-msg {
+          background: transparent;
+          font-size: 3vh;
+          color: #e7f6f2;
+          margin: 15px;
         }
       }
     }
   }
-
-  .no-data {
+  .detailed-application-view-bottom {
+    flex: 1;
     background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 15vh;
-    gap: 5vh;
-    .no-data-icon {
-      background: transparent;
-      font-size: 60px;
-    }
-    .no-data-label {
-      background: transparent;
-      font-size: 60px;
+    .detailed-application-view-bottom-controller {
+      background-color: #395b64;
+      button {
+        background: transparent;
+        color: #e7f6f2;
+        border: 1px solid #e7f6f2;
+        border-radius: 10px;
+        padding: 1vh;
+        font-size: 2vh;
+        font-weight: bold;
+        margin: 1vh;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #e7f6f2;
+          color: #395b64;
+        }
+      }
     }
   }
 }
