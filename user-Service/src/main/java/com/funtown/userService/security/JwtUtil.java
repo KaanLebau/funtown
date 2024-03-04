@@ -4,27 +4,42 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
 import jakarta.annotation.PostConstruct;
+import lombok.Getter;
+import lombok.Setter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-
+import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
 /**
- * Utility class for common JWT operations.
- * <p>
- * This class provides methods for extracting information from JWT tokens,
- * such as claims, username, and expiration, and for validating tokens against
- * user details.
- * </p>
+ * A utility class for performing common JWT operations.
+ *
+ * <p>Encapsulates all methods for manipulating JSON Web Tokens (JWTs), such as methods
+ * for validating tokens, extracting claims and usernames from tokens, and checking if tokens are expired.
+ * This class is designed specifically for handling JWT-based user authentication in the application.</p>
  */
+@Setter
+@Getter
 @Component
 public class JwtUtil {
 
+    /**
+     * -- GETTER --
+     *  Gets the secret key used for JWT token processing.
+     *
+     *
+     * -- SETTER --
+     *  Sets the secret key to be used for JWT token processing.
+     *
+     @return the secret key
+      * @param secretKey the secret key to set
+     */
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
-
 
     /**
      * Extracts all claims from the token using the secret key.
@@ -43,10 +58,13 @@ public class JwtUtil {
      * @param token the JWT token
      * @return String the username extracted from the token
      */
-    public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
-    }
+    Logger logger = LoggerFactory.getLogger(JwtUtil.class);
 
+    public String extractUsername(String token) {
+        String username = extractClaim(token, Claims::getSubject);
+        logger.debug("Extracted username from token: {}", username);
+        return username;
+    }
     /**
      * Extracts the expiration date from the token.
      *
@@ -82,18 +100,21 @@ public class JwtUtil {
     }
 
     /**
-     * Validates the token against user details.
-     * <p>
-     * This method checks if the token is expired and if the username in the token matches
-     * the username in the provided user details.
-     * </p>
+     * Method to validate the token against the user's details.
      *
-     * @param token       the JWT token
-     * @param userDetails the user details to validate against
-     * @return Boolean true if the token is valid, false otherwise
+     * <p>This method checks whether the token has expired, and whether the username in the token
+     * matches the username from the provided user details. This is necessary for ensuring that the token
+     * is both fresh and corresponds to the correct user.</p>
+     *
+     * @param token the JWT token to validate
+     * @param userDetails UserDetails object containing the details of the user to validate against
+     * @return Boolean true if the token corresponds to the user and is not expired, false otherwise
      */
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
+        if(isTokenExpired(token)) {
+            logger.debug("NOOOOOOOOOO");
+        }
         return !isTokenExpired(token) && username.equals(userDetails.getUsername());
     }
     @PostConstruct
