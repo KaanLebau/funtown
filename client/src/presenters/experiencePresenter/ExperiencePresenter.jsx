@@ -22,7 +22,6 @@ function ExperiencePresenter(props) {
   const [editStates, setEditStates] = useState(
     Array(experience.length).fill(false)
   );
-
   function apiCall() {
     console.log("implement api call ");
   }
@@ -68,6 +67,7 @@ function ExperiencePresenter(props) {
       removeExperience={handleRemove}
       dashboard={props.dashboard}
       dashboardUpdate={() => props.updateExperience()}
+      role={props.role}
     />
   );
 }

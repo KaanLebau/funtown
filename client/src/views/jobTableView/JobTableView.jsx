@@ -17,7 +17,7 @@ function JobTableView(props) {
   return (
     <div data-testid="job-table-view" className="job-table-view">
       <div className="job-table-title-conteiner">
-        <h2>{getTitle()}</h2>
+        <h2 data-testid="job-table-view-title">{getTitle()}</h2>
       </div>
       <div className="job-table-view-table-container">
         {props.rows.length === 0 ? (
@@ -27,7 +27,7 @@ function JobTableView(props) {
               className="job-table-no-data-icon"
             />
             <p
-              data-testid="job-table-view-no-data-icon"
+              data-testid="job-table-view-no-data-msg"
               className="job-table-no-data"
             >
               {language.noAppliedApplication}

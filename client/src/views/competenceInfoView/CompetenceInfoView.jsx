@@ -7,7 +7,9 @@ function CompetenceInfoView(props) {
 
   return (
     <div data-testid="competence-info-view" className="competence-info-view">
-      <p className="competence-view-title">{language.competenceTitle}</p>
+      <p data-testid="competence-view-title" className="competence-view-title">
+        {language.competenceTitle}
+      </p>
       {props.experience.length === 0 ? (
         <div className="no-competence">
           <p data-testid="p-no-competence" className="p-no-competence">
@@ -30,6 +32,7 @@ function CompetenceInfoView(props) {
           <div className="control">
             {props.experience.map((item, index) => (
               <p
+                data-testid={`position-option-${index}`}
                 className={
                   index === props.selectedCompetence
                     ? "control-options-selected"

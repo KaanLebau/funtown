@@ -28,7 +28,7 @@ const updatedApplication = {
 
 const statusList = ["accepted", "rejected", "unhandled"];
 
-xdescribe("DetailedApplicationPresenter component", () => {
+describe("DetailedApplicationPresenter component", () => {
   test("toggles editing mode when edit button is clicked", () => {
     render(
       <RecoilRoot initializeState={({ set }) => set(statusOptions, statusList)}>

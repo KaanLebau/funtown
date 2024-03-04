@@ -40,6 +40,7 @@ describe("Job application view renders", () => {
     );
     const userInteract = screen.getByRole("button");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.click(userInteract);
     });
@@ -67,6 +68,7 @@ describe("Job application view renders", () => {
     const inputUsername = screen.getByTestId("input-username");
     const inputPassword = screen.getByTestId("input-password");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputUsername, "test user");
       await userEvent.type(inputPassword, "test password");

@@ -64,6 +64,7 @@ describe("Registration view renders", () => {
       "registration-form-view-submit-button"
     );
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.click(userInteract);
     });
@@ -112,6 +113,7 @@ describe("Registration view renders", () => {
     );
     const inputEmail = screen.getByTestId("registration-form-view-email");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputEmail, "test");
       await userEvent.click(userInteract);
@@ -143,11 +145,12 @@ describe("Registration view renders", () => {
     const inputPnr = screen.getByTestId("registration-form-view-pnr");
     const inputPassword = screen.getByTestId("registration-form-view-password");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputName, "test name");
       await userEvent.type(inputLastName, "test last name");
       await userEvent.type(inputEmail, "test@email.com");
-      await userEvent.type(inputPnr, "123456789");
+      await userEvent.type(inputPnr, "19900101-1234");
       await userEvent.type(inputUsername, "test user");
       await userEvent.type(inputPassword, "test password");
 
@@ -158,7 +161,7 @@ describe("Registration view renders", () => {
       firstName: "test name",
       lastName: "test last name",
       email: "test@email.com",
-      pnr: "123456789",
+      pnr: "19900101-1234",
       username: "test user",
       password: "test password",
     });

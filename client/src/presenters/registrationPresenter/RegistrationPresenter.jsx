@@ -5,10 +5,12 @@ import apiModule from "../../integration/funtownApi";
 import { currentUserState } from "../../model/userModel";
 import { useRecoilState } from "recoil";
 import { jwtDecode } from "jwt-decode";
+import { userLoggedIn } from "../../model/userModel";
 
 function RegistrationPresenter() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(currentUserState);
+  const [loggedIn, setLoggedIn] = useRecoilState(userLoggedIn);
 
   async function submit(input) {
     const { username, password } = input;
@@ -17,6 +19,7 @@ function RegistrationPresenter() {
       const client = await apiModule.registration(username, password);
       const decoded = jwtDecode(client.access_token);
       const role = decoded.role.slice(1, -1);
+      console.log(decoded);
       setUser({
         ...user,
         firstName: input.firstName,
@@ -27,6 +30,7 @@ function RegistrationPresenter() {
         password: input.password,
         role: role,
       });
+      setLoggedIn(true);
       navigate("/notification", {
         replace: true,
         state: { redirect: "/user/dashboard", code: 201 },

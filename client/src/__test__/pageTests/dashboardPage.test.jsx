@@ -11,6 +11,17 @@ jest.mock("react-router-dom", () => ({
 }));
 
 describe("DashboardPage Component", () => {
+  const undefinedUser = {
+    naturalId: "1",
+    firstName: "Jhon",
+    lastName: "Doe",
+    username: "Jhonny",
+    email: "jhon@doe.com",
+    pnr: "11112233-4444",
+    role: undefined,
+    experience: [],
+    availability: [],
+  };
   const userAPPLICANT = {
     naturalId: "1",
     firstName: "Jhon",
@@ -65,5 +76,23 @@ describe("DashboardPage Component", () => {
     expect(
       screen.getByTestId("recruiter-dashboard-presenter-wraper")
     ).toBeInTheDocument();
+  });
+  test("renders notification page when role is undefined", () => {
+    const mockNavigate = jest.fn();
+    require("react-router-dom").useNavigate.mockReturnValue(mockNavigate);
+    render(
+      <Router>
+        <RecoilRoot
+          initializeState={({ set }) => set(currentUserState, undefinedUser)}
+        >
+          <DashboardPage />
+        </RecoilRoot>
+      </Router>
+    );
+
+    expect(mockNavigate).toHaveBeenCalledWith("/notification", {
+      replace: true,
+      state: { redirect: "/", code: 401 },
+    });
   });
 });

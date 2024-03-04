@@ -27,7 +27,13 @@ function UserInfoView(props) {
         <label data-testid="username-label" htmlFor="">
           {language.username}:{" "}
         </label>
-        <p data-testid="username">{props.user.username}</p>
+        <p data-testid="user-info-username">{props.user.username}</p>
+      </div>
+      <div className="row">
+        <label data-testid="email-label" htmlFor="">
+          {language.email}:{" "}
+        </label>
+        <p data-testid="username">{props.user.email}</p>
       </div>
     </div>
   );
