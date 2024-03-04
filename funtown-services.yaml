@@ -23,7 +23,7 @@ services:
      # - 3000:3000
 
   application:
-    image: moukhtar99/funtown-application:v1.0
+    image: rabi97/funtown-app_services:v1.1
     depends_on:
       - "postgres"
     ports:
