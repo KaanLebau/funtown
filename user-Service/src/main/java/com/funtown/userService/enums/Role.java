@@ -18,5 +18,6 @@ public enum Role {
     /**
      * Represents the role of an Applicant.
      */
-    APPLICANT
+    APPLICANT,
+
 }

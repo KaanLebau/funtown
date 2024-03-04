@@ -91,15 +91,42 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
         return personRepository.save(person);
     }
 
+
     /**
-     * Deletes a given person from the database.
+     * Deletes a person from the database by their ID.
      *
-     * @param person The {@link Person} to delete.
+     * @param id The ID of the person to delete.
+     * @return true if the person was successfully deleted, false otherwise.
      */
     @Override
-    public void delete(Person person) {
-        personRepository.delete(person);
+    public boolean deletePerson(Integer id) {
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isPresent()) {
+            personRepository.delete(person.get());
+            return true;
+        }
+        return false;
     }
 
-    // Implement additional methods as per the interface definition, if any.
+    /**
+     * Update the details of a person.
+     *
+     * @param id The ID of the person to update.
+     * @param personDetails The updated details of the person.
+     * @return The updated {@link Person} instance, or null if the person with the given ID does not exist.
+     */
+    @Override
+    public Person updatePerson(Integer id, Person personDetails) {
+        Optional<Person> person = personRepository.findById(id);
+        if (person.isPresent()) {
+            Person existingPerson = person.get();
+            existingPerson.setName(personDetails.getName());
+            existingPerson.setEmail(personDetails.getEmail());
+            existingPerson.setPnr(personDetails.getPnr());
+            existingPerson.setUsername(personDetails.getUsername());
+            // add more attributes here if needed
+            return personRepository.save(existingPerson);
+        }
+        return null;
+    }
 }
