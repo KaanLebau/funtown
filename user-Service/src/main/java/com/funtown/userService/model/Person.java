@@ -43,16 +43,16 @@ public class Person {
     @Column(length = 255, nullable = true)
     private String surname;
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(length = 255, nullable = true, unique = true)
     private String pnr;
 
-    @Column(length = 255, nullable = false, unique = true)
+    @Column(length = 255, nullable = true, unique = true)
     private String email;
 
     @Column(length = 255, nullable = true)
     private String password;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
 
