@@ -43,4 +43,12 @@ services:
     ports:
       - "5000:5000"
 
+  api_gateway:
+    image: api-gateway:latest
+    depends_on:
+      - application
+      - user_service
+      - auth_services
+    ports:
+      - "8080:8080"
 #start using sudo docker-compose -f funtown-services.yaml up
