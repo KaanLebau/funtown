@@ -13,8 +13,6 @@ describe("Recruiter in page renders", () => {
         </BrowserRouter>
       </RecoilRoot>
     );
-    expect(
-      screen.getByTestId("recruiter-work-plane-presenter")
-    ).toBeInTheDocument();
+    expect(screen.getByTestId("recruiter-page")).toBeInTheDocument();
   });
 });

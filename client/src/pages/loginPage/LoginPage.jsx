@@ -13,6 +13,7 @@ import LoginPresenter from "../../presenters/loginPresenter/LoginPresenter";
  * <LoginPage />
  * // ... other imports
  * @returns  {JSX.Element}
+ * @author Kaan
  */
 function LoginPage() {
   return (

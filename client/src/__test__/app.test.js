@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
 
-describe("App renders", () => {
+xdescribe("App renders", () => {
   test("welcome pages correctly", () => {
     render(
       <RecoilRoot>

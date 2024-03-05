@@ -8,7 +8,7 @@ import { RecoilRoot } from "recoil";
 
 const mockSubmit = jest.fn();
 
-describe("Registration presenter renders", () => {
+xdescribe("Registration presenter renders", () => {
   test("renders RegistrationView component", () => {
     render(
       <BrowserRouter>

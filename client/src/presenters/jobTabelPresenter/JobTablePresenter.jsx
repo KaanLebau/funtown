@@ -73,6 +73,7 @@ function JobTablePresenter(props) {
 
   useEffect(() => {
     dataSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.user, props.user.availability, language]);
   return <JobTableView role={props.user.role} rows={rows} columns={columns} />;
 }

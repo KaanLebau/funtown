@@ -7,6 +7,9 @@ const overlap3 = { from: "2024-02-12", to: "2024-02-18" };
 const overlap4 = { from: "2024-02-05", to: "2024-02-15" };
 const overlap5 = { from: "2024-02-10", to: "2024-02-20" };
 const overlap6 = { from: "2024-02-15", to: "2024-02-18" };
+const missingFrom = { from: "", to: "2024-02-18" };
+const missingTo = { from: "2024-02-15", to: "" };
+const missingDate = { from: "", to: "" };
 
 describe("Availability model perform", () => {
   beforeEach(() => {
@@ -17,6 +20,87 @@ describe("Availability model perform", () => {
     availabilityModel.init(currentList);
     expect(availabilityModel.dates.length).toBe(2);
     expect(availabilityModel.dates).toEqual(currentList);
+  });
+  describe("Availability model", () => {
+    // beforeEach and other tests...
+    describe("_checkOverlap method", () => {
+      beforeEach(() => {
+        availabilityModel.init([]);
+      });
+
+      test("should return false if there are no dates in the list", () => {
+        const result = availabilityModel._checkOverlap(new Date(), new Date());
+        expect(result.overlap).toBe(false);
+      });
+
+      test("should return false if new period does not overlap with any existing period", () => {
+        availabilityModel.init([date2]);
+        const result = availabilityModel._checkOverlap(
+          new Date("2024-01-01"),
+          new Date("2024-01-10")
+        );
+        expect(result.overlap).toBe(false);
+      });
+
+      test("should return true if new period starts within an existing period", () => {
+        availabilityModel.init([date1]);
+        const result = availabilityModel._checkOverlap(
+          new Date("2024-02-12"),
+          new Date("2024-02-20")
+        );
+        expect(result.overlap).toBe(true);
+      });
+
+      test("should return true if new period ends within an existing period", () => {
+        availabilityModel.init([date1]);
+        const result = availabilityModel._checkOverlap(
+          new Date("2024-02-05"),
+          new Date("2024-02-13")
+        );
+        expect(result.overlap).toBe(true);
+      });
+
+      test("should return true if new period encapsulates an existing period", () => {
+        availabilityModel.init([date1]);
+        const result = availabilityModel._checkOverlap(
+          new Date("2024-02-05"),
+          new Date("2024-02-20")
+        );
+        expect(result.overlap).toBe(true);
+      });
+
+      test("should return true if new period entirely overlaps an existing period", () => {
+        availabilityModel.init([date1]);
+        const result = availabilityModel._checkOverlap(
+          new Date("2024-02-05"),
+          new Date("2024-02-18")
+        );
+        expect(result.overlap).toBe(true);
+      });
+
+      test("should return false if from date is missing", () => {
+        availabilityModel.init([date1]);
+        const result = availabilityModel._checkOverlap(
+          new Date(missingFrom.to),
+          new Date(missingTo.to)
+        );
+        expect(result.overlap).toBe(false);
+      });
+    });
+
+    describe("_isValidDate method", () => {
+      test("should return true for valid date strings", () => {
+        expect(availabilityModel._isValidDate("2024-02-10")).toBe(true);
+        expect(availabilityModel._isValidDate("2024-12-31")).toBe(true);
+      });
+
+      test("should return false for invalid date strings", () => {
+        expect(availabilityModel._isValidDate("2024-02-32")).toBe(false); // Invalid day
+        expect(availabilityModel._isValidDate("2024-13-01")).toBe(false); // Invalid month
+        expect(availabilityModel._isValidDate("2024/02/10")).toBe(false); // Invalid separator
+        expect(availabilityModel._isValidDate("abc")).toBe(false); // Invalid format
+      });
+    });
   });
 
   describe("remove method with ", () => {
@@ -97,48 +181,70 @@ describe("Availability model perform", () => {
       availabilityModel.add(date2);
       expect(availabilityModel.dates.length).toBe(2);
     });
-    test("if availability period is inside of another availability period throws exception correctly", () => {
-      expect(() => {
+    test("overlap1 throws exception correctly", () => {
+      const addWithOverlap = () => {
         availabilityModel.add(overlap1);
-      }).toThrow(
-        `Overlap found between ${overlap1.from} and ${overlap1.to} with ${date1.from} - ${date1.to}`
-      );
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
     });
 
-    test("if new availability period starts before and ends in some other period throws exception correctly", () => {
-      expect(() => {
+    test("overlap2 throws exception correctly", () => {
+      const addWithOverlap = () => {
         availabilityModel.add(overlap2);
-      }).toThrow(
-        `Overlap found between ${overlap2.from} and ${overlap2.to} with ${date1.from} - ${date1.to}`
-      );
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
     });
-    test("if new availability period starts in some other period and ends later then other period throws exception correctly", () => {
-      expect(() => {
+
+    test("overlap3 throws exception correctly", () => {
+      const addWithOverlap = () => {
         availabilityModel.add(overlap3);
-      }).toThrow(
-        `Overlap found between ${overlap3.from} and ${overlap3.to} with ${date1.from} - ${date1.to}`
-      );
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
     });
-    test("if new availability period starts in before other period and ends the same time as an another period throws exception correctly", () => {
-      expect(() => {
+    test("overlap4 throws exception correctly", () => {
+      const addWithOverlap = () => {
         availabilityModel.add(overlap4);
-      }).toThrow(
-        `Overlap found between ${overlap4.from} and ${overlap4.to} with ${date1.from} - ${date1.to}`
-      );
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
     });
-    test("if new availability period starts same date as another period and ends later then other period throws exception correctly", () => {
-      expect(() => {
+    test("overlap5 throws exception correctly", () => {
+      const addWithOverlap = () => {
         availabilityModel.add(overlap5);
-      }).toThrow(
-        `Overlap found between ${overlap5.from} and ${overlap5.to} with ${date1.from} - ${date1.to}`
-      );
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
     });
-    test("if new availability period starts same date as another period starts throws exception correctly", () => {
-      expect(() => {
-        availabilityModel.add(overlap3);
-      }).toThrow(
-        `Overlap found between ${overlap3.from} and ${overlap3.to} with ${date1.from} - ${date1.to}`
-      );
+    test("overlap6 throws exception correctly", () => {
+      const addWithOverlap = () => {
+        availabilityModel.add(overlap6);
+      };
+
+      expect(addWithOverlap).toThrowError("overlaping dates");
+    });
+    test("missing from throws exception correctly", () => {
+      const addWithOverlap = () => {
+        availabilityModel.add(missingFrom);
+      };
+
+      expect(addWithOverlap).toThrowError("from is not a date");
+    });
+    test("missing to throws exception correctly", () => {
+      const addWithOverlap = () => {
+        availabilityModel.add(missingTo);
+      };
+
+      expect(addWithOverlap).toThrowError("to is not a date");
+    });
+    test("missing date throws exception correctly", () => {
+      const addWithOverlap = () => {
+        availabilityModel.add(missingDate);
+      };
+
+      expect(addWithOverlap).toThrowError("no date provided");
     });
   });
 });
