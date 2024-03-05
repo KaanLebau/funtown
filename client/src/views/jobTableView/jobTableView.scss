@@ -1,0 +1,89 @@
+.job-table-view {
+  border-radius: 20px;
+  background-color: #395b64;
+  border: 1px solid #e7f6f2;
+  height: 100%;
+  width: 100%;
+  color: #e7f6f2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 10px;
+  .job-table-title-conteiner {
+    background: transparent;
+
+    transform: rotate(270deg);
+    transform-origin: top;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+
+    h2 {
+      padding: 5px;
+      background: transparent;
+      overflow-wrap: break-word;
+    }
+  }
+  .job-table-view-table-container {
+    margin: 10px;
+    height: inherit;
+    width: inherit;
+    padding: 10px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #e7f6f2;
+
+    .custom-data-grid-outer {
+      width: 100%; /* Ensure the DataGrid occupies the entire width */
+      height: 100%; /* Ensure the DataGrid occupies the entire height */
+
+      .MuiDataGrid-root
+        .MuiDataGrid-colCellSortable.MuiDataGrid-sorted
+        .MuiDataGrid-sortIcon {
+        color: #e7f6f2 !important; /* Change to your desired color */
+      }
+      .MuiTablePagination-displayedRows {
+        color: #e7f6f2;
+      }
+      .MuiButtonBase-root {
+        color: #e7f6f2;
+      }
+      .MuiSvgIcon-root {
+        color: #e7f6f2;
+      }
+      .css-ptiqhd-MuiSvgIcon-root {
+        color: red !important; /* Change to your desired color */
+      }
+    }
+
+    .job-table-empty {
+      background: transparent;
+      flex: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .job-table-view-data-grid {
+        color: #e7f6f2;
+      }
+
+      .job-table-no-data-icon {
+        background: transparent;
+        font-size: 4em;
+        padding: 30px;
+      }
+      .job-table-no-data {
+        background: transparent;
+        font-weight: bold;
+        font-size: larger;
+      }
+    }
+  }
+}

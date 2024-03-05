@@ -1,0 +1,32 @@
+.content{
+    .welcome-content{
+        display: flex;
+        gap: 15vh;
+        .selection{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #395B64;
+            border: 2px solid #A5C9CA;
+            border-radius: 15px;
+            padding: 2vh;
+            min-width: 180px;   
+            color: #E7F6F2;
+            gap: 2vh;
+            font-weight: bold;
+
+            .icon{
+                font-size: 4vh;
+                background: transparent;
+            }
+            font-size: xx-large;
+
+            &:hover{
+                cursor: pointer;
+                color:#395B64;
+                background-color: #E7F6F2;
+            }
+        }
+    }
+}

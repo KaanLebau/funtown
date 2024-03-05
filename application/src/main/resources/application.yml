@@ -1,0 +1,23 @@
+server:
+  port: 8090
+spring:
+  application:
+    name: application
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres_sql:5432/application #postgres_sql
+    username: test
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+application:
+  security:
+    jwt:
+      secret-key: cf3e42fb25c974013a0358098d01cc3f31b9ee25a27d6a24df92ab9c87e4081e
+      expiration: 600000
+      refresh-token:
+        expiration: 864000000

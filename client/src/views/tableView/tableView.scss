@@ -1,0 +1,87 @@
+.table-content {
+  background-color: #395b64;
+  padding: 2vh;
+  border: 1px solid #e7f6f2;
+  border-radius: 15px;
+  color: #e7f6f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1vh;
+
+  h2 {
+    background: transparent;
+    margin-bottom: 2vh;
+  }
+  .accepted {
+    justify-self: flex-end;
+    background: transparent;
+    color: rgb(2, 174, 2);
+    margin-left: 5px;
+  }
+  .rejected {
+    background: transparent;
+    margin-left: 5px;
+    color: red;
+  }
+  .unhandled {
+    background: transparent;
+    color: yellow;
+    margin-left: 5px;
+  }
+  .handle {
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .the-table {
+    background: #395b64;
+    padding: 1vh;
+    border: 1px solid #e7f6f2;
+    border-collapse: collapse;
+    border-radius: 10px;
+    th {
+      background: #395b64;
+      padding: 1.5vh;
+      font-weight: bold;
+      border: 1px solid#E7F6F2;
+      border-collapse: collapse;
+    }
+    .table-row {
+      background-color: #395b64;
+      &:hover {
+        border: 1px solid #395b64;
+        background-color: #e7f6f2;
+        color: #395b64;
+      }
+    }
+    .keys {
+      background: transparent;
+      padding: 1vh;
+      &:hover {
+        background-color: #e7f6f2;
+        color: #395b64;
+      }
+    }
+
+    .keys,
+    .handle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .keys,
+    .position,
+    .fullname {
+      text-align: left;
+    }
+
+    td {
+      background: transparent;
+      padding: 1vh;
+      border: 1px solid#E7F6F2;
+    }
+  }
+}
