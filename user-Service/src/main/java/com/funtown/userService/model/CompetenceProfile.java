@@ -42,7 +42,7 @@ public class CompetenceProfile {
     private Integer competenceId;
 
     @Column(name = "years_of_experience", precision = 4, scale = 2)
-    private BigDecimal yearsOfExperience;
+    private String yearsOfExperience;
 
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
