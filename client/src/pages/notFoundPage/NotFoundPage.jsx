@@ -1,4 +1,22 @@
 import "./notFoundPage.scss";
+
+/**
+ * Notification page component.
+ *
+ * This component displays notifications based on the state received from the location.
+ * It extracts the state from the URL using the useLocation hook provided by react-router-dom
+ * and passes it to the NotificationPresenter component to render the notifications.
+ *
+ * @example
+ * ```jsx
+ * import NotificationPage from './NotificationPage';
+ *
+ * <NotificationPage />
+ *```
+ * @component
+ * @returns {JSX.Element} The rendered notification page.
+ * @author Kaan
+ */
 import { useLocation } from "react-router-dom";
 function NotFoundPage() {
   const location = useLocation();

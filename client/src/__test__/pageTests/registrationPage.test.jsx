@@ -2,15 +2,20 @@ import { render, screen, act } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import RegistrationPage from "../../pages/registerPage/RegistrationPage";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter } from "react-router-dom";
 
-xdescribe("Registration page renders", () => {
+describe("Registration page renders", () => {
   test("componenets correctly", () => {
     render(
       <RecoilRoot>
-        <RegistrationPage />
+        <BrowserRouter>
+          <RegistrationPage />
+        </BrowserRouter>
       </RecoilRoot>
     );
-    expect(screen.getByTestId("head-presenter")).toBeInTheDocument();
-    expect(screen.getByTestId("registration-presenter")).toBeInTheDocument();
+    expect(screen.getByTestId("registration-page")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-page-presenter-wrapper")
+    ).toBeInTheDocument();
   });
 });

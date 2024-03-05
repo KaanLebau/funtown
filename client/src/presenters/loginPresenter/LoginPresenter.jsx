@@ -15,33 +15,8 @@ function LoginPresenter() {
         credential.username,
         credential.password
       );
-      console.log(client);
+      setUser(client);
     } catch (error) {}
-    //TODO eneble this const user = login(credential.username, credential.password);
-    /*
-    if (credential.username === "admin") {
-      setUser({
-        naturalId: "99",
-        firstName: "Admin",
-        lastName: "Admin",
-        username: "admin",
-        email: "admin@funtown.com",
-        pnr: "12342211-4444",
-        role: "recruiter",
-      });
-      navigate("/recruiter");
-    } else {
-      setUser({
-        naturalId: "1",
-        firstName: "Jhon",
-        lastName: "Doe",
-        username: "jhonny",
-        email: "jhon@doe.com",
-        pnr: "12342211-4444",
-        role: "applicant",
-      });
-      navigate("/user");
-    }*/
   }
   return (
     <div data-testid="login-presenter">

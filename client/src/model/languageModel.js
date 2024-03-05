@@ -6,7 +6,7 @@ import { atom, selector } from "recoil";
  * @param {string} key - The key under which the value is stored in localStorage.
  * @returns {Function} A function that acts as the effect handler.
  */
-const localStorageEffect =
+export const localStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);

@@ -15,11 +15,15 @@ import "./welcomePage.scss";
  *
  *
  * @example
+ * ```jsx
  * // Usage of WelcomePage in a higher-level component or route:
  * import WelcomePage from './pages/welcomePage/WelcomePage';
  * <WelcomePage/>
  * // ... other imports
+ *
+ * ```
  * @return {JSX.Element} The JSX for the WelcomePage component
+ * @author Kaan
  */
 
 function WelcomePage() {

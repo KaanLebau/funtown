@@ -6,92 +6,15 @@ export const currentUserState = atom({
     naturalId: "1",
     firstName: "Jhon",
     lastName: "Doe",
-    username: "Johny",
+    username: "Jhonny",
     email: "jhon@doe.com",
-    pnr: "12342211-4444",
+    pnr: "11112233-4444",
     role: "APPLICANT", //"APPLICANT" & "RECRUITER"
     experience: [],
-    availability: [
-      {
-        id: 1,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 2,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 3,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 4,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-    ],
+    availability: [],
   },
 });
-/*
 
-{
-        id: 1,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 21,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "rejected",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 12,
-        from: "2022-02-01",
-        to: "2022-02-11",
-        position: "roller coaster operation",
-        status: "accepted",
-        contact: "Jhon Doe",
-      },
-      {
-        id: 2,
-        from: "2024-03-13",
-        to: "2024-03-21",
-        status: "accepted",
-        position: "ticket sales",
-        contact: "Jhon Doe",
-      },
-      {
-        id: 3,
-        from: "2024-02-13",
-        to: "2024-02-15",
-        status: "accepted",
-        position: "lotteries",
-        contact: "Jhon Doe",
-      },
-
-
-*/
 export const userLoggedIn = atom({
   key: "userLoggedIn",
   default: true,

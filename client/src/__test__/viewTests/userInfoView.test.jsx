@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import UserInfoView from "../../views/userInfoView/UserInfoView";
 
 describe("Head view renders", () => {
-  const user = { name: "Jhon", lastName: "ozsan", username: "KKM" };
+  const user = { firstName: "Jhon", lastName: "ozsan", username: "KKM" };
   test("componenets correctly", () => {
     render(
       <RecoilRoot>

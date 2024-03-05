@@ -12,7 +12,7 @@ function AvailabilityPresenter(props) {
 
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [error, setError] = useState({ state: false, msg: "" });
+  const [error, setError] = useState({ code: null, state: false, msg: "" });
   const [availList, setAvailList] = useState([]);
   const [errMsg] = useState("");
 
@@ -51,33 +51,77 @@ function AvailabilityPresenter(props) {
           contact: "",
         },
       ]);
-      console.log(availList);
-      console.log(availabilityModel.dates);
     } catch (error) {
+      console.log(error.code);
       switch (error.code) {
         case 1:
-          setError({ state: true, msg: language.missingFrom });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingFrom,
+          });
           break;
         case 2:
-          setError({ state: true, msg: language.missingTo });
+          setError({ code: error.code, state: true, msg: language.missingTo });
           break;
         case 3:
-          setError({ state: true, msg: language.missingDate });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingDate,
+          });
           break;
         case 4:
-          setError({ state: true, msg: language.dateOverlap });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.dateOverlap,
+          });
           break;
         default:
           break;
       }
     }
   }
+
   useEffect(() => {
     if (availabilityModel.dates.length === 0) {
       availabilityModel.init(user.availability);
     }
+
+    function updateErrMsg() {
+      switch (error.code) {
+        case 1:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingFrom,
+          });
+          break;
+        case 2:
+          setError({ code: error.code, state: true, msg: language.missingTo });
+          break;
+        case 3:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingDate,
+          });
+          break;
+        case 4:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.dateOverlap,
+          });
+          break;
+        default:
+          break;
+      }
+    }
+
     if (error.state === true) {
-      setError({ state: true, msg: errMsg });
+      updateErrMsg();
     }
   }, [language, errMsg, error.state, user.availability]);
   return (

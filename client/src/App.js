@@ -15,7 +15,7 @@ import { useRecoilValue } from "recoil";
 import { currentUserState } from "./model/userModel";
 import { userLoggedIn } from "./model/userModel";
 import NotificationPage from "./pages/notificationsPage/NotificationPage";
-
+import PersonPresenter from "./presenters/personPresenter/PersonPresenter";
 /**
  * React component for the main App.
  *
@@ -36,7 +36,8 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/registration" element={<RegistrationPage />} />
               <Route path="/notification" element={<NotificationPage />} />
-
+              <Route path="persons" element={<PersonPresenter />} />
+              
               <Route path="/user">
                 <Route
                   index
@@ -52,6 +53,7 @@ function App() {
                     )
                   }
                 />
+            
                 <Route
                   path="dashboard"
                   element={
@@ -83,7 +85,20 @@ function App() {
               </Route>
             </Route>
             <Route path="/recruiter">
-              <Route index element={<RecruiterPage />} />
+              <Route
+                index
+                element={
+                  !isLoggedIn & <LoginPage /> && user.role === "RECRUITER" ? (
+                    <RecruiterPage />
+                  ) : (
+                    <Navigate
+                      to="/notification"
+                      state={{ redirect: "/user/dashboard", code: 401 }}
+                      replace
+                    />
+                  )
+                }
+              />
               <Route
                 path="dashboard"
                 element={
