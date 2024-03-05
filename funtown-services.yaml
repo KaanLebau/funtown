@@ -30,7 +30,7 @@ services:
       - "8090:8090"
 
   user_service:
-    image: rabi97/funtown-user_services:v1.0
+    image: moukhtar99/funtown-user_service:v1.0
     depends_on:
       - "postgres"
     ports:
