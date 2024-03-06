@@ -51,29 +51,29 @@ function LoginPresenter() {
   async function handleLogin(credential) {
     try {
       setLoading(true);
-      /*
+
       const client = await apiModule.authenticate(
         credential.username,
         credential.password
       );
       const decoded = jwtDecode(client.access_token);
-      const username = decoded.sub;
-      const role = decoded.role.slice(1, -1);
-      */
 
-      const auth = await apiModule.getAuth(credential.username);
+      const auth = {
+        username: decoded.sub,
+        role: decoded.role,
+        token: client.access_token,
+      };
 
-      const role = auth.role;
-      if (role === "APPLICANT") {
+      if (auth.role === "APPLICANT") {
         await getApplicantData(auth);
-      } else if (role === "RECRUITER") {
+      } else if (auth.role === "RECRUITER") {
         await getRecruiterData(auth);
       }
 
       setLoggedIn(true);
-      if (role === "APPLICANT") {
+      if (auth.role === "APPLICANT") {
         navigate("/user/dashboard", { replace: true });
-      } else if (role === "RECRUITER") {
+      } else if (auth.role === "RECRUITER") {
         navigate("/recruiter/dashboard", { replace: true });
       }
     } catch (error) {
