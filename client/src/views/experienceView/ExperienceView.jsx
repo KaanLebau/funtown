@@ -48,7 +48,7 @@ import { useRecoilValue } from "recoil";
  * @returns {JSX.Element} The rendered ExperienceView component
  */
 function ExperienceView(props) {
-  console.log(props.dashboard);
+  console.log(props.experience);
   const language = useRecoilValue(languageSelector);
   const positionRef = useRef(null);
   const experienceRef = useRef(null);

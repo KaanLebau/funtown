@@ -1,7 +1,9 @@
 import ExperienceView from "../../views/experienceView/ExperienceView";
 import { useRecoilValue } from "recoil";
 import { experienceOptions, positionOptions } from "../../model/businessModel";
-import { useState } from "react";
+import { experienceSelectorState } from "../../model/userModel";
+import { useRecoilState } from "recoil";
+import { useEffect, useState } from "react";
 
 /**
  * Presenter component for managing user experience data and rendering the ExperienceView.
@@ -18,12 +20,19 @@ import { useState } from "react";
 function ExperiencePresenter(props) {
   const experienceOption = useRecoilValue(experienceOptions);
   const positions = useRecoilValue(positionOptions);
-  const [experience, setExperience] = useState(props.experience);
-  const [editStates, setEditStates] = useState(
-    Array(experience.length).fill(false)
+
+  const [experience, setExperience] = useState([]);
+  const [experienceSelector, setExperienceSelector] = useRecoilState(
+    experienceSelectorState
   );
+  const [editStates, setEditStates] = useState(
+    Array(experienceSelector.length).fill(false)
+  );
+
+  const [newData, setNewData] = useState(false);
   function apiCall() {
     console.log("implement api call ");
+    setExperienceSelector(experience);
   }
 
   function handleAdd(exp) {
@@ -31,7 +40,9 @@ function ExperiencePresenter(props) {
       ...experience,
       { position: exp.position, experience: exp.experience },
     ]);
+
     setEditStates([...editStates, false]);
+    setNewData(!newData);
     apiCall();
   }
   function selectExperience(index) {
@@ -49,11 +60,16 @@ function ExperiencePresenter(props) {
     apiCall();
   }
   function handleRemove(indexToRemove) {
-    setExperience((prevExperience) =>
-      prevExperience.filter((_, index) => index !== indexToRemove)
-    );
-    props.updateList(experience);
+    let removedList = experience.filter((_, index) => index !== indexToRemove);
+    setExperience(removedList);
+    setExperienceSelector(experience);
+    setNewData(!newData);
   }
+  useEffect(() => {
+    if (!newData) {
+      setExperience(experienceSelector);
+    }
+  }, [experience, newData]);
 
   return (
     <ExperienceView

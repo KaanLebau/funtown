@@ -59,7 +59,8 @@ function UserDashboardPresenter(props) {
         <div className="right-bottom">
           <JobTabelPresenter
             data-testid="job-tabel-component"
-            user={props.user}
+            role={props.user.role}
+            data={props.user.availability}
           />
         </div>
       </div>

@@ -32,7 +32,6 @@ function AvailabilityPresenter(props) {
   function handleRemove(indexToRemove) {
     let removedList = availList.filter((_, index) => index !== indexToRemove);
     setAvailList(removedList);
-    console.log(indexToRemove);
   }
   function handleAdd() {
     try {

@@ -6,8 +6,35 @@
  */
 
 import axios from "axios";
+import {
+  getUserByUsernameMock,
+  getByApplicationIdMock,
+  getAllApplicationsMock,
+  getExperienceByUsernameMock,
+  getAvailabilityByUsernameMock,
+  getAuthByUsername,
+} from "./mockapi";
 
 const API_URL = "http://localhost:5000/api/v1/auth"; // Your API endpoint
+
+/**
+ * Function to create an Axios instance with authorization headers.
+ *
+ * @param {object} currentUser - The current user state containing the token.
+ * @returns {AxiosInstance} An Axios instance with the authorization header set.
+ */
+const axiosWithAuth = (currentUser) => {
+  const token = currentUser?.token;
+  const instance = axios.create({
+    baseURL: API_URL,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+
+  return instance;
+};
 
 /**
  * Makes a request to the backend API to authenticate a user.
@@ -77,9 +104,9 @@ async function registration(username, password) {
  * @returns {Promise<any>} A promise that resolves to the response data containing all applications.
  * @throws {Error} If an error occurs during the request process.
  */
-async function getAllApplications() {
+async function getAllApplications(token) {
   try {
-    const response = await axios.get(`${API_URL}/applications`);
+    const response = await getAllApplicationsMock(token);
     return response.data;
   } catch (error) {
     console.error("An error occurred while fetching applications:", error);
@@ -87,6 +114,59 @@ async function getAllApplications() {
   }
 }
 
-const apiModule = { authenticate, registration, getAllApplications };
+async function getUserExperience(token, username) {
+  try {
+    const response = await getExperienceByUsernameMock(token, username);
+    return response;
+  } catch (error) {
+    console.error("An error occurred while fetching user experience:", error);
+    throw error;
+  }
+}
 
+async function getUserAvailability(token, username) {
+  try {
+    const response = await getAvailabilityByUsernameMock(token, username);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getByApplicationId(token, applicationId) {
+  try {
+    const response = await getByApplicationIdMock(token, applicationId);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAuth(username) {
+  try {
+    const response = await getAuthByUsername(username);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getUserByUsername(token, username) {
+  try {
+    const response = await getUserByUsernameMock(token, username);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+}
+const apiModule = {
+  authenticate,
+  registration,
+  getAllApplications,
+  getUserExperience,
+  getUserAvailability,
+  getByApplicationId,
+  getUserByUsername,
+  getAuth,
+};
 export default apiModule;

@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import apiModule from "../integration/funtownApi";
 
 /**
  * Effect for managing a Recoil state value in localStorage.
@@ -17,56 +18,35 @@ export const localStorageEffect =
       localStorage.setItem(key, JSON.stringify(newValue));
     });
   };
+const fetchUserExperience = async (token, username) => {
+  try {
+    const experienceData = await apiModule.getUserExperience(token, username); // Call your API function to fetch experience data
+    return experienceData;
+  } catch (error) {
+    console.error("Failed to fetch user experience:", error);
+    return [];
+  }
+};
+
 export const currentUserState = atom({
   key: "currentUserState",
   default: {
-    naturalId: "1",
-    firstName: "Jhon",
-    lastName: "Doe",
-    username: "Jhonny",
-    email: "jhon@doe.com",
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
     pnr: "",
-    role: "RECRUITER", //"APPLICANT" & "RECRUITER"
+    role: "", //"APPLICANT" & "RECRUITER"
+    token: "",
     experience: [],
-    availability: [
-      {
-        id: 1,
-        firstname: "Ariel",
-        lastname: "Aldhouse",
-        status: "unhandled",
-        position: "ticket sales",
-        from: "2023-12-19",
-        to: "2023-11-27",
-        competence: "0 -> 1 year",
-      },
-      {
-        id: 2,
-        firstname: "Kori",
-        lastname: "Renyard",
-        status: "accepted",
-        position: "ticket sales",
-        from: "2023-09-27",
-        to: "2024-01-05",
-        competence: "0 -> 1 year",
-      },
-      {
-        id: 3,
-        firstname: "Hayward",
-        lastname: "Tease",
-        status: "accepted",
-        position: "ticket sales",
-        from: "2023-03-06",
-        to: "2023-05-16",
-        competence: "2.1 -> 3",
-      },
-    ],
+    availability: [],
   },
   effects: [localStorageEffect("currentUserState")],
 });
 
 export const userLoggedIn = atom({
   key: "userLoggedIn",
-  default: true,
+  default: false,
 });
 
 export const availabilitySelectorState = selector({

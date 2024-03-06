@@ -1,8 +1,11 @@
 import "./jobApplicationPresenter.scss";
 import { useState } from "react";
 import ExperiencePresenter from "../experiencePresenter/ExperiencePresenter";
-import { useRecoilValue } from "recoil";
-import { experienceSelectorState } from "../../model/userModel";
+import { useRecoilValue, RecoilState } from "recoil";
+import {
+  experienceSelectorState,
+  currentUserState,
+} from "../../model/userModel";
 import AvailabilityPresenter from "../availabilityPresenter/AvailabilityPresenter";
 import { languageSelector } from "../../model/languageModel";
 import { useNavigate } from "react-router-dom";
@@ -16,6 +19,7 @@ function JobApplicationPresenter(props) {
   const navigate = useNavigate();
   const language = useRecoilValue(languageSelector);
   const experience = useRecoilValue(experienceSelectorState);
+  const user = useRecoilValue(currentUserState);
   const [availList, setAvailList] = useState([]);
   const [experienceList, setExperienceList] = useState(experience);
 
@@ -42,7 +46,7 @@ function JobApplicationPresenter(props) {
       </div>
       <div className="lists">
         <ExperiencePresenter
-          experience={experienceList}
+          experience={user.experience}
           updateList={setExperienceList}
           dashboard={false}
         />

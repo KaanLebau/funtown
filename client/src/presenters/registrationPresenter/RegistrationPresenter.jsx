@@ -28,6 +28,7 @@ function RegistrationPresenter() {
         email: input.email,
         pnr: input.pnr,
         password: input.password,
+        token: client.access_token,
         role: role,
       });
       setLoggedIn(true);

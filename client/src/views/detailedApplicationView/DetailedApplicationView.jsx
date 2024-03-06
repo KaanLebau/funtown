@@ -275,7 +275,9 @@ function DetailedApplicationView(props) {
                     {language.name}:
                   </p>
                   <p data-testid="person-info-name" className="name">
-                    {props.application.fullName}
+                    {props.application.firstName +
+                      " " +
+                      props.application.lastName}
                   </p>
                   <hr />
 
@@ -338,34 +340,40 @@ function DetailedApplicationView(props) {
         </div>
       </div>
       <div className="detailed-application-view-bottom">
-        {props.editing ? (
-          <div
-            data-testid="detailed-application-view-bottom-controller"
-            className="detailed-application-view-bottom-controller"
-          >
-            <button
-              data-testid="detailed-application-view-bottom-button-edit"
-              onClick={props.edit}
+        {props.application &&
+          (props.editing ? (
+            <div
+              data-testid="detailed-application-view-bottom-controller"
+              className="detailed-application-view-bottom-controller"
             >
-              {language.applicantUpdate}
-            </button>
-            <button
-              data-testid="detailed-application-view-bottom-button-edit"
-              onClick={props.edit}
-            >
-              {language.cancel}
-            </button>
-          </div>
-        ) : (
-          <div className="detailed-application-view-bottom-controller">
-            <button
-              data-testid="detailed-application-view-bottom-button-edit"
-              onClick={props.edit}
-            >
-              {language.applicantHandle}
-            </button>
-          </div>
-        )}
+              <button
+                data-testid="detailed-application-view-bottom-button-edit"
+                onClick={() => {
+                  props.updateStatus({
+                    position: positionRef.current.value,
+                    status: statusRef.current.value,
+                  });
+                }}
+              >
+                {language.applicantUpdate}
+              </button>
+              <button
+                data-testid="detailed-application-view-bottom-button-edit"
+                onClick={props.edit}
+              >
+                {language.cancel}
+              </button>
+            </div>
+          ) : (
+            <div className="detailed-application-view-bottom-controller">
+              <button
+                data-testid="detailed-application-view-bottom-button-edit"
+                onClick={props.edit}
+              >
+                {language.applicantHandle}
+              </button>
+            </div>
+          ))}
       </div>
     </div>
   );
