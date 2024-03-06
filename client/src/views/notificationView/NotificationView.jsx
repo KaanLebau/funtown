@@ -6,6 +6,7 @@ import {
   FaCalendarCheck,
   FaClipboardCheck,
 } from "react-icons/fa";
+import { LuServerCrash } from "react-icons/lu";
 
 function NotificationView(props) {
   function selectIcon(icon) {
@@ -34,6 +35,13 @@ function NotificationView(props) {
       case "updated":
         return (
           <FaClipboardCheck
+            data-testid="notification-icon-updated"
+            className="notification-icon"
+          />
+        );
+      case "server":
+        return (
+          <LuServerCrash
             data-testid="notification-icon-updated"
             className="notification-icon"
           />

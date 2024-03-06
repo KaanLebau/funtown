@@ -4,6 +4,7 @@ import {
   MdLanguage,
   MdOutlinePlaylistAdd,
   MdOutlinePlaylistAddCheck,
+  MdOutlineLogout,
 } from "react-icons/md";
 import { AiOutlineSchedule } from "react-icons/ai";
 import {
@@ -76,6 +77,21 @@ const HeadView = (props) => {
                     />
                     {props.language.schedule}
                   </div>
+                  <div
+                    data-testid="user-application-element"
+                    id="/"
+                    className="user-controller-element"
+                    title={props.language.logout}
+                    onClick={(e) => {
+                      props.props.logout();
+                    }}
+                  >
+                    <MdOutlineLogout
+                      data-testid="user-application-icon"
+                      className="elem-icon"
+                    />{" "}
+                    {props.language.logout}
+                  </div>
                 </>
               ) : (
                 <>
@@ -106,6 +122,21 @@ const HeadView = (props) => {
                       className="elem-icon"
                     />{" "}
                     {props.language.applicationForm}
+                  </div>
+                  <div
+                    data-testid="user-application-element"
+                    id="/"
+                    className="user-controller-element"
+                    title={props.language.logout}
+                    onClick={(e) => {
+                      props.logout();
+                    }}
+                  >
+                    <MdOutlineLogout
+                      data-testid="user-application-icon"
+                      className="elem-icon"
+                    />{" "}
+                    {props.language.logout}
                   </div>
                 </>
               )}

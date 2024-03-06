@@ -1,9 +1,13 @@
 import ExperienceView from "../../views/experienceView/ExperienceView";
 import { useRecoilValue } from "recoil";
 import { experienceOptions, positionOptions } from "../../model/businessModel";
-import { experienceSelectorState } from "../../model/userModel";
+import {
+  experienceSelectorState,
+  jwtTokenSelector,
+} from "../../model/userModel";
 import { useRecoilState } from "recoil";
 import { useEffect, useState } from "react";
+import apiModule from "../../integration/funtownApi";
 
 /**
  * Presenter component for managing user experience data and rendering the ExperienceView.
@@ -20,6 +24,7 @@ import { useEffect, useState } from "react";
 function ExperiencePresenter(props) {
   const experienceOption = useRecoilValue(experienceOptions);
   const positions = useRecoilValue(positionOptions);
+  const token = useRecoilValue(jwtTokenSelector);
 
   const [experience, setExperience] = useState([]);
   const [experienceSelector, setExperienceSelector] = useRecoilState(
@@ -29,20 +34,20 @@ function ExperiencePresenter(props) {
     Array(experienceSelector.length).fill(false)
   );
 
-  const [newData, setNewData] = useState(false);
-  function apiCall() {
-    console.log("implement api call ");
+  async function apiCall() {
     setExperienceSelector(experience);
+    apiModule.updateUserExperience(token, experienceSelector);
   }
 
   function handleAdd(exp) {
-    setExperience([
+    const updatedExperience = [
       ...experience,
       { position: exp.position, experience: exp.experience },
-    ]);
-
+    ];
+    setExperience(updatedExperience);
+    setExperienceSelector(updatedExperience);
     setEditStates([...editStates, false]);
-    setNewData(!newData);
+
     apiCall();
   }
   function selectExperience(index) {
@@ -56,20 +61,27 @@ function ExperiencePresenter(props) {
     const updatedExperienceList = experience.map((exp, index) =>
       index === data.index ? data.updated : exp
     );
+
     setExperience(updatedExperienceList);
+
+    setExperienceSelector(updatedExperienceList);
+
     apiCall();
   }
   function handleRemove(indexToRemove) {
     let removedList = experience.filter((_, index) => index !== indexToRemove);
     setExperience(removedList);
-    setExperienceSelector(experience);
-    setNewData(!newData);
+    setExperienceSelector(removedList);
+
+    apiCall();
   }
   useEffect(() => {
-    if (!newData) {
-      setExperience(experienceSelector);
-    }
-  }, [experience, newData]);
+    setExperience(experienceSelector);
+  }, []);
+
+  useEffect(() => {
+    setExperienceSelector(experience);
+  }, [experience]);
 
   return (
     <ExperienceView

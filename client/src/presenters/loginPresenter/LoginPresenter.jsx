@@ -62,11 +62,12 @@ function LoginPresenter() {
       */
 
       const auth = await apiModule.getAuth(credential.username);
+
       const role = auth.role;
       if (role === "APPLICANT") {
-        getApplicantData(auth);
+        await getApplicantData(auth);
       } else if (role === "RECRUITER") {
-        getRecruiterData(auth);
+        await getRecruiterData(auth);
       }
 
       setLoggedIn(true);

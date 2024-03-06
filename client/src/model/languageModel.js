@@ -80,6 +80,7 @@ export const languageSelector = selector({
       en: {
         //page relaterade information
         login: "login",
+        logout: "Logout",
         Login: "Login",
         Register: "Register",
         register: "register",
@@ -171,6 +172,8 @@ export const languageSelector = selector({
         appliedDesc: "Your available periods are registered",
         competence: "Competencies sent",
         competenceDesc: "Your competencies matrix is updated",
+        server: "Server error",
+        serverDesc: "Server is not responding, please try again later",
         //detailed aplicant related
         detailedAplicantTitle: "Detailed applicant information",
         noData: "No information available",
@@ -182,6 +185,7 @@ export const languageSelector = selector({
       swe: {
         //page relaterade information
         login: "logga in",
+        logout: "Logga ut",
         Login: "Logga in",
         Register: "Registrera",
         register: "registrera",
@@ -275,6 +279,8 @@ export const languageSelector = selector({
         appliedDesc: "Dina lediga perioder registreras",
         competence: "Kompetenser skickas",
         competenceDesc: "Din kompetensmatris är uppdaterad",
+        server: "Server Fel",
+        serverDesc: "Anslutning till servern misslyckades",
         //detailed aplicant related
         detailedAplicantTitle: "Detalierade ansökare information",
         noData: "Ingen information tillgänglig",

@@ -47,6 +47,7 @@ export const currentUserState = atom({
 export const userLoggedIn = atom({
   key: "userLoggedIn",
   default: false,
+  effects: [localStorageEffect("userLoggedIn")],
 });
 
 export const availabilitySelectorState = selector({
@@ -71,6 +72,11 @@ export const availabilitySelectorState = selector({
     newState.availability = newValue;
     set(currentUserState, newState);
   },
+});
+
+export const jwtTokenSelector = selector({
+  key: "jwtTokenSelector",
+  get: ({ get }) => get(currentUserState).token,
 });
 
 export const experienceSelectorState = selector({

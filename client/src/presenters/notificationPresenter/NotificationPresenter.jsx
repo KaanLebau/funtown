@@ -49,6 +49,16 @@ function NotificationPresenter(props) {
         redirectPath: props.redirect,
       };
       break;
+    case 503:
+      information = {
+        icon: "server",
+        code: props.code,
+        msg: language.server,
+        desc: language.serverDesc,
+        redirect: language.redirect,
+        redirectPath: props.redirect,
+      };
+      break;
     default:
       information = {
         icon: "",

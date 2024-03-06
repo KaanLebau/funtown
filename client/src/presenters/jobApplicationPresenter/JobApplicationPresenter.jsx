@@ -1,7 +1,7 @@
 import "./jobApplicationPresenter.scss";
 import { useState } from "react";
 import ExperiencePresenter from "../experiencePresenter/ExperiencePresenter";
-import { useRecoilValue, RecoilState } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import {
   experienceSelectorState,
   currentUserState,
@@ -9,6 +9,7 @@ import {
 import AvailabilityPresenter from "../availabilityPresenter/AvailabilityPresenter";
 import { languageSelector } from "../../model/languageModel";
 import { useNavigate } from "react-router-dom";
+import apiModule from "../../integration/funtownApi";
 
 /**
  *
@@ -19,21 +20,35 @@ function JobApplicationPresenter(props) {
   const navigate = useNavigate();
   const language = useRecoilValue(languageSelector);
   const experience = useRecoilValue(experienceSelectorState);
-  const user = useRecoilValue(currentUserState);
+  const [user, setUser] = useRecoilState(currentUserState);
   const [availList, setAvailList] = useState([]);
   const [experienceList, setExperienceList] = useState(experience);
+  const [req, setReq] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   function handleCancel() {
-    console.log("cancel");
     navigate("/user/dashboard", { replace: true });
   }
-  function handleApply() {
-    console.log("apply");
-
-    navigate("/notification", {
-      replace: true,
-      state: { redirect: "/user/dashboard", code: 211 },
-    });
+  async function handleApply() {
+    setLoading(true);
+    try {
+      await apiModule.updateUserAvailability(user.token, req);
+      navigate("/notification", {
+        replace: true,
+        state: { redirect: "/user/dashboard", code: 211 },
+      });
+    } catch (error) {
+      console.log(error.message);
+      navigate("/notification", {
+        replace: true,
+        state: { redirect: "/user/application", code: 503 },
+      });
+    } finally {
+      setLoading(false);
+    }
+  }
+  function handleUpdate(list) {
+    setReq(list);
   }
 
   return (
@@ -53,6 +68,8 @@ function JobApplicationPresenter(props) {
         <AvailabilityPresenter
           availList={availList}
           setAvailList={setAvailList}
+          updateList={handleUpdate}
+          loading={loading}
         />
       </div>
       <div className="buttons">

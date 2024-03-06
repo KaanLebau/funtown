@@ -9,7 +9,6 @@ import { currentUserState } from "../../model/userModel";
 function AvailabilityPresenter(props) {
   const user = useRecoilValue(currentUserState);
   const language = useRecoilValue(languageSelector);
-
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
   const [error, setError] = useState({ code: null, state: false, msg: "" });
@@ -29,29 +28,28 @@ function AvailabilityPresenter(props) {
         break;
     }
   }
+  function updateAvailabilityList() {
+    props.updateList(availList);
+  }
   function handleRemove(indexToRemove) {
     let removedList = availList.filter((_, index) => index !== indexToRemove);
     setAvailList(removedList);
   }
   function handleAdd() {
     try {
-      availabilityModel.add({
+      const newItem = {
         from: fromDate,
         to: toDate,
         status: "unhandled",
         position: "",
         contact: "",
+      };
+      availabilityModel.add(newItem);
+      setAvailList((prevList) => {
+        const updatedList = [...prevList, newItem];
+        return updatedList;
       });
-      setAvailList([
-        ...availList,
-        {
-          from: fromDate,
-          to: toDate,
-          status: "unhandled",
-          position: "",
-          contact: "",
-        },
-      ]);
+      updateAvailabilityList();
     } catch (error) {
       switch (error.code) {
         case 1:
@@ -83,12 +81,11 @@ function AvailabilityPresenter(props) {
       }
     }
   }
+  useEffect(() => {
+    availabilityModel.init(user.availability);
+  }, []);
 
   useEffect(() => {
-    if (availabilityModel.dates.length === 0) {
-      availabilityModel.init(user.availability);
-    }
-
     function updateErrMsg() {
       switch (error.code) {
         case 1:
@@ -123,7 +120,8 @@ function AvailabilityPresenter(props) {
     if (error.state === true) {
       updateErrMsg();
     }
-  }, [language, errMsg, error.state, user.availability]);
+    props.updateList(availList);
+  }, [language, errMsg, error.state, availList]);
   return (
     <AvailabilityView
       availabilityList={availList}
