@@ -20,16 +20,16 @@ public class AvailabilityController {
    private final AvailabilityService service;
 
    @GetMapping("/username/{username}") // both
-   public ResponseEntity<List<Availability>> getApplicantAvailabilityList(@PathVariable String userName ){
+   public ResponseEntity<List<Availability>> getApplicantAvailabilityList(@PathVariable String username ){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       List<String> roles = auth.getAuthorities().stream()
               .map(Object::toString)
               .toList();
-      if(roles.contains("ROLE_APPLICANT") && !auth.getPrincipal().toString().equals(userName)){
+      if(roles.contains("ROLE_APPLICANT") && !auth.getPrincipal().toString().equals(username)){
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
       try{
-         return ResponseEntity.ok(service.findByUsername(userName));
+         return ResponseEntity.ok(service.findByUsername(username));
       } catch (Exception e){
          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
       }
