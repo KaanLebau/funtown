@@ -7,7 +7,7 @@
 
 import axios from "axios";
 
-const API_URL = "http://localhost:8080/auth-service/api/v1/auth"; // Your API endpoint
+const API_URL = "http://localhost:8765/api/v1/auth"; // Your API endpoint
 
 /**
  * Makes a request to the backend API to authenticate a user.

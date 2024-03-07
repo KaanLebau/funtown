@@ -1,4 +1,4 @@
-package com.telusko.apigateway;
+package com.funtown.apigateway;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     url: jdbc:postgresql://localhost/auth_service
-    username: newuser
+    username: test # newuser
     password: password
     driver-class-name: org.postgresql.Driver
 

@@ -8,19 +8,6 @@ spring:
       discovery:
         locator:
           enabled: true
-      #globalcors:
-        #add-to-simple-url-handler-mapping: true
-        #cors-configurations:
-          #'[/**]':
-            #allowedOrigins: "*"
-            #allowedMethods:
-              #- GET
-              #- POST
-              #- DELETE
-              #- PUT
-            #allowedHeaders: '*' # back to it
-            #allowCredentials: true
-            #maxAge: 30
       routes:
         - id: application
           uri: http://localhost:8090
