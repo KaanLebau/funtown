@@ -30,16 +30,10 @@ public class Availability {
     private Integer id;
 
     /**
-     * The identifier of the person associated with this availability.
-     */
-    @Column(nullable = false)
-    private Integer personId;
-
-    /**
      * The username of the person associated with this availability.
      */
     @Column(nullable = true)
-    private String userName;
+    private String username;
 
     /**
      * The start date of the availability period.
@@ -69,5 +63,5 @@ public class Availability {
     /**
      * The job position role once the availability is accepted.
      */
-    private String role;
+    private String position;
 }

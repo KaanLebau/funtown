@@ -13,8 +13,8 @@ import java.util.List;
 public class AvailabilityServiceImpl implements AvailabilityService {
     private final AvailabilityRepository repository;
     @Override
-    public List<Availability> findByUserName(String userName) throws Exception {
-        return repository.findByUserName(userName)
+    public List<Availability> findByUsername(String userName) throws Exception {
+        return repository.findByUsername(userName)
                 .orElseThrow(()-> new Exception("no availability with this person id exists")
                 );
     }

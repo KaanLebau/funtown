@@ -6,7 +6,7 @@ import com.funtown.application.model.api.UpdateStatusRequest;
 import java.util.List;
 
 public interface AvailabilityService {
-    List<Availability> findByUserName(String userName) throws Exception;
+    List<Availability> findByUsername(String username) throws Exception;
     Availability findById(Integer id) throws Exception;
     List<Availability> findAll();
     Availability save(Availability availability) throws Exception;

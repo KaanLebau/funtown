@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,27 +20,6 @@ import java.util.List;
 public class AvailabilityController {
    private final AvailabilityService service;
 
-   @GetMapping("/rec")
-   @Secured("ROLE_RECRUITER")
-   public List<String> adminOnlyEndpoint() {
-      // This endpoint is accessible only to users with the 'ADMIN' role
-      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-      List<String> roles = auth.getAuthorities().stream()
-              .map(Object::toString)
-              .toList();
-
-      String princ = auth.getPrincipal().toString();
-      System.out.println("ENDPOINT principal: " + princ);
-      return roles;
-   }
-
-   @GetMapping("/apply")
-   @PreAuthorize("hasRole('APPLICANT')")
-   public String applicantOnlyEndpoint() {
-      // This endpoint is accessible only to users with the 'ADMIN' role
-      return "Welcome, Applicant!";
-   }
    @GetMapping("/get-by-username/{username}") // both
    public ResponseEntity<List<Availability>> getByPersonId(@PathVariable("username") String userName ){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -52,7 +30,7 @@ public class AvailabilityController {
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
       try{
-         return ResponseEntity.ok(service.findByUserName(userName));
+         return ResponseEntity.ok(service.findByUsername(userName));
       } catch (Exception e){
          return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
       }
@@ -78,7 +56,7 @@ public class AvailabilityController {
    @ResponseStatus(HttpStatus.CREATED)
    public ResponseEntity<Availability> create(@RequestBody Availability availability){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      if(!auth.getPrincipal().toString().equals(availability.getUserName())) {
+      if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
       try {
