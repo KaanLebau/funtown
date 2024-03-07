@@ -14,14 +14,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface PersonRepository extends JpaRepository<Person, Integer> {
+public interface PersonRepository extends JpaRepository<Person, Long> {
     /**
      * Retrieve a list of persons with the specified name.
      *
      * @param firstName The name to search for.
      * @return A list of Person entities with the given name.
      */
-    List<Person> findByName(String firstName, String lastName);
+    List<Person> findByFirstName(String firstName);
 
     /**
      * Retrieve a Person entity with the specified email.

@@ -1,5 +1,4 @@
 package com.funtown.userService.service.impl;
-
 import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;

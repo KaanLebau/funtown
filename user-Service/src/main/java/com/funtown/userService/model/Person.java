@@ -1,6 +1,4 @@
 package com.funtown.userService.model;
-
-import com.funtown.userService.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

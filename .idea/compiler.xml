@@ -10,17 +10,21 @@
         <module name="api-gateway" />
         <module name="user-Service" />
         <module name="auth-services" />
-        <module name="application" />
+        <module name="availability-service" />
         <module name="gateway" />
         <module name="service-registry" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="application" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
       <module name="application" options="-parameters" />
       <module name="auth-services" options="-parameters" />
+      <module name="availability-service" options="-parameters" />
       <module name="gateway" options="-parameters" />
       <module name="service-registry" options="-parameters" />
       <module name="user-Service" options="-parameters" />
