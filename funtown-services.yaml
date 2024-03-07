@@ -23,14 +23,14 @@ services:
      # - 3000:3000
 
   application:
-    image: moukhtar99/funtown-application:v1.0
+    image: rabi97/funtown-app_services:v1.1
     depends_on:
       - "postgres"
     ports:
       - "8090:8090"
 
   user_service:
-    image: moukhtar99/funtown-user_service:v1.0
+    image: rabi97/funtown-user_services:v1.0
     depends_on:
       - "postgres"
     ports:
@@ -42,5 +42,14 @@ services:
       - "postgres"
     ports:
       - "5000:5000"
+
+  gateway:
+    image: rabi97/funtown-gateway:v2.3
+    depends_on:
+      - "application"
+      - "auth_services"
+      - "user_service"
+    ports:
+      - "8080:8080"
 
 #start using sudo docker-compose -f funtown-services.yaml up

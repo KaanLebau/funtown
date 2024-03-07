@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  * It provides endpoints for retrieving a competence by ID and for saving a new competence.
  */
 @RestController
-@RequestMapping("/api/compotence") // Note: Check if the URL should be "/api/competence" for consistency.
+@RequestMapping("/api/competence") // Note: Check if the URL should be "/api/competence" for consistency.
 @RequiredArgsConstructor
 public class CompetenceController {
     private final CompetenceService service;

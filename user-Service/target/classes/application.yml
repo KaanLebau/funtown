@@ -9,8 +9,6 @@ spring:
     driver-class-name: org.postgresql.Driver
 
   jpa:
-    application:
-      name: user-service
     hibernate:
       ddl-auto: create-drop
     show-sql: true
@@ -20,6 +18,8 @@ spring:
         database: postgresql
         database-platform: org.hibernate.dialect.PostgreSQLDialect
     defer-datasource-initialization: true
+  application:
+    name: user-service
   sql:
     init:
       mode: always
