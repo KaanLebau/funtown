@@ -38,23 +38,16 @@ public class Person {
     private Integer id;
 
     @Column(length = 255, nullable = true)
-    private String name;
+    private String firstName;
 
     @Column(length = 255, nullable = true)
-    private String surname;
+    private String lastName;
 
     @Column(length = 255, nullable = true, unique = true)
     private String pnr;
 
     @Column(length = 255, nullable = true, unique = true)
     private String email;
-
-    @Column(length = 255, nullable = true)
-    private String password;
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
 
     @Column(length = 255, nullable = true)
     private String username;

@@ -36,20 +36,16 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Person person = personRepository.findByUsername(username);
+        Optional<Person> personOptional = personRepository.findByUsername(username);
 
-        // check if person doesn't exist or username/password are null
-        if (person == null || person.getUsername() == null || person.getPassword() == null) {
+        if (personOptional.isEmpty()) {
             throw new UsernameNotFoundException("Not found: " + username);
         }
 
-        // use the role of the actual person
-        return User.withUsername(person.getUsername())
-                .password(person.getPassword())
-                .roles(person.getRole().name())
+        // build UserDetails without password
+        return User.withUsername(personOptional.get().getUsername())
                 .build();
     }
-
     /**
      * Retrieves all persons stored in the database.
      *
@@ -120,7 +116,8 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
         Optional<Person> person = personRepository.findById(id);
         if (person.isPresent()) {
             Person existingPerson = person.get();
-            existingPerson.setName(personDetails.getName());
+            existingPerson.setFirstName(personDetails.getFirstName());
+            existingPerson.setLastName(personDetails.getLastName());
             existingPerson.setEmail(personDetails.getEmail());
             existingPerson.setPnr(personDetails.getPnr());
             existingPerson.setUsername(personDetails.getUsername());
