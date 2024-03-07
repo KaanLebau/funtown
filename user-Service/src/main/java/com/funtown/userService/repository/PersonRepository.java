@@ -18,10 +18,10 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
     /**
      * Retrieve a list of persons with the specified name.
      *
-     * @param name The name to search for.
+     * @param firstName The name to search for.
      * @return A list of Person entities with the given name.
      */
-    List<Person> findByName(String name);
+    List<Person> findByName(String firstName, String lastName);
 
     /**
      * Retrieve a Person entity with the specified email.
@@ -44,6 +44,6 @@ public interface PersonRepository extends JpaRepository<Person, Integer> {
      * @param username The username of the person to find.
      * @return An {@link Optional} containing the found {@link Person} entity with the given username, if found.
      */
-    Person findByUsername(String username);
+    Optional<Person> findByUsername(String username);
 
 }

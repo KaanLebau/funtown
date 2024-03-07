@@ -2,6 +2,7 @@ package com.funtown.userService.service;
 
 import com.funtown.userService.model.Competence;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -10,5 +11,12 @@ import java.util.Optional;
  */
 public interface CompetenceService {
     Competence getById(Integer id) throws Exception;
+
+    /**
+     * Retrieves a list of all competences from the CompetenceRepository.
+     *
+     * @return a List of Competence objects representing all competences in the system.
+     */
+    List<Competence> getall();
     void saveCompetence(Competence competence);
 }
