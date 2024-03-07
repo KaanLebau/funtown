@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * The CompetenceController class handles HTTP requests for operations related to Competence entities.
  * It provides endpoints for retrieving a competence by ID and for saving a new competence.
@@ -42,5 +44,10 @@ public class CompetenceController {
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody Competence competence) {
         service.saveCompetence(competence);
+    }
+    @GetMapping("/competencelist")
+    public List<Competence> getCompetenceList(){
+        List<Competence> list = null;
+        return list;
     }
 }
