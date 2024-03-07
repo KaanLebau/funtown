@@ -10,7 +10,7 @@ const navigate = jest.fn();
 beforeEach(() => {
   jest.spyOn(router, "useNavigate").mockImplementation(() => navigate);
 });
-xdescribe("Welcome page renders", () => {
+describe("Welcome page renders", () => {
   test("aternatives correctly", () => {
     render(
       <BrowserRouter>
@@ -33,16 +33,6 @@ xdescribe("Welcome page renders", () => {
     );
     expect(screen.getByTitle("To login")).toBeInTheDocument();
     expect(screen.getByTitle("To registration")).toBeInTheDocument();
-  });
-  test("components correctly", () => {
-    render(
-      <BrowserRouter>
-        <RecoilRoot>
-          <WelcomePage />
-        </RecoilRoot>
-      </BrowserRouter>
-    );
-    expect(screen.getByTestId("head-presenter")).toBeInTheDocument();
   });
 
   test("login routes correctly", async () => {

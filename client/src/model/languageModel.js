@@ -6,7 +6,7 @@ import { atom, selector } from "recoil";
  * @param {string} key - The key under which the value is stored in localStorage.
  * @returns {Function} A function that acts as the effect handler.
  */
-const localStorageEffect =
+export const localStorageEffect =
   (key) =>
   ({ setSelf, onSet }) => {
     const savedValue = localStorage.getItem(key);
@@ -80,6 +80,7 @@ export const languageSelector = selector({
       en: {
         //page relaterade information
         login: "login",
+        logout: "Logout",
         Login: "Login",
         Register: "Register",
         register: "register",
@@ -95,8 +96,8 @@ export const languageSelector = selector({
         nextMonth: "Next month",
         previousMonth: "Previous month",
         //tabel Component
-        from: "Från",
-        to: "Till",
+        from: "From",
+        to: "To",
         status: "Status",
         contact: "Kontakt",
         position: "Befattning",
@@ -132,6 +133,9 @@ export const languageSelector = selector({
         apply: "Apply",
         back: "Back",
         update: "Update",
+        loading: "Loading",
+        applicantHandle: "Handle application",
+        applicantUpdate: "Update application",
         addExperience: "Add experience",
         updateExperience: "Update experience",
         editExperience: "Edit experience",
@@ -168,10 +172,20 @@ export const languageSelector = selector({
         appliedDesc: "Your available periods are registered",
         competence: "Competencies sent",
         competenceDesc: "Your competencies matrix is updated",
+        server: "Server error",
+        serverDesc: "Server is not responding, please try again later",
+        //detailed aplicant related
+        detailedAplicantTitle: "Detailed applicant information",
+        noData: "No information available",
+        acceptedPosition: "Accepted Position",
+        contactPerson: "Contact person",
+        noExperinece: "No experience registred",
+        applicantExperience: "Applicant experience",
       },
       swe: {
         //page relaterade information
         login: "logga in",
+        logout: "Logga ut",
         Login: "Logga in",
         Register: "Registrera",
         register: "registrera",
@@ -226,6 +240,9 @@ export const languageSelector = selector({
         apply: "Ansök",
         back: "Tillbaka",
         update: "Uppdatera",
+        loading: "Laddar",
+        applicantHandle: "Behandla ansökningen",
+        applicantUpdate: "Updatera ansökan",
         addExperience: "Lägg till erfarenhet",
         updateExperience: "Updatera erfarenhet",
         editExperience: "Redigera experience",
@@ -262,6 +279,15 @@ export const languageSelector = selector({
         appliedDesc: "Dina lediga perioder registreras",
         competence: "Kompetenser skickas",
         competenceDesc: "Din kompetensmatris är uppdaterad",
+        server: "Server Fel",
+        serverDesc: "Anslutning till servern misslyckades",
+        //detailed aplicant related
+        detailedAplicantTitle: "Detalierade ansökare information",
+        noData: "Ingen information tillgänglig",
+        acceptedPosition: "Accepterad befattning",
+        contactPerson: "Kontaktperson",
+        noExperinece: "Ingen erfarenhet registrerad",
+        applicantExperience: "Sökandes erfarenhetslista",
       },
     };
 

@@ -2,11 +2,14 @@ import JobTableView from "../../views/jobTableView/JobTableView";
 import { useEffect, useState } from "react";
 import "./jobTablePresenter.scss";
 import { languageSelector } from "../../model/languageModel";
+import { currentUserState } from "../../model/userModel";
 import { useRecoilValue } from "recoil";
 function JobTablePresenter(props) {
   const language = useRecoilValue(languageSelector);
+  //const user = useRecoilValue(currentUserState);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
+  let preparedData;
 
   function getColumnHeader(header) {
     switch (header) {
@@ -25,12 +28,31 @@ function JobTablePresenter(props) {
     }
   }
   function dataSelection() {
-    if (props.user.role === "APPLICANT") {
-      setRows(props.user.availability);
-      setColumns(getColumns());
+    if (props.role === "APPLICANT") {
+      preparedData = props.data;
+      setRows(preparedData);
+      setColumns(getColumns(preparedData));
     } else {
-      //TODO big api call
+      preparedData = cleanupData();
+      setRows(preparedData);
+      setColumns(getColumns(preparedData));
     }
+  }
+
+  function selectedApplicant(id) {
+    props.selectedApplication(id);
+  }
+
+  function cleanupData() {
+    let cleanData = [];
+    props.data.map((item) => {
+      cleanData.push({
+        id: item.id,
+        fullName: item.firstName + " " + item.lastName,
+        status: item.status,
+      });
+    });
+    return cleanData;
   }
   function getWidth(column) {
     switch (column) {
@@ -50,18 +72,17 @@ function JobTablePresenter(props) {
         break;
     }
   }
-  function getColumns() {
-    const availability = props.user.availability;
+  function getColumns(appllication) {
     let columnList = [];
-    if (Array.isArray(availability)) {
+    if (Array.isArray(appllication)) {
       // Check if availability is an array
-      if (availability.length > 0) {
+      if (appllication.length > 0) {
         // Iterate over the first object to extract keys
-        Object.keys(availability[0]).forEach((key) => {
+        Object.keys(appllication[0]).forEach((key) => {
           columnList.push({
             field: key,
             headerName: getColumnHeader(key),
-            type: typeof availability[0][key],
+            type: typeof appllication[0][key],
             width: getWidth(key),
           });
         });
@@ -69,12 +90,19 @@ function JobTablePresenter(props) {
     }
     return columnList;
   }
-  //<JobTableView role={props.user.role} data={data} />
 
   useEffect(() => {
     dataSelection();
-  }, [props.user, props.user.availability, language]);
-  return <JobTableView role={props.user.role} rows={rows} columns={columns} />;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
+  return (
+    <JobTableView
+      role={props.role}
+      rows={rows}
+      columns={columns}
+      selectedApplication={selectedApplicant}
+    />
+  );
 }
 
 export default JobTablePresenter;

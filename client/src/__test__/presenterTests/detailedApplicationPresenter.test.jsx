@@ -4,6 +4,7 @@ import userEvent from "@testing-library/user-event";
 import DetailedApplicationPresenter from "../../presenters/detailedApplicationPresenter/DetailedApplicationPresenter";
 import "@testing-library/jest-dom";
 import { RecoilRoot } from "recoil";
+import { statusOptions } from "../../model/businessModel";
 
 const sampleApplication = {
   id: 1,
@@ -27,10 +28,10 @@ const updatedApplication = {
 
 const statusList = ["accepted", "rejected", "unhandled"];
 
-xdescribe("DetailedApplicationPresenter component", () => {
-  xtest("toggles editing mode when edit button is clicked", () => {
+describe("DetailedApplicationPresenter component", () => {
+  test("toggles editing mode when edit button is clicked", () => {
     render(
-      <RecoilRoot>
+      <RecoilRoot initializeState={({ set }) => set(statusOptions, statusList)}>
         <DetailedApplicationPresenter theApplicant={sampleApplication} />
       </RecoilRoot>
     );

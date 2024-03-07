@@ -79,7 +79,7 @@ function ExperienceView(props) {
                   <select
                     ref={experienceUpdateRef}
                     title={language.competenceExperience}
-                    data-testid="experience-alternatives"
+                    data-testid="experience-alternatives-inlist"
                     defaultValue={exp.experience}
                   >
                     {props.experienceOption.map((item, index) => (
@@ -133,15 +133,9 @@ function ExperienceView(props) {
 
       {props.experience.length === props.positions.length ? (
         <div className="dashboard-check">
-          <p className="full-experience">{language.competenceFull}</p>
-          {props.dashboard && (
-            <button
-              onClick={() => props.dashboardUpdate()}
-              title={language.update}
-            >
-              {language.update}
-            </button>
-          )}
+          <p data-testid="full-experience-msg" className="full-experience">
+            {language.competenceFull}
+          </p>
         </div>
       ) : (
         <div className="controller">
@@ -194,6 +188,16 @@ function ExperienceView(props) {
           >
             {language.add}
           </button>
+          {props.dashboard && (
+            <>
+              <button
+                onClick={() => props.dashboardUpdate()}
+                title={language.update}
+              >
+                {language.update}
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>

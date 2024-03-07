@@ -15,16 +15,21 @@ import { useNavigate } from "react-router-dom";
  */
 const HeadPresenter = () => {
   const navigate = useNavigate();
-  const user = useRecoilValue(currentUserState);
-  const active = useRecoilValue(userLoggedIn);
+  const [user, setUser] = useRecoilState(currentUserState);
+  const [active, setActive] = useRecoilState(userLoggedIn);
   const [, setLanguage] = useRecoilState(userLanguageState);
   const languageList = useRecoilValue(availableLanguagesList);
   const language = useRecoilValue(languageSelector);
   /**
    * Function to logout the userPuser
    */
-  function logout() {
-    user = null;
+  function handleLogout() {
+    localStorage.removeItem("currentUserState");
+    setActive(false);
+    setUser(null);
+    navigate("/");
+    localStorage.removeItem("userLoggedIn");
+    localStorage.removeItem("userLanguageState");
   }
   /**
    * Function to handle language change
@@ -48,7 +53,7 @@ const HeadPresenter = () => {
       </div>
       <HeadView
         user={user}
-        logout={logout}
+        logout={handleLogout}
         changeLanguage={handleLanguageChange}
         redirect={handleRedirect}
         language={language}

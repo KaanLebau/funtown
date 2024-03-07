@@ -31,59 +31,63 @@ function LoginView(props) {
 
   return (
     <div data-testid="login-view" className="LoginView">
-      <Formik
-        initialValues={inititalValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        <Form className="registration-form">
-          <div className="form-content">
-            <div className="row">
-              <label htmlFor="username">{language.username}:</label>
-              <Field
-                data-testid="input-username"
-                type="text"
-                id="username"
-                name="username"
-                placeholder="Johnny"
-                title={language.username}
-              />
-              <ErrorMessage
-                data-testid="userNameErr"
-                name="username"
-                component="div"
-                className="error-message"
-              />
-            </div>
+      {props.loading ? (
+        <p>{language.loading}</p>
+      ) : (
+        <Formik
+          initialValues={inititalValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          <Form className="registration-form">
+            <div className="form-content">
+              <div className="row">
+                <label htmlFor="username">{language.username}:</label>
+                <Field
+                  data-testid="input-username"
+                  type="text"
+                  id="username"
+                  name="username"
+                  placeholder="Johnny"
+                  title={language.username}
+                />
+                <ErrorMessage
+                  data-testid="userNameErr"
+                  name="username"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-            <div className="row">
-              <label htmlFor="password">{language.password}:</label>
-              <Field
-                data-testid="input-password"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="PassWord"
-                title={language.password}
-              />
-              <ErrorMessage
-                data-testid="passwordErr"
-                name="password"
-                component="div"
-                className="error-message"
-              />
-            </div>
+              <div className="row">
+                <label htmlFor="password">{language.password}:</label>
+                <Field
+                  data-testid="input-password"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="PassWord"
+                  title={language.password}
+                />
+                <ErrorMessage
+                  data-testid="passwordErr"
+                  name="password"
+                  component="div"
+                  className="error-message"
+                />
+              </div>
 
-            <button
-              data-testid="button-submit"
-              type="submit"
-              title={language.submit}
-            >
-              {language.submit}
-            </button>
-          </div>
-        </Form>
-      </Formik>
+              <button
+                data-testid="button-submit"
+                type="submit"
+                title={language.submit}
+              >
+                {props.loading ? language.loading : language.submit}
+              </button>
+            </div>
+          </Form>
+        </Formik>
+      )}
     </div>
   );
 }

@@ -1,100 +1,53 @@
 import { atom, selector } from "recoil";
+import apiModule from "../integration/funtownApi";
+
+/**
+ * Effect for managing a Recoil state value in localStorage.
+ * This effect retrieves the value from localStorage on initialization and stores it back when the value changes.
+ * @param {string} key - The key under which the value is stored in localStorage.
+ * @returns {Function} A function that acts as the effect handler.
+ */
+export const localStorageEffect =
+  (key) =>
+  ({ setSelf, onSet }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue != null) {
+      setSelf(JSON.parse(savedValue));
+    }
+    onSet((newValue) => {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    });
+  };
+const fetchUserExperience = async (token, username) => {
+  try {
+    const experienceData = await apiModule.getUserExperience(token, username); // Call your API function to fetch experience data
+    return experienceData;
+  } catch (error) {
+    console.error("Failed to fetch user experience:", error);
+    return [];
+  }
+};
 
 export const currentUserState = atom({
   key: "currentUserState",
   default: {
-    naturalId: "1",
-    firstName: "Jhon",
-    lastName: "Doe",
-    username: "Johny",
-    email: "jhon@doe.com",
-    pnr: "12342211-4444",
-    role: "APPLICANT", //"APPLICANT" & "RECRUITER"
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    pnr: "",
+    role: "", //"APPLICANT" & "RECRUITER"
+    token: "",
     experience: [],
-    availability: [
-      {
-        id: 1,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 2,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 3,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 4,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-    ],
+    availability: [],
   },
+  effects: [localStorageEffect("currentUserState")],
 });
-/*
 
-{
-        id: 1,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "unhandled",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 21,
-        from: "2022-01-01",
-        to: "2022-01-11",
-        status: "rejected",
-        position: "",
-        contact: "",
-      },
-      {
-        id: 12,
-        from: "2022-02-01",
-        to: "2022-02-11",
-        position: "roller coaster operation",
-        status: "accepted",
-        contact: "Jhon Doe",
-      },
-      {
-        id: 2,
-        from: "2024-03-13",
-        to: "2024-03-21",
-        status: "accepted",
-        position: "ticket sales",
-        contact: "Jhon Doe",
-      },
-      {
-        id: 3,
-        from: "2024-02-13",
-        to: "2024-02-15",
-        status: "accepted",
-        position: "lotteries",
-        contact: "Jhon Doe",
-      },
-
-
-*/
 export const userLoggedIn = atom({
   key: "userLoggedIn",
-  default: true,
+  default: false,
+  effects: [localStorageEffect("userLoggedIn")],
 });
 
 export const availabilitySelectorState = selector({
@@ -119,6 +72,11 @@ export const availabilitySelectorState = selector({
     newState.availability = newValue;
     set(currentUserState, newState);
   },
+});
+
+export const jwtTokenSelector = selector({
+  key: "jwtTokenSelector",
+  get: ({ get }) => get(currentUserState).token,
 });
 
 export const experienceSelectorState = selector({

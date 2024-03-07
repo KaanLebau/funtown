@@ -2,24 +2,36 @@ import React from "react";
 import RegistrationView from "../../views/registrationView/RegistrationView";
 import { useNavigate } from "react-router-dom";
 import apiModule from "../../integration/funtownApi";
+import { currentUserState } from "../../model/userModel";
+import { useRecoilState } from "recoil";
+import { jwtDecode } from "jwt-decode";
+import { userLoggedIn } from "../../model/userModel";
 
 function RegistrationPresenter() {
   const navigate = useNavigate();
-  async function submit(user) {
-    const { username, password } = user;
-    console.log(username);
-    console.log(password);
+  const [user, setUser] = useRecoilState(currentUserState);
+  const [loggedIn, setLoggedIn] = useRecoilState(userLoggedIn);
+
+  async function submit(input) {
+    const { username, password } = input;
+
     try {
       const client = await apiModule.registration(username, password);
-      console.log(
-        "******************* server respons *******************************"
-      );
-
-      console.log(client);
-      //console.log(
-      // "******************* user input *******************************"
-      //);
-      //console.log(user);
+      const decoded = jwtDecode(client.access_token);
+      const role = decoded.roles[0];
+      console.log(decoded);
+      setUser({
+        ...user,
+        firstName: input.firstName,
+        lastName: input.lastName,
+        username: input.username,
+        email: input.email,
+        pnr: input.pnr,
+        password: input.password,
+        token: client.access_token,
+        role: role,
+      });
+      setLoggedIn(true);
       navigate("/notification", {
         replace: true,
         state: { redirect: "/user/dashboard", code: 201 },

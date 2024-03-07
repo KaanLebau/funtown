@@ -4,7 +4,7 @@ import { RecoilRoot } from "recoil";
 import UserInfoView from "../../views/userInfoView/UserInfoView";
 
 describe("Head view renders", () => {
-  const user = { name: "Jhon", lastName: "ozsan", username: "KKM" };
+  const user = { firstName: "Jhon", lastName: "ozsan", username: "KKM" };
   test("componenets correctly", () => {
     render(
       <RecoilRoot>
@@ -16,7 +16,7 @@ describe("Head view renders", () => {
     expect(screen.getByTestId("name-label")).toBeInTheDocument();
     expect(screen.getByTestId("name")).toBeInTheDocument();
     expect(screen.getByTestId("username-label")).toBeInTheDocument();
-    expect(screen.getByTestId("username")).toBeInTheDocument();
+    expect(screen.getByTestId("user-info-username")).toBeInTheDocument();
     expect(screen.getByText("KKM")).toBeInTheDocument();
     expect(screen.getByText("JO")).toBeInTheDocument();
     expect(screen.getByText("Jhon ozsan")).toBeInTheDocument();

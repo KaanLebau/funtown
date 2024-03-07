@@ -41,7 +41,8 @@ function App() {
                 <Route
                   index
                   element={
-                    !isLoggedIn & <LoginPage /> && user.role === "APPLICANT" ? (
+                    !isLoggedIn & <LoginPage /> &&
+                    user?.role === "APPLICANT" ? (
                       <UserPage />
                     ) : (
                       <Navigate
@@ -55,7 +56,8 @@ function App() {
                 <Route
                   path="dashboard"
                   element={
-                    !isLoggedIn & <LoginPage /> || user.role === "APPLICANT" ? (
+                    !isLoggedIn & <LoginPage /> ||
+                    user?.role === "APPLICANT" ? (
                       <DashboardPage />
                     ) : (
                       <Navigate
@@ -69,7 +71,8 @@ function App() {
                 <Route
                   path="application"
                   element={
-                    !isLoggedIn & <LoginPage /> || user.role === "APPLICANT" ? (
+                    !isLoggedIn & <LoginPage /> ||
+                    user?.role === "APPLICANT" ? (
                       <ApplicationFormPage />
                     ) : (
                       <Navigate
@@ -83,11 +86,24 @@ function App() {
               </Route>
             </Route>
             <Route path="/recruiter">
-              <Route index element={<RecruiterPage />} />
+              <Route
+                index
+                element={
+                  !isLoggedIn & <LoginPage /> && user?.role === "RECRUITER" ? (
+                    <RecruiterPage />
+                  ) : (
+                    <Navigate
+                      to="/notification"
+                      state={{ redirect: "/user/dashboard", code: 401 }}
+                      replace
+                    />
+                  )
+                }
+              />
               <Route
                 path="dashboard"
                 element={
-                  !isLoggedIn & <LoginPage /> || user.role === "RECRUITER" ? (
+                  !isLoggedIn & <LoginPage /> || user?.role === "RECRUITER" ? (
                     <DashboardPage />
                   ) : (
                     <Navigate
@@ -101,7 +117,7 @@ function App() {
               <Route
                 path="schedule"
                 element={
-                  !isLoggedIn & <LoginPage /> || user.role === "RECRUITER" ? (
+                  !isLoggedIn & <LoginPage /> || user?.role === "RECRUITER" ? (
                     <SchedulePage />
                   ) : (
                     <Navigate
@@ -115,7 +131,7 @@ function App() {
               <Route
                 path="applications"
                 element={
-                  !isLoggedIn & <LoginPage /> || user.role === "RECRUITER" ? (
+                  !isLoggedIn & <LoginPage /> || user?.role === "RECRUITER" ? (
                     <JobApplicationsPage />
                   ) : (
                     <Navigate

@@ -6,19 +6,19 @@ import { DataGrid } from "@mui/x-data-grid";
 function JobTableView(props) {
   const language = useRecoilValue(languageSelector);
 
-  function getTitle() {
-    if (props.role === "RECRUITER") {
-      return language.applicationList;
-    } else {
-      return language.appliedApplications;
-    }
-  }
+  const handleCellClick = (selection) => {
+    props.selectedApplication(selection.row.id);
+  };
 
   return (
     <div data-testid="job-table-view" className="job-table-view">
-      <div className="job-table-title-conteiner">
-        <h2>{getTitle()}</h2>
-      </div>
+      {props.role === "APPLICANT" && (
+        <div className="job-table-title-conteiner">
+          <h2 data-testid="job-table-view-title">
+            {language.appliedApplications}
+          </h2>
+        </div>
+      )}
       <div className="job-table-view-table-container">
         {props.rows.length === 0 ? (
           <div className="job-table-empty">
@@ -27,7 +27,7 @@ function JobTableView(props) {
               className="job-table-no-data-icon"
             />
             <p
-              data-testid="job-table-view-no-data-icon"
+              data-testid="job-table-view-no-data-msg"
               className="job-table-no-data"
             >
               {language.noAppliedApplication}
@@ -54,6 +54,7 @@ function JobTableView(props) {
               }}
               pageSizeOptions={[5]}
               disableColumnMenu
+              onCellClick={handleCellClick}
             />
           </div>
         )}

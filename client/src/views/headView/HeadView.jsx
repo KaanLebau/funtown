@@ -4,6 +4,7 @@ import {
   MdLanguage,
   MdOutlinePlaylistAdd,
   MdOutlinePlaylistAddCheck,
+  MdOutlineLogout,
 } from "react-icons/md";
 import { AiOutlineSchedule } from "react-icons/ai";
 import {
@@ -27,8 +28,8 @@ import { userLoggedIn } from "../../model/userModel";
 const HeadView = (props) => {
   return (
     <div data-testid="head-view" className="head-view-content">
-      <div className="control">
-        <div className="user-controller">
+      <div data-testid="head-view-control" className="control">
+        <div data-testid="head-view-user-control" className="user-controller">
           {props.active && (
             <>
               {props.user.role === "RECRUITER" ? (
@@ -47,7 +48,7 @@ const HeadView = (props) => {
                     {props.language.dashboard}
                   </div>
                   <div
-                    data-testid="recruiter-applicationList-element"
+                    data-testid="recruiter-application-list-element"
                     className="user-controller-element"
                     id="recruiter/applications"
                     title={props.language.applicationList}
@@ -75,6 +76,21 @@ const HeadView = (props) => {
                       className="elem-icon"
                     />
                     {props.language.schedule}
+                  </div>
+                  <div
+                    data-testid="user-application-element"
+                    id="/"
+                    className="user-controller-element"
+                    title={props.language.logout}
+                    onClick={(e) => {
+                      props.props.logout();
+                    }}
+                  >
+                    <MdOutlineLogout
+                      data-testid="user-application-icon"
+                      className="elem-icon"
+                    />{" "}
+                    {props.language.logout}
                   </div>
                 </>
               ) : (
@@ -107,12 +123,27 @@ const HeadView = (props) => {
                     />{" "}
                     {props.language.applicationForm}
                   </div>
+                  <div
+                    data-testid="user-application-element"
+                    id="/"
+                    className="user-controller-element"
+                    title={props.language.logout}
+                    onClick={(e) => {
+                      props.logout();
+                    }}
+                  >
+                    <MdOutlineLogout
+                      data-testid="user-application-icon"
+                      className="elem-icon"
+                    />{" "}
+                    {props.language.logout}
+                  </div>
                 </>
               )}
             </>
           )}
         </div>
-        <div className="language-setup">
+        <div data-testid="head-view-language-setup" className="language-setup">
           <MdLanguage
             data-testid="language-icon"
             className="icon"
@@ -124,7 +155,11 @@ const HeadView = (props) => {
             onChange={(e) => props.changeLanguage(e.target.value)}
           >
             {props.languageList.map((language) => (
-              <option key={language.language} value={language.code}>
+              <option
+                data-testid="language-options"
+                key={language.language}
+                value={language.code}
+              >
                 {language.language}
               </option>
             ))}

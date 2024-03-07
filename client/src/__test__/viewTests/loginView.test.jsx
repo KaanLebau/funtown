@@ -4,13 +4,16 @@ import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import LoginPage from "../../views/loginView/LoginView";
 import { RecoilRoot } from "recoil";
+import { BrowserRouter } from "react-router-dom";
 const mockSubmit = jest.fn();
 
 describe("Job application view renders", () => {
   test("labels correctly", () => {
     render(
       <RecoilRoot>
-        <LoginPage />
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
       </RecoilRoot>
     );
     expect(screen.getByText("Username:")).toBeInTheDocument();
@@ -19,7 +22,9 @@ describe("Job application view renders", () => {
   test("button correctly", () => {
     render(
       <RecoilRoot>
-        <LoginPage />
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
       </RecoilRoot>
     );
     expect(screen.getByRole("button")).toBeInTheDocument();
@@ -28,11 +33,14 @@ describe("Job application view renders", () => {
   test("error messages correctly", async () => {
     render(
       <RecoilRoot>
-        <LoginPage onSubmit={mockSubmit} />
+        <BrowserRouter>
+          <LoginPage />
+        </BrowserRouter>
       </RecoilRoot>
     );
     const userInteract = screen.getByRole("button");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.click(userInteract);
     });
@@ -51,13 +59,16 @@ describe("Job application view renders", () => {
   test("user input correctly", async () => {
     render(
       <RecoilRoot>
-        <LoginPage login={mockSubmit} />
+        <BrowserRouter>
+          <LoginPage login={mockSubmit} />
+        </BrowserRouter>
       </RecoilRoot>
     );
     const userInteract = screen.getByTestId("button-submit");
     const inputUsername = screen.getByTestId("input-username");
     const inputPassword = screen.getByTestId("input-password");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputUsername, "test user");
       await userEvent.type(inputPassword, "test password");

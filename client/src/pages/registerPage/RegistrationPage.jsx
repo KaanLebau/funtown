@@ -1,5 +1,4 @@
 import React from "react";
-import HeadPresenter from "../../presenters/headPresenter/HeadPresenter";
 import RegistrationPresenter from "../../presenters/registrationPresenter/RegistrationPresenter";
 import "./registrationPage.scss";
 
@@ -19,7 +18,7 @@ import "./registrationPage.scss";
 function RegistrationPage() {
   return (
     <div data-testid="registration-page" className="content">
-      <div className="form">
+      <div data-testid="registration-page-presenter-wrapper" className="form">
         <RegistrationPresenter />
       </div>
     </div>

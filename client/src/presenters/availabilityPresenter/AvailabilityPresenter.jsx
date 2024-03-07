@@ -9,10 +9,9 @@ import { currentUserState } from "../../model/userModel";
 function AvailabilityPresenter(props) {
   const user = useRecoilValue(currentUserState);
   const language = useRecoilValue(languageSelector);
-
   const [fromDate, setFromDate] = useState("");
   const [toDate, setToDate] = useState("");
-  const [error, setError] = useState({ state: false, msg: "" });
+  const [error, setError] = useState({ code: null, state: false, msg: "" });
   const [availList, setAvailList] = useState([]);
   const [errMsg] = useState("");
 
@@ -29,43 +28,53 @@ function AvailabilityPresenter(props) {
         break;
     }
   }
+  function updateAvailabilityList() {
+    props.updateList(availList);
+  }
   function handleRemove(indexToRemove) {
-    console.log(indexToRemove);
+    let removedList = availList.filter((_, index) => index !== indexToRemove);
+    setAvailList(removedList);
   }
   function handleAdd() {
     try {
-      availabilityModel.add({
+      const newItem = {
         from: fromDate,
         to: toDate,
         status: "unhandled",
         position: "",
         contact: "",
+      };
+      availabilityModel.add(newItem);
+      setAvailList((prevList) => {
+        const updatedList = [...prevList, newItem];
+        return updatedList;
       });
-      setAvailList([
-        ...availList,
-        {
-          from: fromDate,
-          to: toDate,
-          status: "unhandled",
-          position: "",
-          contact: "",
-        },
-      ]);
-      console.log(availList);
-      console.log(availabilityModel.dates);
+      updateAvailabilityList();
     } catch (error) {
       switch (error.code) {
         case 1:
-          setError({ state: true, msg: language.missingFrom });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingFrom,
+          });
           break;
         case 2:
-          setError({ state: true, msg: language.missingTo });
+          setError({ code: error.code, state: true, msg: language.missingTo });
           break;
         case 3:
-          setError({ state: true, msg: language.missingDate });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingDate,
+          });
           break;
         case 4:
-          setError({ state: true, msg: language.dateOverlap });
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.dateOverlap,
+          });
           break;
         default:
           break;
@@ -73,13 +82,46 @@ function AvailabilityPresenter(props) {
     }
   }
   useEffect(() => {
-    if (availabilityModel.dates.length === 0) {
-      availabilityModel.init(user.availability);
+    availabilityModel.init(user.availability);
+  }, []);
+
+  useEffect(() => {
+    function updateErrMsg() {
+      switch (error.code) {
+        case 1:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingFrom,
+          });
+          break;
+        case 2:
+          setError({ code: error.code, state: true, msg: language.missingTo });
+          break;
+        case 3:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.missingDate,
+          });
+          break;
+        case 4:
+          setError({
+            code: error.code,
+            state: true,
+            msg: language.dateOverlap,
+          });
+          break;
+        default:
+          break;
+      }
     }
+
     if (error.state === true) {
-      setError({ state: true, msg: errMsg });
+      updateErrMsg();
     }
-  }, [language, errMsg, error.state, user.availability]);
+    props.updateList(availList);
+  }, [language, errMsg, error.state, availList]);
   return (
     <AvailabilityView
       availabilityList={availList}

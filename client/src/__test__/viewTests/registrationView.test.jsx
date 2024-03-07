@@ -1,11 +1,13 @@
-import React from "react";
+//test lib
 import { render, screen, act } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import RegistrationView from "../../views/registrationView/RegistrationView";
 import { wait } from "@testing-library/user-event/dist/utils";
+//wrapper
 import { RecoilRoot } from "recoil";
 import { BrowserRouter } from "react-router-dom";
+//componenet
+import RegistrationView from "../../views/registrationView/RegistrationView";
 
 const mockSubmit = jest.fn();
 
@@ -18,16 +20,36 @@ describe("Registration view renders", () => {
         </RecoilRoot>
       </BrowserRouter>
     );
-    expect(screen.getByText("First Name:")).toBeInTheDocument();
-    expect(screen.getByText("Last Name:")).toBeInTheDocument();
-    expect(screen.getByText("Username:")).toBeInTheDocument();
-    expect(screen.getByText("Email:")).toBeInTheDocument();
-    expect(screen.getByText("Person nr:")).toBeInTheDocument();
-    expect(screen.getByText("Password:")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-firstname")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-lastname")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-username")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-email")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-pnr")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("registration-form-view-password")
+    ).toBeInTheDocument();
   });
   test("button correctly", () => {
-    render(<RegistrationView />);
-    expect(screen.getByRole("button")).toBeInTheDocument();
+    render(
+      <BrowserRouter>
+        <RecoilRoot>
+          <RegistrationView />
+        </RecoilRoot>
+      </BrowserRouter>
+    );
+    expect(
+      screen.getByTestId("registration-form-view-submit-button")
+    ).toBeInTheDocument();
   });
 
   test("error messages correctly", async () => {
@@ -38,8 +60,11 @@ describe("Registration view renders", () => {
         </RecoilRoot>
       </BrowserRouter>
     );
-    const userInteract = screen.getByRole("button");
+    const userInteract = screen.getByTestId(
+      "registration-form-view-submit-button"
+    );
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.click(userInteract);
     });
@@ -60,7 +85,9 @@ describe("Registration view renders", () => {
     );
 
     expect(screen.getByTestId("emailErr")).not.toBe(null);
-    expect(screen.getByTestId("emailErr")).toHaveTextContent("Email required!");
+    expect(screen.getByTestId("emailErr")).toHaveTextContent(
+      "Email address required!"
+    );
 
     expect(screen.getByTestId("pnrErr")).not.toBe(null);
     expect(screen.getByTestId("pnrErr")).toHaveTextContent(
@@ -81,9 +108,12 @@ describe("Registration view renders", () => {
         </RecoilRoot>
       </BrowserRouter>
     );
-    const userInteract = screen.getByRole("button");
-    const inputEmail = screen.getByTitle("Email");
+    const userInteract = screen.getByTestId(
+      "registration-form-view-submit-button"
+    );
+    const inputEmail = screen.getByTestId("registration-form-view-email");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputEmail, "test");
       await userEvent.click(userInteract);
@@ -105,19 +135,22 @@ describe("Registration view renders", () => {
         </RecoilRoot>
       </BrowserRouter>
     );
-    const userInteract = screen.getByRole("button");
-    const inputName = screen.getByTitle("First name");
-    const inputLastName = screen.getByTitle("Last name");
-    const inputUsername = screen.getByTitle("Username");
-    const inputEmail = screen.getByTitle("Email");
-    const inputPnr = screen.getByTitle("Person number");
-    const inputPassword = screen.getByTitle("Password");
+    const userInteract = screen.getByTestId(
+      "registration-form-view-submit-button"
+    );
+    const inputName = screen.getByTestId("registration-form-view-firstname");
+    const inputLastName = screen.getByTestId("registration-form-view-lastname");
+    const inputUsername = screen.getByTestId("registration-form-view-username");
+    const inputEmail = screen.getByTestId("registration-form-view-email");
+    const inputPnr = screen.getByTestId("registration-form-view-pnr");
+    const inputPassword = screen.getByTestId("registration-form-view-password");
 
+    // eslint-disable-next-line testing-library/no-unnecessary-act
     await act(async () => {
       await userEvent.type(inputName, "test name");
       await userEvent.type(inputLastName, "test last name");
       await userEvent.type(inputEmail, "test@email.com");
-      await userEvent.type(inputPnr, "123456789");
+      await userEvent.type(inputPnr, "19900101-1234");
       await userEvent.type(inputUsername, "test user");
       await userEvent.type(inputPassword, "test password");
 
@@ -128,7 +161,7 @@ describe("Registration view renders", () => {
       firstName: "test name",
       lastName: "test last name",
       email: "test@email.com",
-      pnr: "123456789",
+      pnr: "19900101-1234",
       username: "test user",
       password: "test password",
     });

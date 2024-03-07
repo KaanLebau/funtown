@@ -67,6 +67,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="firstName">{language.firstname}:</label>
               <Field
+                data-testid="registration-form-view-firstname"
                 type="text"
                 id="firstName"
                 name="firstName"
@@ -84,6 +85,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="lastName">{language.lastname}:</label>
               <Field
+                data-testid="registration-form-view-lastname"
                 type="text"
                 id="lastName"
                 name="lastName"
@@ -101,6 +103,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="username">{language.username}:</label>
               <Field
+                data-testid="registration-form-view-username"
                 type="text"
                 id="username"
                 name="username"
@@ -118,6 +121,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="email">{language.email}:</label>
               <Field
+                data-testid="registration-form-view-email"
                 type="email"
                 id="email"
                 name="email"
@@ -135,6 +139,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="pnr">{language.pnr}:</label>
               <Field
+                data-testid="registration-form-view-pnr"
                 type="text"
                 id="pnr"
                 name="pnr"
@@ -152,6 +157,7 @@ function RegistrationView(props) {
             <div className="row">
               <label htmlFor="password">{language.password}:</label>
               <Field
+                data-testid="registration-form-view-password"
                 type="password"
                 id="password"
                 name="password"
@@ -166,7 +172,11 @@ function RegistrationView(props) {
               />
             </div>
 
-            <button type="submit" title={language.submit}>
+            <button
+              data-testid="registration-form-view-submit-button"
+              type="submit"
+              title={language.submit}
+            >
               {language.submit}
             </button>
           </div>
