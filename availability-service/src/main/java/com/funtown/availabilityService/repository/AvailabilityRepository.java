@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Repository interface for accessing and managing Availabilities entities in the database.
+ * Repository interface for accessing and managing Availabilities in the database.
  * Extends JpaRepository to inherit basic CRUD operations.
  */
 
