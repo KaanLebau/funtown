@@ -22,7 +22,7 @@ spring:
         - id: application
           uri: http://localhost:8090
           predicates:
-            - Path=/api/availability/**
+            - Path=/api/v1/availability/**
         - id: auth-service
           uri: http://localhost:5000
           predicates:
