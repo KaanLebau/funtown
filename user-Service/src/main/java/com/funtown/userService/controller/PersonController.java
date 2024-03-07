@@ -33,6 +33,9 @@ public class PersonController {
     private final PersonService personService;
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
+
+
+
     /**
      * Test endpoint to verify JWT token for applicant role.
      * It will print Principal and roles information from the security context.
