@@ -11,4 +11,5 @@ public interface AvailabilityService {
     List<Availability> findAll();
     Availability save(Availability availability) throws Exception;
     Availability updateStatus(UpdateStatusRequest request) throws Exception;
+    Availability updateAvailability(Availability availability)throws Exception;//TODO Kaan har skapat testa denna service!!!
 }

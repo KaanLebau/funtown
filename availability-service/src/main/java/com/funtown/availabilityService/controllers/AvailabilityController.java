@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/availability")
+@RequestMapping("/api/v1/availability")
 @RequiredArgsConstructor
 public class AvailabilityController {
    private final AvailabilityService service;
 
-   @GetMapping("/get-by-username/{username}") // both
-   public ResponseEntity<List<Availability>> getByPersonId(@PathVariable("username") String userName ){
+   @GetMapping("/username/{username}") // both
+   public ResponseEntity<List<Availability>> getApplicantAvailabilityList(@PathVariable String userName ){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       List<String> roles = auth.getAuthorities().stream()
               .map(Object::toString)
@@ -35,8 +35,8 @@ public class AvailabilityController {
       }
    }
 
-   @GetMapping("/get-by-id/{id}")
-   public ResponseEntity<Availability> getById(@PathVariable("id") Integer id ){
+   @GetMapping("/id/{id}")
+   public ResponseEntity<Availability> getAvailabilityById(@PathVariable Integer id ){
       try{
          return ResponseEntity.ok(service.findById(id));
       } catch (Exception e){
@@ -44,9 +44,9 @@ public class AvailabilityController {
       }
    }
 
-   @GetMapping("/get-all") // only recruiter
+   @GetMapping("/allapplications") // only recruiter
    @Secured("ROLE_RECRUITER")
-   public ResponseEntity<List<Availability>> getAll(){
+   public ResponseEntity<List<Availability>> getAllApplications(){
       return ResponseEntity.ok(service.findAll());
    }
 
@@ -65,8 +65,22 @@ public class AvailabilityController {
       }
    }
 
+   @PutMapping("/update")
+   @Secured("ROLE_APPLICANT")
+   @ResponseStatus(HttpStatus.OK)
+   public ResponseEntity<Object> updateAvailability(@RequestBody Availability availability){
+      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
+         return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+      }
+      try {
+         return ResponseEntity.ok(service.save(availability));
+      } catch (Exception e) {
+         return ResponseEntity.internalServerError().build();
+      }
+   }
    // update status only for recruiter
-   @PutMapping("/update-status")
+   @PutMapping("/status")
    @Secured("ROLE_RECRUITER")
    public ResponseEntity<Availability> changeStatus(@RequestBody UpdateStatusRequest request){
       try{
