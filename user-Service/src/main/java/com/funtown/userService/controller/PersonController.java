@@ -26,12 +26,15 @@ import org.slf4j.LoggerFactory;
  * Different roles have different access privilege for the APIs.
  */
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/api/v1/persons")
 @RequiredArgsConstructor
 public class PersonController {
 
     private final PersonService personService;
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
+
+
+
 
     /**
      * Test endpoint to verify JWT token for applicant role.
