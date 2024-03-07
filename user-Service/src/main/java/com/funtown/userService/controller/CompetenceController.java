@@ -14,7 +14,7 @@ import java.util.List;
  * It provides endpoints for retrieving a competence by ID and for saving a new competence.
  */
 @RestController
-@RequestMapping("/api/competence") // Note: Check if the URL should be "/api/competence" for consistency.
+@RequestMapping("/api/v1/competence") // Note: Check if the URL should be "/api/competence" for consistency.
 @RequiredArgsConstructor
 public class CompetenceController {
     private final CompetenceService service;
@@ -25,7 +25,7 @@ public class CompetenceController {
      * @param Id The ID of the Competence to retrieve.
      * @return A {@link ResponseEntity} containing the found Competence entity or a Not Found status if no Competence with the given ID exists.
      */
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Competence> get(@PathVariable("id") Integer Id) {
         try {
             return ResponseEntity.ok(service.getById(Id));

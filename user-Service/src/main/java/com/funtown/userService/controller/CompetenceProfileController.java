@@ -14,7 +14,7 @@ import java.util.List;
  * Provides endpoints for CRUD operations on competence profiles.
  */
 @RestController
-@RequestMapping("/api/competence-profiles")
+@RequestMapping("/api/v1/competenceprofiles")
 @RequiredArgsConstructor
 public class CompetenceProfileController {
 
