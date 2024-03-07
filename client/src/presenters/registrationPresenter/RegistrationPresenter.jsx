@@ -30,6 +30,8 @@ function RegistrationPresenter() {
         password: input.password,
         token: client.access_token,
         role: role,
+        experience: [],
+        availability: [],
       });
       setLoggedIn(true);
       navigate("/notification", {
@@ -43,7 +45,7 @@ function RegistrationPresenter() {
       );
       navigate("/notification", {
         replace: true,
-        state: { redirect: "/user/dashboard", code: 401 },
+        state: { redirect: "/registration", code: 401 },
       });
     }
   }
