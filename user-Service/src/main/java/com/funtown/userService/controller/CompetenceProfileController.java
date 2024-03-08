@@ -37,7 +37,7 @@ public class CompetenceProfileController {
      * @return A {@link ResponseEntity} containing the requested {@link CompetenceProfile}
      *         or a not found status if the competence profile does not exist.
      */
-    @GetMapping("/id/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CompetenceProfile> getCompetenceProfileById(@PathVariable Integer id) {
         return competenceProfileService.findById(id)
                 .map(competenceProfile -> ResponseEntity.ok().body(competenceProfile))
@@ -65,7 +65,7 @@ public class CompetenceProfileController {
      * @return A {@link ResponseEntity} containing the updated {@link CompetenceProfile}
      *         or a not found status if the competence profile does not exist.
      */
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CompetenceProfile> updateCompetenceProfile(@PathVariable Integer id, @RequestBody CompetenceProfile competenceProfileDetails) {
         return competenceProfileService.findById(id)
                 .map(competenceProfile -> {
@@ -82,7 +82,7 @@ public class CompetenceProfileController {
      * @param id The ID of the competence profile to delete.
      * @return A {@link ResponseEntity} indicating the outcome of the delete operation.
      */
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteCompetenceProfile(@PathVariable Integer id) {
         return competenceProfileService.findById(id)
                 .map(competenceProfile -> {
