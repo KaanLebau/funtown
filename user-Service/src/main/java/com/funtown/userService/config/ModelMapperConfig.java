@@ -31,6 +31,7 @@ public class ModelMapperConfig {
     public ModelMapper modelMapper() {
         return new ModelMapper();
     }
+    /*
     @Configuration
     public class CorsConfig implements WebMvcConfigurer {
 
@@ -39,7 +40,7 @@ public class ModelMapperConfig {
          * CORS defines a way in which a browser and server can interact to determine whether it is safe to allow the requested resource to be shared.
          *
          * @param registry the CorsRegistry to be configured
-         */
+         */   /*/
         @Override
         public void addCorsMappings(CorsRegistry registry) {
             registry.addMapping("/**")
@@ -47,5 +48,5 @@ public class ModelMapperConfig {
                     .allowedMethods("GET", "POST", "PUT", "DELETE")
                     .allowCredentials(true);
         }
-    }
+    }*/
 }

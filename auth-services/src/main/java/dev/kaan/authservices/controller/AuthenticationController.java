@@ -8,6 +8,9 @@ import dev.kaan.authservices.services.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+/**
+ * The AuthenticationController class provides the API endpoints for user registration and authentication.
+ */
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -48,6 +51,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
+    /**
+     * This method returns a string representing the text "Registration page test".
+     *
+     * @return the string "Registration page test"
+     */
     @GetMapping("/registration")
     public String regTest(){
         return "Registration page test";
