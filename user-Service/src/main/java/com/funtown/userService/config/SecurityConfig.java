@@ -52,7 +52,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/persons/**").permitAll()
+                        .requestMatchers("/api/v1/persons/**","/api/v1/competenceprofiles**","/api/v1/competence**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .httpBasic(httpBasic -> httpBasic.disable())

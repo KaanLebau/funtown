@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Propagation;
 
 import java.util.List;
 
+/**
+ * This class represents an implementation of the AvailabilityService interface. It provides methods for managing availability-related operations.
+ */
 @Service
 @RequiredArgsConstructor
 public class AvailabilityServiceImpl implements AvailabilityService {
@@ -22,6 +25,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
                 );
     }
 
+    /**
+     * Retrieves an availability by its ID.
+     *
+     * @param id The identifier of the availability.
+     * @return The availability with the specified ID.
+     * @throws Exception If an error occurs during the operation or if the availability is not found.
+     */
     @Override
     public Availability findById(Integer id) throws Exception {
         return repository.findById(id)
@@ -29,11 +39,23 @@ public class AvailabilityServiceImpl implements AvailabilityService {
                 );
     }
 
+    /**
+     * Retrieves all availabilities.
+     *
+     * @return A list of all availabilities.
+     */
     @Override
     public List<Availability> findAll() {
         return repository.findAll();
     }
 
+    /**
+     * Saves a new availability or updates an existing one.
+     *
+     * @param availability The availability to save or update.
+     * @return The saved or updated availability.
+     * @throws Exception If an error occurs during the operation.
+     */
     public Availability save(Availability availability) throws Exception{
         Availability av = null;
         try {
@@ -44,6 +66,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return av;
     }
 
+    /**
+     * Updates the status of an availability based on the provided request.
+     *
+     * @param request The request containing the updated status information.
+     * @return The updated availability.
+     * @throws Exception If an error occurs during the operation.
+     */
     @Transactional
     @Override
     public Availability updateStatus(UpdateStatusRequest request) throws Exception {
@@ -54,6 +83,13 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return repository.save(av);
     }
 
+    /**
+     * Updates the information of an availability.
+     *
+     * @param availability The availability with updated information.
+     * @return The updated availability.
+     * @throws Exception If an error occurs during the operation.
+     */
     @Transactional()
     @Override
     public Availability updateAvailability(Availability availability) throws Exception {
