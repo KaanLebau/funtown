@@ -19,10 +19,10 @@ function AvailabilityPresenter(props) {
     setError({ state: false, msg: "" });
     switch (input.id) {
       case "from":
-        setFromDate(input.value);
+        setFromDate(input.value.split("T")[0]);
         break;
       case "to":
-        setToDate(input.value);
+        setToDate(input.value.split("T")[0]);
         break;
       default:
         break;
@@ -38,9 +38,10 @@ function AvailabilityPresenter(props) {
   function handleAdd() {
     try {
       const newItem = {
-        from: fromDate,
-        to: toDate,
-        status: "unhandled",
+        username: user.username,
+        fromDate: fromDate,
+        toDate: toDate,
+        status: "UNHANDLED",
         position: "",
         contact: "",
       };
@@ -121,7 +122,7 @@ function AvailabilityPresenter(props) {
       updateErrMsg();
     }
     props.updateList(availList);
-  }, [language, errMsg, error.state, availList]);
+  }, [language, errMsg, error.state, availList, fromDate, toDate]);
   return (
     <AvailabilityView
       availabilityList={availList}

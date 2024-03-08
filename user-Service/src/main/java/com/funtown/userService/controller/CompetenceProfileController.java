@@ -2,6 +2,7 @@ package com.funtown.userService.controller;
 
 import com.funtown.userService.model.CompetenceProfile;
 import com.funtown.userService.service.CompetenceProfileService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
  * Provides endpoints for CRUD operations on competence profiles.
  */
 @RestController
-@RequestMapping("/api/competence-profiles")
+@RequestMapping("/api/v1/competence-profiles")
 @RequiredArgsConstructor
 public class CompetenceProfileController {
 
@@ -65,6 +66,7 @@ public class CompetenceProfileController {
      * @return A {@link ResponseEntity} containing the updated {@link CompetenceProfile}
      *         or a not found status if the competence profile does not exist.
      */
+    @Transactional
     @PutMapping("/{id}")
     public ResponseEntity<CompetenceProfile> updateCompetenceProfile(@PathVariable Integer id, @RequestBody CompetenceProfile competenceProfileDetails) {
         return competenceProfileService.findById(id)

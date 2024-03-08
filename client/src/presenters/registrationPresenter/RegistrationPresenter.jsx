@@ -16,20 +16,29 @@ function RegistrationPresenter() {
     const { username, password } = input;
 
     try {
-      const client = await apiModule.registration(username, password);
+      const client = await apiModule.registration(username, password); //uath-service
       const decoded = jwtDecode(client.access_token);
-      const role = decoded.roles[0];
-      console.log(decoded);
-      setUser({
-        ...user,
+
+      const userInfo = await apiModule.registerUserInfo(client.access_token, {
         firstName: input.firstName,
         lastName: input.lastName,
         username: input.username,
         email: input.email,
         pnr: input.pnr,
+      }); //user-service
+      console.log("new poitn");
+      //const positionList = await apiModule.getPositionList(client.access_token);
+      //console.log(positionList);
+      setUser({
+        ...user,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        username: input.username,
+        email: userInfo.email,
+        pnr: userInfo.pnr,
         password: input.password,
         token: client.access_token,
-        role: role,
+        role: decoded.roles[0],
         experience: [],
         availability: [],
       });

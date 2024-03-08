@@ -60,7 +60,7 @@ function LoginPresenter() {
 
       const auth = {
         username: decoded.sub,
-        role: decoded.role,
+        role: decoded.roles[0],
         token: client.access_token,
       };
 

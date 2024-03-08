@@ -7,10 +7,10 @@ export const positionOptions = atom({
 
 export const statusOptions = atom({
   key: "statusOptions",
-  default: ["accepted", "rejected", "unhandled"],
+  default: ["ACCEPTED", "REJECTED", "UNHANDLED"],
 });
 
 export const experienceOptions = atom({
   key: "experienceOptions",
-  default: ["0 -> 1 year", "1.1 -> 2 year", "2.1 -> 3", "3.1 -> "],
+  default: ["0 -> 1 year", "1.1 -> 2 year", "2.1 -> 3 year", "3.1 -> year"],
 });

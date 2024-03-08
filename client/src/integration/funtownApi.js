@@ -15,7 +15,7 @@ import {
   getAuthByUsername,
 } from "./mockapi";
 
-const API_URL = "http://localhost:8765/api/v1/auth"; // Your API endpoint
+const API_URL = "http://localhost:8765/api/v1"; // Your API endpoint
 
 /**
  * Function to create an Axios instance with authorization headers.
@@ -66,7 +66,7 @@ const axiosWithAuth = (currentUser) => {
  */
 async function authenticate(username, password) {
   try {
-    const response = await axios.post(`${API_URL}/authenticate`, {
+    const response = await axios.post(`${API_URL}/auth/authenticate`, {
       username: username,
       password: password,
     });
@@ -108,10 +108,10 @@ async function authenticate(username, password) {
  */
 async function registration(username, password) {
   try {
-    const response = await axios.post(`${API_URL}/registration`, {
+    const response = await axios.post(`${API_URL}/auth/registration`, {
       username: username,
       password: password,
-      role: "APPLICANT"
+      role: "APPLICANT",
     });
 
     return response.data;
@@ -123,6 +123,43 @@ async function registration(username, password) {
     throw error;
   }
 }
+//TODO DONE
+async function registerUserInfo(token, userInfo) {
+  try {
+    const response = await axios.post(`${API_URL}/persons/create`, userInfo, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "An error occurred during registration:",
+      error.response || error
+    );
+    throw error;
+  }
+}
+//TODO DEBUGG
+async function getPositionList(token) {
+  try {
+    const response = await axios.get(`${API_URL}/competence/list`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(
+      "An error occurred during registration:",
+      error.response || error
+    );
+    throw error;
+  }
+}
+
 /**
  * Makes a request to the backend API to fetch all applications.
  *
@@ -247,6 +284,7 @@ async function updateUserAvailability(token, availability) {
  *   }
  * }
  */
+//TODO not working
 async function getUserExperience(token, username) {
   try {
     const response = await getExperienceByUsernameMock(token, username);
@@ -256,6 +294,40 @@ async function getUserExperience(token, username) {
     throw error;
   }
 }
+//TODO not working
+async function removeUserExperience(token, id) {
+  try {
+    const response = await getExperienceByUsernameMock(token, id);
+    return response;
+  } catch (error) {
+    console.error("An error occurred while fetching user experience:", error);
+    throw error;
+  }
+}
+
+//TODO this ep works
+async function addUserAvailability(token, availability) {
+  try {
+    const response = await axios.post(
+      `${API_URL}/availability/create`,
+      availability,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      "An error occurred during registration:",
+      error.response || error
+    );
+    throw error;
+  }
+}
+
 /**
  * Makes a request to the backend API to fetch the user's availability.
  *
@@ -286,12 +358,25 @@ async function getUserExperience(token, username) {
  */
 async function getUserAvailability(token, username) {
   try {
-    const response = await getAvailabilityByUsernameMock(token, username);
-    return response;
+    const response = await axios.get(
+      `${API_URL}/availability/username/` + username,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
+    console.error(
+      "An error occurred during registration:",
+      error.response || error
+    );
     throw error;
   }
 }
+
 /**
  * Makes a request to the backend API to fetch application details by application ID.
  *
@@ -377,13 +462,16 @@ async function getUserByUsername(token, username) {
 const apiModule = {
   authenticate,
   registration,
+  registerUserInfo,
   getAllApplications,
   getUserExperience,
   getUserAvailability,
+  addUserAvailability,
   getByApplicationId,
   getUserByUsername,
   getAuth,
   updateUserExperience,
   updateUserAvailability,
+  getPositionList,
 };
 export default apiModule;

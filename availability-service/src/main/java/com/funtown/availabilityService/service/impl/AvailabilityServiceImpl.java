@@ -1,6 +1,8 @@
 package com.funtown.availabilityService.service.impl;
 
+import com.funtown.availabilityService.enums.Status;
 import com.funtown.availabilityService.model.Availability;
+import com.funtown.availabilityService.model.api.CreateAvailabilityRequest;
 import com.funtown.availabilityService.model.api.UpdateStatusRequest;
 import com.funtown.availabilityService.repository.AvailabilityRepository;
 import com.funtown.availabilityService.service.AvailabilityService;
@@ -9,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,6 +46,22 @@ public class AvailabilityServiceImpl implements AvailabilityService {
             throw new Exception("could not create availability");
         }
         return av;
+    }
+
+    @Override
+    public List<Availability> saveAll(List<CreateAvailabilityRequest> availList) throws Exception {
+        List<Availability> response = new ArrayList<>();
+        for (CreateAvailabilityRequest avail : availList){
+            Availability av = Availability.builder()
+                            .username(avail.username())
+                                    .fromDate(LocalDate.parse(avail.fromDate()))
+                                            .toDate(LocalDate.parse(avail.toDate()))
+                                                    .contact(avail.contact())
+                                                            .position(avail.position())
+                                                                    .status(Status.UNHANDLED).build();
+            response.add(repository.save(av));
+        }
+        return response;
     }
 
     @Transactional

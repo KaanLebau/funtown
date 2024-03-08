@@ -1,6 +1,7 @@
 package com.funtown.availabilityService.service;
 
 import com.funtown.availabilityService.model.Availability;
+import com.funtown.availabilityService.model.api.CreateAvailabilityRequest;
 import com.funtown.availabilityService.model.api.UpdateStatusRequest;
 
 import java.util.List;
@@ -38,6 +39,8 @@ public interface AvailabilityService {
      * @throws Exception If an error occurs during the operation.
      */
     Availability save(Availability availability) throws Exception;
+
+    List<Availability> saveAll(List<CreateAvailabilityRequest>  availList) throws Exception;
 
     /**
      * Updates the status of an availability based on the provided request.

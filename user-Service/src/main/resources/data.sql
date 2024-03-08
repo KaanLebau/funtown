@@ -898,3 +898,12 @@ INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (897
 INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (898, 'Robert', 'Gutierrez', '20040318-5722', 'r_gutierrez@finnsinte.se', '');
 INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (899, 'Odysseus', 'Decker', '20030715-5825', 'o.decker@finnsinte.se', '');
 INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (900, 'Simon', 'Gallagher', '20040911-1699', 'sgallagher8213@finnsinte.se', '');
+SELECT setval('person_id_seq', 901, false);
+
+
+INSERT INTO competence (id, position) VALUES (1	,'ticket sales');
+INSERT INTO competence (id, position) VALUES (2	,'lotteries');
+INSERT INTO competence (id, position) VALUES (3,'roller coaster operation');
+SELECT setval('competence_id_seq', 4, false);
+
+

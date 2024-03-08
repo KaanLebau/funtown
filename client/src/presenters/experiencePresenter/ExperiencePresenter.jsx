@@ -35,7 +35,6 @@ function ExperiencePresenter(props) {
   );
 
   async function apiCall() {
-    setExperienceSelector(experience);
     apiModule.updateUserExperience(token, experienceSelector);
   }
 

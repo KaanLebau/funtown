@@ -25,7 +25,7 @@ function AvailabilityView(props) {
                 data-testid="availability-list-element"
                 className="availability-list-element"
               >
-                {item.from} - {item.to}
+                {item.fromDate} - {item.toDate}
               </div>
               <div
                 data-testid="availability-list-element-icon-conteiner"

@@ -17,6 +17,6 @@ public interface CompetenceService {
      *
      * @return a List of Competence objects representing all competences in the system.
      */
-    List<Competence> getall();
+    List<Competence> getAll();
     void saveCompetence(Competence competence);
 }

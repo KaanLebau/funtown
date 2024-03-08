@@ -17,8 +17,8 @@ const availabilityModel = {
   _checkOverlap: function (newFromDate, newToDate) {
     for (let i = 0; i < this.dates.length; i++) {
       const date = this.dates[i];
-      const fromDate = new Date(date.from);
-      const toDate = new Date(date.to);
+      const fromDate = new Date(date.fromDate);
+      const toDate = new Date(date.toDate);
 
       // Check if new period starts within existing period
       if (newFromDate >= fromDate && newFromDate <= toDate) {
@@ -53,10 +53,10 @@ const availabilityModel = {
   add: function (availability) {
     let errCode = 0;
 
-    if (!this._isValidDate(availability.from)) {
+    if (!this._isValidDate(availability.fromDate)) {
       errCode += 1;
     }
-    if (!this._isValidDate(availability.to)) {
+    if (!this._isValidDate(availability.toDate)) {
       errCode += 2;
     }
 
@@ -73,8 +73,8 @@ const availabilityModel = {
       default:
         break;
     }
-    const newFromDate = new Date(availability.from);
-    const newToDate = new Date(availability.to);
+    const newFromDate = new Date(availability.fromDate);
+    const newToDate = new Date(availability.toDate);
     const { overlap } = this._checkOverlap(newFromDate, newToDate);
     if (!overlap) {
       this.dates = [...this.dates, availability];
@@ -135,7 +135,7 @@ const availabilityModel = {
   show: function () {
     console.log("Availability Dates:");
     this.dates.forEach((date, index) => {
-      console.log(`[${index}] From: ${date.from}, To: ${date.to}`);
+      console.log(`[${index}] From: ${date.fromDate}, To: ${date.to}`);
     });
   },
 };

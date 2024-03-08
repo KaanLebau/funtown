@@ -4,6 +4,7 @@ import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
 import com.funtown.userService.service.PersonService;
+import com.funtown.userService.service.impl.PersonServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,11 +27,11 @@ import org.slf4j.LoggerFactory;
  * Different roles have different access privilege for the APIs.
  */
 @RestController
-@RequestMapping("/api/persons")
+@RequestMapping("/api/v1/persons")
 @RequiredArgsConstructor
 public class PersonController {
 
-    private final PersonService personService;
+    private final PersonServiceImpl personService;
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     /**

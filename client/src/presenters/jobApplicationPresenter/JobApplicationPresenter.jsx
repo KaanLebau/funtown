@@ -29,10 +29,33 @@ function JobApplicationPresenter(props) {
   function handleCancel() {
     navigate("/user/dashboard", { replace: true });
   }
+  function stringConverter(list) {
+    let stringDate = [];
+    list.map((avail) => {
+      stringDate.push({
+        username: avail.username,
+        from: avail.fromDate.toString(),
+        to: avail.toDate.toString(),
+        status: avail.status,
+        position: avail.position,
+        contact: avail.contact,
+      });
+    });
+    return stringDate;
+  }
+
   async function handleApply() {
     setLoading(true);
     try {
-      await apiModule.updateUserAvailability(user.token, req);
+      const availlist = await apiModule.addUserAvailability(user.token, req);
+      console.log("create works");
+      const alist = await apiModule.getUserAvailability(
+        user.token,
+        user.username
+      );
+      console.log("get all  works");
+      console.log(alist);
+      setUser({ ...user, availability: alist });
       navigate("/notification", {
         replace: true,
         state: { redirect: "/user/dashboard", code: 211 },

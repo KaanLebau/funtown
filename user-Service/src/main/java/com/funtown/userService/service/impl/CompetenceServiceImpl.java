@@ -28,8 +28,10 @@ public class CompetenceServiceImpl implements CompetenceService {
 
 
     @Override
-    public List<Competence> getall() {
-        return repository.findAll();
+    public List<Competence> getAll() {
+        List<Competence> hi = repository.findAll();
+        System.out.println(hi);
+        return hi;
     }
 
     @Override
