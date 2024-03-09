@@ -131,7 +131,7 @@ function ExperienceView(props) {
         )}
       </div>
 
-      {props.experience.length === props.positions.length ? (
+      {props.experience.length === props.positionOptions.length ? (
         <div className="dashboard-check">
           <p data-testid="full-experience-msg" className="full-experience">
             {language.competenceFull}
@@ -148,11 +148,13 @@ function ExperienceView(props) {
               {language.competencePosition}
             </option>{" "}
             {/* Default option */}
-            {props.positions.map((item, index) => {
-              if (!props.experience.some((exp) => exp.position === item)) {
+            {props.positionOptions.map((item, index) => {
+              if (
+                !props.experience.some((exp) => exp.position === item.position)
+              ) {
                 return (
-                  <option key={index} value={item}>
-                    {item}
+                  <option key={index} value={item.position}>
+                    {item.position}
                   </option>
                 );
               }

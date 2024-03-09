@@ -32,8 +32,7 @@ private final AuthenticationManager AUTHENTICATION_MANAGER;
                     .build());
         String jwtToken = JWT_SERVICE.generateToken(client);
         Claims claims = JWT_SERVICE.getAllClaims(jwtToken);
-        System.out.println("username teeeestttt: "+ claims.getSubject());
-        System.out.println("rolesssss teeeestttt: "+ claims.get("roles").toString());
+
     return AuthenticationResponse.builder()
             .accessToken(jwtToken)
             .refreshToken(jwtToken)

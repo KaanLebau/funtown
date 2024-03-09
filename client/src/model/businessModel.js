@@ -2,7 +2,20 @@ import { atom } from "recoil";
 
 export const positionOptions = atom({
   key: "positionOptions",
-  default: ["ticket sales", "roller coaster operation", "lotteries"],
+  default: [
+    {
+      id: 1,
+      position: "ticket sales",
+    },
+    {
+      id: 2,
+      position: "lotteries",
+    },
+    {
+      id: 3,
+      position: "roller coaster operation",
+    },
+  ],
 });
 
 export const statusOptions = atom({

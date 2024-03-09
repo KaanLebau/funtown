@@ -26,11 +26,10 @@ function RegistrationPresenter() {
         email: input.email,
         pnr: input.pnr,
       }); //user-service
-      console.log("new poitn");
-      //const positionList = await apiModule.getPositionList(client.access_token);
-      //console.log(positionList);
+      //const positions = await apiModule.getPositionList(client.access_token);
       setUser({
         ...user,
+        id: userInfo.id,
         firstName: userInfo.firstName,
         lastName: userInfo.lastName,
         username: input.username,

@@ -143,6 +143,7 @@ async function registerUserInfo(token, userInfo) {
 }
 //TODO DEBUGG
 async function getPositionList(token) {
+  console.log("get position list");
   try {
     const response = await axios.get(`${API_URL}/competence/list`, {
       headers: {
@@ -150,6 +151,7 @@ async function getPositionList(token) {
         Authorization: token ? `Bearer ${token}` : "",
       },
     });
+    console.log(response);
     return response.data;
   } catch (error) {
     console.error(
@@ -209,9 +211,15 @@ async function getAllApplications(token) {
 
 async function updateUserExperience(token, experience) {
   try {
-    const response = await axiosWithAuth(token).put(
-      `${API_URL}/user/experience/update`,
-      experience
+    const response = await axios.put(
+      `${API_URL}/competenceprofiles/` + experience.competence_id,
+      experience,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
     );
   } catch (error) {
     console.error("An error occurred while fetching user experience:", error);
