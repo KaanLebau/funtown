@@ -6,13 +6,24 @@ import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
 
 /**
- * React component for the login view.
- * This component renders HTML elements for a login form using the Formik library for validation.
- * It does not contain business logic and focuses solely on rendering the form elements.
+ * LoginView component for rendering login form.
  *
  * @component
- * @param {Function} props.onSubmit - A function to handle form submission in the Presenter.
- * @return {JSX.Element} The rendered login view component.
+ * @example
+ * // Usage:
+ * import LoginView from './path/to/LoginView';
+ *
+ * // Example usage in a parent component:
+ * <LoginView
+ *   loading={false}
+ *   login={(values) => console.log('Logging in with:', values)}
+ * />
+ *
+ * @param {Object} props - The props of the component.
+ * @param {boolean} props.loading - Indicates if login operation is in progress.
+ * @param {Function} props.login - Function to handle login submission.
+ * @returns {JSX.Element} The rendered LoginView component.
+ * @author Kaan
  */
 function LoginView(props) {
   const language = useRecoilValue(languageSelector);

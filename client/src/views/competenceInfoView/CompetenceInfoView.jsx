@@ -2,6 +2,34 @@ import "./competenceInfoView.scss";
 import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
 
+/**
+ * Competence Info View component.
+ *
+ * This component displays competence information, allowing users to view their competencies and select a specific competence to display its details.
+ *
+ * @component
+ * @param {Object} props - The props of the component.
+ * @param {Array} props.experience - The list of user's experiences/competencies.
+ * @param {number} props.selectedCompetence - The index of the selected competence.
+ * @param {Function} props.setSelectedCompetence - The function to set the selected competence.
+ * @param {Function} props.newCompetence - The function to add a new competence.
+ * @returns {JSX.Element} The rendered Competence Info View.
+ * @author Kaan
+ *
+ * @example
+ * // Import CompetenceInfoView component
+ * import CompetenceInfoView from "./path/to/CompetenceInfoView";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <CompetenceInfoView
+ *     experience={userExperience}
+ *     selectedCompetence={selectedExperienceIndex}
+ *     setSelectedCompetence={handleSelectedExperience}
+ *     newCompetence={handleAddNewExperience}
+ *   />
+ * )
+ */
 function CompetenceInfoView(props) {
   const language = useRecoilValue(languageSelector);
 

@@ -3,6 +3,37 @@ import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
 import { IoIosRemoveCircle } from "react-icons/io";
 
+/**
+ * Availability View component.
+ *
+ * This component displays availability information, allowing users to view, add, and remove their availability periods.
+ *  It also handles date selection and error messages related to availability.
+ *
+ * @component
+ * @param {Object} props - The props of the component.
+ * @param {Array} props.availabilityList - The list of availability periods.
+ * @param {Function} props.handleDates - The function to handle date selection.
+ * @param {Function} props.add - The function to add a new availability period.
+ * @param {Object} props.err - The error object containing error state and message.
+ * @param {Function} props.remove - The function to remove an availability period.
+ * @returns {JSX.Element} The rendered Availability View.
+ * @author Kaan
+ *
+ * @example
+ * // Import AvailabilityView component
+ * import AvailabilityView from "./path/to/AvailabilityView";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <AvailabilityView
+ *     availabilityList={availabilityData}
+ *     handleDates={handleDateSelection}
+ *     add={handleAddAvailability}
+ *     err={error}
+ *     remove={handleRemoveAvailability}
+ *   />
+ * )
+ */
 function AvailabilityView(props) {
   const language = useRecoilValue(languageSelector);
   return (

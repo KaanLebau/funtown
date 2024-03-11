@@ -2,6 +2,32 @@ import { Avatar } from "@mui/material";
 import "./userInfoView.scss";
 import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
+/**
+ * UserInfoView component for rendering user information.
+ *
+ * @component
+ * @example
+ * // Usage:
+ * import UserInfoView from './path/to/UserInfoView';
+ *
+ * // Example usage in a parent component:
+ * <UserInfoView
+ *   user={{
+ *     firstName: "John",
+ *     lastName: "Doe",
+ *     username: "john_doe",
+ *     email: "john.doe@example.com"
+ *   }}
+ * />
+ *
+ * @param {Object} props - The props of the component.
+ * @param {Object} props.user - An object containing user information.
+ * @param {string} props.user.firstName - The first name of the user.
+ * @param {string} props.user.lastName - The last name of the user.
+ * @param {string} props.user.username - The username of the user.
+ * @param {string} props.user.email - The email address of the user.
+ * @returns {JSX.Element} The rendered UserInfoView component.
+ */
 function UserInfoView(props) {
   const language = useRecoilValue(languageSelector);
   const initials =

@@ -1,4 +1,20 @@
+/**
+ * Custom Error class for handling errors related to overlapping dates in availability periods.
+ * This error is thrown when there is an attempt to add a new availability period that overlaps with existing periods.
+ * It contains a code to identify the type of error and a message to provide additional information.
+ *
+ * @class OverlappingDatesError
+ * @extends Error
+ *
+ * @param {number} code - The error code to identify the type of error.
+ * @param {string} message - A descriptive message providing additional information about the error.
+ */
 class OverlappingDatesError extends Error {
+  /**
+   * Creates an instance of OverlappingDatesError.
+   * @param {number} code - The error code to identify the type of error.
+   * @param {string} message - A descriptive message providing additional information about the error.
+   */
   constructor(code, message) {
     super(message);
     this.name = this.constructor.name;
@@ -7,9 +23,38 @@ class OverlappingDatesError extends Error {
   }
 }
 
+/**
+ * Availability Model for managing a list of date ranges representing availability periods, created by Kaan.
+ * This model ensures that there are no overlapping dates within the list and provides functions
+ * for adding, updating, removing, and displaying availability periods.
+ *
+ * @author Kaan
+ *
+ * @example
+ * // Import the availability model
+ * import availabilityModel from './availabilityModel';
+ *
+ * // Initialize with initial availability periods
+ * availabilityModel.init([{ fromDate: '2024-03-01', toDate: '2024-03-05' }]);
+ *
+ * // Add a new availability period
+ * availabilityModel.add({ fromDate: '2024-03-10', toDate: '2024-03-15' });
+ *
+ * // Update an existing availability period
+ * availabilityModel.update(0, { fromDate: '2024-03-06', toDate: '2024-03-08' });
+ *
+ * // Remove an availability period
+ * availabilityModel.remove(0);
+ *
+ * // Display all availability periods
+ * availabilityModel.show();
+ */
 const availabilityModel = {
   dates: [],
-
+  /**
+   * Initializes the availability model with a provided list of availability periods.
+   * @param {Array} currentList - An array of availability periods.
+   */
   init: function (currentList) {
     this.dates = currentList;
   },
@@ -49,7 +94,11 @@ const availabilityModel = {
       /^(?:19|20)\d{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1\d|2[0-8])|(?:0[13-9]|1[0-2])-(?:29|30)|(?:0[13578]|1[02])-31)$/;
     return regex.test(dateString);
   },
-
+  /**
+   * Adds a new availability period to the model.
+   * @param {Object} availability - An object representing the new availability period with `fromDate` and `toDate` properties.
+   * @throws {OverlappingDatesError} Throws an error if the new availability period overlaps with existing periods or if the dates are invalid.
+   */
   add: function (availability) {
     let errCode = 0;
 
@@ -83,7 +132,13 @@ const availabilityModel = {
       throw new OverlappingDatesError(4, "overlaping dates");
     }
   },
-
+  /**
+   * Updates an existing availability period.
+   * @param {number|Object} arg1 - If it's a number, it represents the index of the availability period to update.
+   * If it's an object, it represents the availability period to search for.
+   * @param {Object} newDate - The new availability period to replace the existing one.
+   * @throws {Error} Throws an error if the index is out of range or if the date to update is not found.
+   */
   update: function (arg1, newDate) {
     if (typeof arg1 === "number") {
       const index = arg1;
@@ -114,6 +169,12 @@ const availabilityModel = {
     return this.dates.findIndex((d) => d === searchDate);
   },
 
+  /**
+   * Removes an availability period from the model.
+   * @param {number|Object} arg - If it's a number, it represents the index of the availability period to remove.
+   * If it's an object, it represents the availability period to search for.
+   * @throws {Error} Throws an error if the index is out of range or if the date to remove is not found.
+   */
   remove: function (arg) {
     if (typeof arg === "number") {
       const index = arg;
@@ -132,6 +193,9 @@ const availabilityModel = {
     }
   },
 
+  /**
+   * Displays all availability periods in the model.
+   */
   show: function () {
     console.log("Availability Dates:");
     this.dates.forEach((date, index) => {

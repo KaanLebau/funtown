@@ -18,16 +18,10 @@ export const localStorageEffect =
       localStorage.setItem(key, JSON.stringify(newValue));
     });
   };
-const fetchUserExperience = async (token, username) => {
-  try {
-    const experienceData = await apiModule.getUserExperience(token, username); // Call your API function to fetch experience data
-    return experienceData;
-  } catch (error) {
-    console.error("Failed to fetch user experience:", error);
-    return [];
-  }
-};
 
+/**
+ * Atom representing the current user's state.
+ */
 export const currentUserState = atom({
   key: "currentUserState",
   default: {
@@ -43,13 +37,17 @@ export const currentUserState = atom({
   },
   effects: [localStorageEffect("currentUserState")],
 });
-
+/**
+ * Atom representing the state of user login status.
+ */
 export const userLoggedIn = atom({
   key: "userLoggedIn",
   default: false,
   effects: [localStorageEffect("userLoggedIn")],
 });
-
+/**
+ * Selector representing the availability state of the current user.
+ */
 export const availabilitySelectorState = selector({
   key: "availabilitySelectorState",
   get: ({ get }) => get(currentUserState).availability,
@@ -73,12 +71,17 @@ export const availabilitySelectorState = selector({
     set(currentUserState, newState);
   },
 });
+/**
+ * Selector representing the JWT token of the current user.
+ */
 
 export const jwtTokenSelector = selector({
   key: "jwtTokenSelector",
   get: ({ get }) => get(currentUserState).token,
 });
-
+/**
+ * Selector representing the experience state of the current user.
+ */
 export const experienceSelectorState = selector({
   key: "experienceSelectorState",
   get: ({ get }) => get(currentUserState).experience,

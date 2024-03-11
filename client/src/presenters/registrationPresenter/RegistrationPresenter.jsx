@@ -7,6 +7,24 @@ import { useRecoilState } from "recoil";
 import { jwtDecode } from "jwt-decode";
 import { userLoggedIn } from "../../model/userModel";
 
+/**
+ * Registration Presenter component.
+ *
+ * This component handles the presentation logic for user registration. It interacts with the RegistrationView component to display the registration form and communicates with the backend API to register the user. Upon successful registration, it updates the user state and redirects to the dashboard page. In case of an error, it displays a notification.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Registration Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import RegistrationPresenter component
+ * import RegistrationPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <RegistrationPresenter />
+ * )
+ */
 function RegistrationPresenter() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(currentUserState);

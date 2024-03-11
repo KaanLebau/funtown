@@ -10,7 +10,7 @@ import "./registrationPage.scss";
  * @component
  * @example
  * // Usage of RegistrationPage in a higher-level component or route:
- * import RegistrationPage from './pages/registerPage/RegistrationPage';
+ * import RegistrationPage from "/path-to-presenter";
  * <RegistrationPage />
  * // ... other imports
  * @returns {JSX.Element}

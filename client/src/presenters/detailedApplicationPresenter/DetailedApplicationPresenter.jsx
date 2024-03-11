@@ -5,10 +5,33 @@ import { statusOptions } from "../../model/businessModel";
 import { currentUserState } from "../../model/userModel";
 
 /**
- * DetailedApplicationPresenter component function.
+ * Detailed Application Presenter component.
  *
- * @param {Object} props - the props object
- * @return {JSX.Element} the DetailedApplicationPresenter component
+ * This component manages the presentation logic for displaying and editing detailed application information.
+ * It handles editing application status, saving changes, and updating the backend. It renders the DetailedApplicationView
+ * component to display the application details and provide user interaction.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Object} props.theApplicant - The application data to be displayed.
+ * @returns {JSX.Element} The rendered Detailed Application Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import DetailedApplicationPresenter component
+ * import DetailedApplicationPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * const applicationData = {
+ *   id: 14,
+ *   firstName: "Bon",
+ *   lastName: "Jovi",
+ *   // Additional application fields...
+ * };
+ *
+ * return (
+ *   <DetailedApplicationPresenter theApplicant={applicationData} />
+ * )
  */
 function DetailedApplicationPresenter(props) {
   const currentUser = useRecoilValue(currentUserState);

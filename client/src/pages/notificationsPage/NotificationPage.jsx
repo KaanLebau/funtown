@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
  *
  * @example
  * ```jsx
- * import NotificationPage from './NotificationPage';
+ * import NotificationPage from "/path-to-presenter";
  *
  * <NotificationPage />
  *```

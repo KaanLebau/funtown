@@ -9,7 +9,7 @@ import LoginPresenter from "../../presenters/loginPresenter/LoginPresenter";
  * @component
  * @example
  * // Usage of LoginPage in a higher-level component or route:
- * import LoginPage from './pages/loginPage/LoginPage';
+ * import LoginPage from "/path-to-presenter";
  * <LoginPage />
  * // ... other imports
  * @returns  {JSX.Element}

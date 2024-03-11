@@ -5,6 +5,24 @@ import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../model/userModel";
 import { useState } from "react";
 
+/**
+ * Job Applications Page component.
+ *
+ * This component displays a page for managing job applications. It consists of a table displaying job application data
+ * and a detailed view of individual applications.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered job applications page.
+ * @example
+ * // Import DashboardPage component
+ * import DashboardPage from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <JobapplicationsPage />
+ * )
+ * @author Kaan
+ */
 function JobApplicationsPage() {
   const user = useRecoilValue(currentUserState);
   const [detailedInfo, setDetailedInfo] = useState(null);

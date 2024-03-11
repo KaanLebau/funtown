@@ -6,7 +6,25 @@ import { useNavigate } from "react-router-dom";
 import apiModule from "../../integration/funtownApi";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
-
+/**
+ * Login Presenter component.
+ *
+ * This component handles the presentation logic for the login process. It interacts with the LoginView component to
+ * render the login form and manages the login state using Recoil state management.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Login Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import LoginPresenter component
+ * import LoginPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <LoginPresenter />
+ * )
+ */
 function LoginPresenter() {
   const [user, setUser] = useRecoilState(currentUserState);
   const [loggedIn, setLoggedIn] = useRecoilState(userLoggedIn);

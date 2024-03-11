@@ -6,6 +6,31 @@ import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../model/userModel";
 
+/**
+ * Availability Presenter component.
+ *
+ * This component manages the presentation logic for availability data. It handles adding and removing availability slots,
+ * validating input dates, and updating the availability list. It renders the AvailabilityView component to display the
+ * availability data and handle user interactions.
+ *
+ * @component
+ * @param {Object} props - The properties passed to the component.
+ * @param {Function} props.updateList - A function to update the availability list.
+ * @returns {JSX.Element} The rendered Availability Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import AvailabilityPresenter component
+ * import AvailabilityPresenter from "/path-to-presenter"
+ * // Inside a React functional component
+ * const handleUpdateList = (list) => {
+ *   console.log("Updated list:", list);
+ * };
+ *
+ * return (
+ *   <AvailabilityPresenter updateList={handleUpdateList} />
+ * )
+ */
 function AvailabilityPresenter(props) {
   const user = useRecoilValue(currentUserState);
   const language = useRecoilValue(languageSelector);

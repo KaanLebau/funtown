@@ -17,7 +17,7 @@ import "./welcomePage.scss";
  * @example
  * ```jsx
  * // Usage of WelcomePage in a higher-level component or route:
- * import WelcomePage from './pages/welcomePage/WelcomePage';
+ * import WelcomePage from "/path-to-presenter";
  * <WelcomePage/>
  * // ... other imports
  *

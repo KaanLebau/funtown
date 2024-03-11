@@ -9,7 +9,7 @@ import "./notFoundPage.scss";
  *
  * @example
  * ```jsx
- * import NotificationPage from './NotificationPage';
+ * import NotificationPage from "/path-to-presenter";
  *
  * <NotificationPage />
  *```
