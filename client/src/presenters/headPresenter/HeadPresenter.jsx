@@ -8,10 +8,26 @@ import {
   languageSelector,
 } from "../../model/languageModel";
 import { useNavigate } from "react-router-dom";
+
 /**
- * HeadPresenter component that renders the HeadView with the user and logout function.
+ * Head Presenter component.
  *
- * @return {JSX.Element} The JSX for the HeadPresenter component.
+ * This component manages the presentation logic for the application header. It handles user authentication state,
+ * language selection, and navigation. It renders the HeadView component to display the header UI elements and handle
+ * user interactions.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Head Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import HeadPresenter component
+ * import HeadPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <HeadPresenter />
+ * )
  */
 const HeadPresenter = () => {
   const navigate = useNavigate();
@@ -20,9 +36,7 @@ const HeadPresenter = () => {
   const [, setLanguage] = useRecoilState(userLanguageState);
   const languageList = useRecoilValue(availableLanguagesList);
   const language = useRecoilValue(languageSelector);
-  /**
-   * Function to logout the userPuser
-   */
+
   function handleLogout() {
     localStorage.removeItem("currentUserState");
     setActive(false);
@@ -31,17 +45,11 @@ const HeadPresenter = () => {
     localStorage.removeItem("userLoggedIn");
     localStorage.removeItem("userLanguageState");
   }
-  /**
-   * Function to handle language change
-   * @param {string} language - The new language to set
-   */
+
   function handleLanguageChange(newLanguage) {
     setLanguage(newLanguage);
   }
-  /**
-   * Function to handle page redirect
-   * @param {string} page - The page to redirect to
-   */
+
   function handleRedirect(page) {
     navigate(`./${page}`);
   }

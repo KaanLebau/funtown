@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
  * @component
  * @example
  * ```jsx
- * import { SchedulePage } from './SchedulePage';
+ * import { SchedulePage } from "/path-to-presenter";
  *
  * <SchedulePage />
  * ```

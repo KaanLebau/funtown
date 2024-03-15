@@ -23,6 +23,33 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * JwtTokenFilter is a Spring Boot filter that handles JWT authentication.
+ * It extends OncePerRequestFilter, which ensures that the filter is only applied once per request.
+ * This filter extracts the JWT token from the "Authorization" header in the request,
+ * validates and parses the token, and sets the user details in the security context.
+ * If the token is invalid or missing, the filter chain is continued.
+ *
+ * The filter requires a secret key for JWT validation, which is specified in the application.properties file.
+ *
+ * Example usage:
+ * ```java
+ * @Component
+ * @RequiredArgsConstructor
+ * public class JwtTokenFilter extends OncePerRequestFilter {
+ *     @Value("${application.security.jwt.secret-key}")
+ *     private String SECRET_KEY;
+ *
+ *     @Override
+ *     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+ *         throws ServletException, IOException {
+ *         // Filter implementation
+ *     }
+ *
+ *     // Other methods
+ * }
+ * ```
+ */
 @Component
 @RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {

@@ -43,7 +43,7 @@ public class Client implements UserDetails {
     private Integer id;
 
     @Column(name = "username")
-    @Convert(converter = AESConfig.class)
+    //@Convert(converter = AESConfig.class)
     private String username;
 
     @Column(name = "password")

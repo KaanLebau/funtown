@@ -7,7 +7,7 @@ import "./applicationFormPage.scss";
  * It renders the JobApplicationPresenter component, which contains the form for job applications.
  *
  * ```jsx
- * import ApplicationFormPage from "./pages/applicationFormPage/ApplicationFormPage";
+ * import ApplicationFormPage from "/path-to-presenter";
  * <ApplicationFormPage />
  * ```
  *

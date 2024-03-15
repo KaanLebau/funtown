@@ -6,8 +6,13 @@ import dev.kaan.authservices.model.AuthenticationResponse;
 //import dev.kaan.authservices.services.AuthenticationService;
 import dev.kaan.authservices.services.impl.AuthenticationServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
+/**
+ * The AuthenticationController class provides the API endpoints for user registration and authentication.
+ */
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -45,9 +50,19 @@ public class AuthenticationController {
      */
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticte(@RequestBody AuthenticationRequest request){
-        return ResponseEntity.ok(authenticationService.authenticate(request));
+        System.out.println("TRY TO AUTHENTICATE");
+        try{
+            return ResponseEntity.ok(authenticationService.authenticate(request));
+        } catch (UsernameNotFoundException e){
+            return ResponseEntity.notFound().build();
+        }
     }
 
+    /**
+     * This method returns a string representing the text "Registration page test".
+     *
+     * @return the string "Registration page test"
+     */
     @GetMapping("/registration")
     public String regTest(){
         return "Registration page test";

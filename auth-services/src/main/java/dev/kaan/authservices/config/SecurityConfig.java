@@ -14,6 +14,10 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
+/**
+ * This class represents the configuration for the security of the application.
+ * It is responsible for defining the security filters and rules for different endpoints.
+ */
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -23,6 +27,14 @@ public class SecurityConfig {
     private final AuthenticationProvider AUTHENTICATION_PROVIDER;
     private final PasswordEncoder PASSWORD_ENCODER;
     private final ClientServiceImpl PERSON_SERVICE;
+    /**
+     * This method creates a SecurityFilterChain object for configuring the security of the application.
+     * It configures the security filters and rules for different endpoints.
+     *
+     * @param http the HttpSecurity object to configure
+     * @return the created SecurityFilterChain object
+     * @throws Exception if an exception occurs during configuration
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http

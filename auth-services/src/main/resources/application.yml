@@ -19,6 +19,16 @@ spring:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
   application:
     name: auth-service
+  sql:
+    init:
+      mode: always
+
+  logging:
+    level:
+      org.springframework: DEBUG
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
 application:
   security:
     jwt:

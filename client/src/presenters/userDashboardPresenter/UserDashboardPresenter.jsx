@@ -8,6 +8,28 @@ import { useState } from "react";
 import { currentUserState } from "../../model/userModel";
 import { useRecoilState } from "recoil";
 
+/**
+ * User Dashboard Presenter component.
+ *
+ * This component serves as the presenter for the user dashboard, displaying user information, competence information,
+ * schedule, and job table. It allows users to view their profile information, manage their competences, and view their
+ * schedules and job applications.
+ *
+ * @component
+ * @param {Object} props - The props of the component.
+ * @param {Object} props.user - The user object containing user information.
+ * @returns {JSX.Element} The rendered User Dashboard Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import UserDashboardPresenter component
+ * import UserDashboardPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <UserDashboardPresenter user={userData} />
+ * )
+ */
 function UserDashboardPresenter(props) {
   const [updateExperience, setUpdateExperience] = useState(false);
   const [selectedCompetence, setSelectedCompetence] = useState(0);

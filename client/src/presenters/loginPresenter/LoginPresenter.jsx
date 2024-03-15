@@ -6,7 +6,25 @@ import { useNavigate } from "react-router-dom";
 import apiModule from "../../integration/funtownApi";
 import { useState } from "react";
 import { jwtDecode } from "jwt-decode";
-
+/**
+ * Login Presenter component.
+ *
+ * This component handles the presentation logic for the login process. It interacts with the LoginView component to
+ * render the login form and manages the login state using Recoil state management.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Login Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import LoginPresenter component
+ * import LoginPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <LoginPresenter />
+ * )
+ */
 function LoginPresenter() {
   const [user, setUser] = useRecoilState(currentUserState);
   const [loggedIn, setLoggedIn] = useRecoilState(userLoggedIn);
@@ -15,6 +33,7 @@ function LoginPresenter() {
 
   async function getApplicantData(auth) {
     const client = await apiModule.getUserByUsername(auth.token, auth.username);
+    console.log(client);
 
     const experience = await apiModule.getUserExperience(
       auth.token,
@@ -37,7 +56,7 @@ function LoginPresenter() {
     });
   }
   async function getRecruiterData(auth) {
-    const client = await apiModule.getUserByUsername(auth.token, auth.username);
+    const client = await apiModule.getUserByUsername(auth.token);
     setUser({
       firstName: client.firstName,
       lastName: client.lastName,
@@ -60,9 +79,10 @@ function LoginPresenter() {
 
       const auth = {
         username: decoded.sub,
-        role: decoded.role,
+        role: decoded.roles[0],
         token: client.access_token,
       };
+      console.log(auth);
 
       if (auth.role === "APPLICANT") {
         await getApplicantData(auth);

@@ -4,6 +4,25 @@ import "./jobTablePresenter.scss";
 import { languageSelector } from "../../model/languageModel";
 import { currentUserState } from "../../model/userModel";
 import { useRecoilValue } from "recoil";
+/**
+ * Job Table Presenter component.
+ *
+ * This component manages the presentation logic for displaying job application data in a table format. It dynamically
+ * generates columns based on the provided data and renders the JobTableView component to display the table.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Job Table Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import JobTablePresenter component
+ * import JobTablePresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <JobTablePresenter role="APPLICANT" data={applicationData} selectedApplication={handleApplicaionDetail} />
+ * )
+ */
 function JobTablePresenter(props) {
   const language = useRecoilValue(languageSelector);
   //const user = useRecoilValue(currentUserState);

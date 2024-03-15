@@ -15,15 +15,45 @@ import { useRecoilValue } from "recoil";
 import { userLoggedIn } from "../../model/userModel";
 
 /**
- * Renders the head view for the user.
- * This component is responsible for rendering the header of the application,
- * including the site title and, if a user is present, a logout button.
+ * HeadView component for displaying user controls and language selection.
  *
  * @component
- * @param {object} props - The props object containing user information.
- * @param {object} props.user - The user object, indicating if a user is logged in.
- * @param {function} props.logout - The function to be called when the logout button is clicked.
- * @returns {JSX.Element} The rendered head view component.
+ * @example
+ * // Usage:
+ * import HeadView from './path/to/HeadView';
+ *
+ * // Example usage in a parent component:
+ * <HeadView
+ *   active={true}
+ *   user={{ role: 'RECRUITER' }}
+ *   language={{
+ *     dashboard: 'Dashboard',
+ *     applicationList: 'Application List',
+ *     schedule: 'Schedule',
+ *     logout: 'Logout',
+ *     applicationForm: 'Application Form',
+ *   }}
+ *   languageList={[
+ *     { language: 'English', code: 'en' },
+ *     { language: 'French', code: 'fr' },
+ *     { language: 'Spanish', code: 'es' },
+ *   ]}
+ *   redirect={(id) => console.log('Redirect to:', id)}
+ *   logout={() => console.log('User logged out')}
+ *   changeLanguage={(language) => console.log('Language changed to:', language)}
+ * />
+ *
+ * @param {Object} props - The props of the component.
+ * @param {boolean} props.active - Flag indicating whether the component is active.
+ * @param {Object} props.user - The user object.
+ * @param {string} props.user.role - The role of the user.
+ * @param {Object} props.language - The language object containing language-specific strings.
+ * @param {Array} props.languageList - The list of available languages.
+ * @param {Function} props.redirect - Function to handle redirection.
+ * @param {Function} props.logout - Function to handle user logout.
+ * @param {Function} props.changeLanguage - Function to handle language change.
+ * @returns {JSX.Element} The rendered HeadView component.
+ * @author Kaan
  */
 const HeadView = (props) => {
   return (

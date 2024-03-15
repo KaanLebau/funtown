@@ -1,6 +1,7 @@
 package com.funtown.userService.controller;
 
 import com.funtown.userService.model.Competence;
+import com.funtown.userService.model.Person;
 import com.funtown.userService.service.CompetenceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,16 @@ public class CompetenceController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
+
+    @GetMapping("/list")
+    ResponseEntity<List<Competence>> competenceList(){
+        try{
+            return ResponseEntity.ok((List<Competence>) service.getAll());
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
 
     /**
      * Saves a new Competence entity to the database.

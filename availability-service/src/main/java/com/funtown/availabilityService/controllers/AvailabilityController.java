@@ -1,6 +1,7 @@
 package com.funtown.availabilityService.controllers;
 
 import com.funtown.availabilityService.model.Availability;
+import com.funtown.availabilityService.model.api.CreateAvailabilityRequest;
 import com.funtown.availabilityService.model.api.UpdateStatusRequest;
 import com.funtown.availabilityService.service.AvailabilityService;
 import lombok.RequiredArgsConstructor;
@@ -35,6 +36,8 @@ public class AvailabilityController {
       }
    }
 
+
+
    @GetMapping("/id/{id}")
    public ResponseEntity<Availability> getAvailabilityById(@PathVariable Integer id ){
       try{
@@ -50,16 +53,20 @@ public class AvailabilityController {
       return ResponseEntity.ok(service.findAll());
    }
 
+
    @PostMapping("/create") // only applicant
    @Secured("ROLE_APPLICANT")
    @ResponseStatus(HttpStatus.CREATED)
-   public ResponseEntity<Availability> create(@RequestBody Availability availability){
+   public ResponseEntity<List<Availability>> create(@RequestBody List<CreateAvailabilityRequest> availability){
+      System.out.println(availability);
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-      if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
+      if(!auth.getPrincipal().toString().equals(availability.get(0).username())) {
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
       }
       try {
-         return ResponseEntity.ok(service.save(availability));
+         List<Availability> respons =service.saveAll(availability);
+         System.out.println(respons);
+         return ResponseEntity.ok(respons);
       } catch (Exception e) {
          return ResponseEntity.internalServerError().build();
       }

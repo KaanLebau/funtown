@@ -25,7 +25,7 @@ public class CompetenceProfileController {
      *
      * @return A list of {@link CompetenceProfile} instances.
      */
-    @GetMapping
+    @GetMapping("/get-all")
     public List<CompetenceProfile> getAllCompetenceProfiles() {
         return competenceProfileService.findAll();
     }
@@ -51,7 +51,7 @@ public class CompetenceProfileController {
      * @return A {@link ResponseEntity} containing the created {@link CompetenceProfile}
      *         with HTTP status {@link HttpStatus#CREATED}.
      */
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CompetenceProfile> createCompetenceProfile(@RequestBody CompetenceProfile competenceProfile) {
         CompetenceProfile savedCompetenceProfile = competenceProfileService.save(competenceProfile);
         return new ResponseEntity<>(savedCompetenceProfile, HttpStatus.CREATED);

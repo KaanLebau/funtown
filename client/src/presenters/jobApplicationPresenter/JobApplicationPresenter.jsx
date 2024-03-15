@@ -12,9 +12,25 @@ import { useNavigate } from "react-router-dom";
 import apiModule from "../../integration/funtownApi";
 
 /**
+ * Job Application Presenter component.
  *
- * @param {*} props
- * @returns  {JSX.Element}
+ * This component manages the presentation logic for the job application process. It handles the display and management
+ * of user experience and availability information, as well as the application submission process. It renders the
+ * ExperiencePresenter and AvailabilityPresenter components to manage experience and availability data respectively,
+ * and provides buttons for submitting or canceling the application.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Job Application Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import JobApplicationPresenter component
+ * import JobApplicationPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <JobApplicationPresenter />
+ * )
  */
 function JobApplicationPresenter(props) {
   const navigate = useNavigate();
@@ -29,10 +45,33 @@ function JobApplicationPresenter(props) {
   function handleCancel() {
     navigate("/user/dashboard", { replace: true });
   }
+  function stringConverter(list) {
+    let stringDate = [];
+    list.map((avail) => {
+      stringDate.push({
+        username: avail.username,
+        from: avail.fromDate.toString(),
+        to: avail.toDate.toString(),
+        status: avail.status,
+        position: avail.position,
+        contact: avail.contact,
+      });
+    });
+    return stringDate;
+  }
+
   async function handleApply() {
     setLoading(true);
     try {
-      await apiModule.updateUserAvailability(user.token, req);
+      const availlist = await apiModule.addUserAvailability(user.token, req);
+      console.log("create works");
+      const alist = await apiModule.getUserAvailability(
+        user.token,
+        user.username
+      );
+      console.log("get all  works");
+      console.log(alist);
+      setUser({ ...user, availability: alist });
       navigate("/notification", {
         replace: true,
         state: { redirect: "/user/dashboard", code: 211 },

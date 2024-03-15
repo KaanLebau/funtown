@@ -5,16 +5,21 @@ import "./registrationView.scss";
 import { languageSelector } from "../../model/languageModel";
 import { useRecoilValue } from "recoil";
 /**
- * Renders the registration view for user registration.
- * This component provides a registration form for users to input their information,
- * including first name, last name, username, email, personal number (pnr), and password.
- * Utilizes Formik library for form validation.
- * Does not contain business logic and focuses solely on rendering the form elements.
+ * RegistrationView component for rendering user registration form.
  *
  * @component
- * @param {object} props - The props object for sending data to the presenter.
- * @param {Function} props.onSubmit - The function to handle form submission.
- * @return {JSX.Element} The registration view component.
+ * @example
+ * // Usage:
+ * import RegistrationView from './path/to/RegistrationView';
+ *
+ * // Example usage in a parent component:
+ * <RegistrationView
+ *   onSubmit={(values) => console.log("Form submitted with values:", values)}
+ * />
+ *
+ * @param {Object} props - The props of the component.
+ * @param {Function} props.onSubmit - Function to handle form submission with form values.
+ * @returns {JSX.Element} The rendered RegistrationView component.
  */
 function RegistrationView(props) {
   const language = useRecoilValue(languageSelector);

@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
  * Example usage:
  *
  * ```jsx
- * import DashboardPage from "./pages/dashboardPage/DashboardPage";
+ * import DashboardPage from "/path-to-presenter";
  * <DashboardPage />
  * ```
  *

@@ -27,11 +27,23 @@ public class CompetenceServiceImpl implements CompetenceService {
     }
 
 
+    /**
+     * Retrieves a list of all competences from the CompetenceRepository.
+     *
+     * @return a List of Competence objects representing all competences in the system.
+     */
     @Override
-    public List<Competence> getall() {
-        return repository.findAll();
+    public List<Competence> getAll() {
+        List<Competence> hi = repository.findAll();
+        System.out.println(hi);
+        return hi;
     }
 
+    /**
+     * Saves a Competence object to the repository.
+     *
+     * @param competence the Competence object to be saved
+     */
     @Override
     public void saveCompetence(Competence competence) {
         repository.save(competence);

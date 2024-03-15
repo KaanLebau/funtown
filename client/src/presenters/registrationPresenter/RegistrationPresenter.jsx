@@ -7,6 +7,24 @@ import { useRecoilState } from "recoil";
 import { jwtDecode } from "jwt-decode";
 import { userLoggedIn } from "../../model/userModel";
 
+/**
+ * Registration Presenter component.
+ *
+ * This component handles the presentation logic for user registration. It interacts with the RegistrationView component to display the registration form and communicates with the backend API to register the user. Upon successful registration, it updates the user state and redirects to the dashboard page. In case of an error, it displays a notification.
+ *
+ * @component
+ * @returns {JSX.Element} The rendered Registration Presenter.
+ * @author Kaan
+ *
+ * @example
+ * // Import RegistrationPresenter component
+ * import RegistrationPresenter from "/path-to-presenter";
+ *
+ * // Inside a React functional component
+ * return (
+ *   <RegistrationPresenter />
+ * )
+ */
 function RegistrationPresenter() {
   const navigate = useNavigate();
   const [user, setUser] = useRecoilState(currentUserState);
@@ -16,20 +34,29 @@ function RegistrationPresenter() {
     const { username, password } = input;
 
     try {
-      const client = await apiModule.registration(username, password);
+      const client = await apiModule.registration(username, password); //uath-service
       const decoded = jwtDecode(client.access_token);
-      const role = decoded.roles[0];
-      console.log(decoded);
-      setUser({
-        ...user,
+      console.log("auth done");
+      const userInfo = await apiModule.registerUserInfo(client.access_token, {
         firstName: input.firstName,
         lastName: input.lastName,
         username: input.username,
         email: input.email,
         pnr: input.pnr,
+      }); //user-service
+      //const positions = await apiModule.getPositionList(client.access_token);
+      console.log("user service works");
+      setUser({
+        ...user,
+        id: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        username: input.username,
+        email: userInfo.email,
+        pnr: userInfo.pnr,
         password: input.password,
         token: client.access_token,
-        role: role,
+        role: decoded.roles[0],
         experience: [],
         availability: [],
       });

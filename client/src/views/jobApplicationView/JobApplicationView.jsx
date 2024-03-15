@@ -1,18 +1,31 @@
 import React from "react";
 import "./jobApplicationView.scss";
+
 /**
- * Renders the job application form.
- * This component provides a form for users to submit job applications,
- * requiring them to select a position, specify experience, and choose available dates.
- * Users must select start and end dates in the 'From' and 'To' fields to define a date range.
- * It does not contain business logic and focuses solely on rendering the form elements.
+ * JobApplicationView component for displaying job application form.
  *
  * @component
- * @param {object} props - The props object containing data for rendering the form.
- * @param {string[]} props.position - The list of available positions for the user to choose from.
- * @param {string[]} props.experience - The list of available experience levels for the user to choose from.
- * @returns {JSX.Element} The rendered job application form.
+ * @example
+ * // Usage:
+ * import JobApplicationView from './path/to/JobApplicationView';
+ *
+ * // Example usage in a parent component:
+ * <JobApplicationView
+ *   position={['Position 1', 'Position 2', 'Position 3']}
+ *   experience={['Experience 1', 'Experience 2', 'Experience 3']}
+ *   apply={() => console.log('Job application submitted')}
+ *   cancel={() => console.log('Job application canceled')}
+ * />
+ *
+ * @param {Object} props - The props of the component.
+ * @param {Array} props.position - The list of available positions.
+ * @param {Array} props.experience - The list of available experiences.
+ * @param {Function} props.apply - Function to handle job application submission.
+ * @param {Function} props.cancel - Function to handle job application cancellation.
+ * @returns {JSX.Element} The rendered JobApplicationView component.
+ * @author Kaan
  */
+
 function JobApplicationView(props) {
   return (
     <div data-testid="job-application-view" className="application-content">

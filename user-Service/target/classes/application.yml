@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://postgres_sql:5432/user_service  # for docker use jdbc:postgresql://postgres-sql:5432/user_service
-    username: newuser
+    url: jdbc:postgresql://localhost:5432/user_service  # for docker use jdbc:postgresql://postgres-sql:5432/user_service
+    username: newuser                                   # for docker use teste
     password: password
     driver-class-name: org.postgresql.Driver
 
