@@ -40,7 +40,7 @@ function DetailedApplicationPresenter(props) {
   const [updatedApplication, setUpdatedApplication] = useState(application);
   const [editing, setEditing] = useState(false);
   const [newData, setNewData] = useState(false);
-  console.log(props.theApplicant);
+
   function handleEdit() {
     setEditing(!editing);
   }

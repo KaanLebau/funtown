@@ -46,9 +46,7 @@ function LoginPresenter() {
       auth.token,
       auth.username
     );
-    //TODO remove await we dont need to wait to resolve remove console.log()
-    const positionList = await apiModule.getPositionList(auth.token);
-    console.log(positionList);
+    const positionList = apiModule.getPositionList(auth.token);
     setPositionOptions(positionList);
     setUser({
       firstName: client.firstName,
@@ -74,6 +72,8 @@ function LoginPresenter() {
       role: auth.role,
       token: auth.token,
     });
+    const positionList = apiModule.getPositionList(auth.token);
+    setPositionOptions(positionList);
   }
   async function handleLogin(credential) {
     try {

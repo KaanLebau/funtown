@@ -37,6 +37,7 @@ function JobApplicationsPage() {
       user.token,
       id
     );
+    console.log(selectedaspplication);
     let selectedUser = await apiModule.getUserByUsername(
       user.token,
       selectedaspplication.username
