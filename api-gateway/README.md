@@ -5,9 +5,8 @@
 FunTown microservice for api gateway .
 
 ## Usage
-Before starting the microservice, you need to have a postgressql instance running on your PC with a user called newuser and password set to 'password'. 
-The user must also be assigned the role superuser.
-Also, in order for this microservice to start correctly, you need to start the service_registery service first.
+The API Gateway is used to connect the front-end and the back-end so it is preferable to start them before.
+Service-registry service must be started before this service is started.
 
 To start the microservice, change directory to inside the service's folder.
 

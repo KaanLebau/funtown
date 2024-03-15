@@ -1,8 +1,8 @@
-# FunTown Service
+# FunTown availability service
 
 ## Description
 
-FunTown microservice for .
+FunTown microservice for availability service.
 
 ## Usage
 Before starting the microservice, you need to have a postgressql instance running on your PC with a user called newuser and password set to 'password'. 
