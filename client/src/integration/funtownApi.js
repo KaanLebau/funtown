@@ -461,6 +461,7 @@ async function getAuth(username) {
  * }
  */
 async function getUserByUsername(token, username) {
+  console.log(username);
   try {
     const response = await axios.get(
       `${API_URL}/persons/username/${username}`,

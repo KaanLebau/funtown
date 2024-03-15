@@ -1,1 +1,1 @@
-INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (1, 'Kaan', 'ozsan', NULL, 'Joelle@Wilkinson.com', 'JoelleWilkinson');
+INSERT INTO person (id ,first_name, last_name, pnr, email, username) VALUES (1, 'Kaan', 'ozsan', NULL, 'Joelle@Wilkinson.com', 'kaanozsan');

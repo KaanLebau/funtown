@@ -32,6 +32,7 @@ function LoginPresenter() {
   const navigate = useNavigate();
 
   async function getApplicantData(auth) {
+    console.log(auth);
     const client = await apiModule.getUserByUsername(auth.token, auth.username);
     console.log(client);
 
@@ -56,7 +57,8 @@ function LoginPresenter() {
     });
   }
   async function getRecruiterData(auth) {
-    const client = await apiModule.getUserByUsername(auth.token);
+    console.log(auth);
+    const client = await apiModule.getUserByUsername(auth.token, auth.username);
     setUser({
       firstName: client.firstName,
       lastName: client.lastName,
@@ -70,7 +72,7 @@ function LoginPresenter() {
   async function handleLogin(credential) {
     try {
       setLoading(true);
-
+      console.log(credential);
       const client = await apiModule.authenticate(
         credential.username,
         credential.password
