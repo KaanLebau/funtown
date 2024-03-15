@@ -128,15 +128,15 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public Person findByUsername(String username) throws UsernameNotFoundException {
+    public FullPersonDto findByUsername(String username) throws UsernameNotFoundException {
         System.out.println("username is in the serviceimpl " + username);
         //Person person = null;
 
-            return personRepository.findByUsername(username).orElseThrow(
+        Person person = personRepository.findByUsername(username).orElseThrow(
                     () -> new UsernameNotFoundException("user with this username not found")
             );
 
 
-        //return mapper.map(person, FullPersonDto.class);
+        return mapper.map(person, FullPersonDto.class);
     }
 }

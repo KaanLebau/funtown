@@ -25,7 +25,7 @@ public class CompetenceProfileController {
      *
      * @return A list of {@link CompetenceProfile} instances.
      */
-    @GetMapping("/get-all")
+    @GetMapping("/getall")
     public List<CompetenceProfile> getAllCompetenceProfiles() {
         return competenceProfileService.findAll();
     }

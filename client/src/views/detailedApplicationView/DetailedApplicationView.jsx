@@ -166,8 +166,8 @@ function DetailedApplicationView(props) {
                       </option>{" "}
                       {/* Default option */}
                       {positionList.map((item, index) => (
-                        <option key={index} value={item}>
-                          {item}
+                        <option key={index} value={item.id}>
+                          {item.position}
                         </option>
                       ))}
                     </select>

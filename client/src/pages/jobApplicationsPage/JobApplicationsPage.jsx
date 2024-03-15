@@ -42,7 +42,7 @@ function JobApplicationsPage() {
       user.token,
       selectedaspplication.username
     );
-
+    console.log(selectedUser);
     setDetailedInfo({
       id: selectedaspplication.id,
       firstName: selectedUser.firstName,

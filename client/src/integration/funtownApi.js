@@ -6,35 +6,8 @@
  */
 
 import axios from "axios";
-import {
-  getUserByUsernameMock,
-  getByApplicationIdMock,
-  getAllApplicationsMock,
-  getExperienceByUsernameMock,
-  getAvailabilityByUsernameMock,
-  getAuthByUsername,
-} from "./mockapi";
 
 const API_URL = "http://localhost:8765/api/v1"; // Your API endpoint
-
-/**
- * Function to create an Axios instance with authorization headers.
- *
- * @param {object} currentUser - The current user state containing the token.
- * @returns {AxiosInstance} An Axios instance with the authorization header set.
- */
-const axiosWithAuth = (currentUser) => {
-  const token = currentUser?.token;
-  const instance = axios.create({
-    baseURL: API_URL,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token ? `Bearer ${token}` : "",
-    },
-  });
-
-  return instance;
-};
 
 /**
  * Makes a request to the backend API to authenticate a user.
@@ -65,6 +38,7 @@ const axiosWithAuth = (currentUser) => {
  * }
  */
 async function authenticate(username, password) {
+  //DONE doc
   try {
     const response = await axios.post(`${API_URL}/auth/authenticate`, {
       username: username,
@@ -107,6 +81,7 @@ async function authenticate(username, password) {
  * }
  */
 async function registration(username, password) {
+  //DONE doc
   try {
     const response = await axios.post(`${API_URL}/auth/registration`, {
       username: username,
@@ -123,8 +98,37 @@ async function registration(username, password) {
     throw error;
   }
 }
-//TODO DONE
+/**
+ * Makes a request to the backend API to register user information.
+ *
+ * This function sends a POST request to the '/persons/create' endpoint
+ * with the provided user information and the user's authentication token.
+ *
+ * If the registration is successful, it returns the response data containing user details.
+ * If an error occurs during the request, it logs the error and throws an exception.
+ *
+ * @param {string} token - The user's authentication token.
+ * @param {object} userInfo - The user information to be registered.
+ * @returns {Promise<any>} A promise that resolves to the response data containing user details upon successful registration.
+ * @throws {Error} If an error occurs during the registration process.
+ *
+ * @example
+ * // Usage of registerUserInfo function:
+ * import apiModule from "../../integration/funtownApi";
+ *
+ * async function registerUser(token, userInfo) {
+ *   try {
+ *     const userData = await registerUserInfo(token, userInfo);
+ *     console.log('User registered successfully:', userData);
+ *     // Process user data...
+ *   } catch (error) {
+ *     console.error('Failed to register user:', error.message);
+ *     // Handle registration error...
+ *   }
+ * }
+ */
 async function registerUserInfo(token, userInfo) {
+  //DONE doc
   try {
     const response = await axios.post(`${API_URL}/persons/create`, userInfo, {
       headers: {
@@ -142,8 +146,37 @@ async function registerUserInfo(token, userInfo) {
     throw error;
   }
 }
-//TODO DEBUGG
+
+/**
+ * Makes a request to the backend API to fetch the list of positions.
+ *
+ * This function sends a GET request to the '/competence/list' endpoint
+ * with the user's authentication token.
+ *
+ * If the request is successful, it returns the response data containing the list of positions.
+ * If an error occurs during the request, it logs the error and throws an exception.
+ *
+ * @param {string} token - The user's authentication token.
+ * @returns {Promise<any>} A promise that resolves to the response data containing the list of positions.
+ * @throws {Error} If an error occurs during the request process.
+ *
+ * @example
+ * // Usage of getPositionList function:
+ * import apiModule from "../../integration/funtownApi";
+ *
+ * async function getPositionList(token) {
+ *   try {
+ *     const positions = await getPositionList(token);
+ *     console.log('Positions fetched successfully:', positions);
+ *     // Handle fetched positions data...
+ *   } catch (error) {
+ *     console.error('Failed to fetch positions:', error.message);
+ *     // Handle fetch error...
+ *   }
+ * }
+ */
 async function getPositionList(token) {
+  //DONE doc
   console.log("get position list");
   try {
     const response = await axios.get(`${API_URL}/competence/list`, {
@@ -166,15 +199,33 @@ async function getPositionList(token) {
 /**
  * Makes a request to the backend API to fetch all applications.
  *
- * This function sends a GET request to the '/applications' endpoint
- * and returns the response data containing all applications.
+ * This function sends a GET request to the '/availability/allapplications' endpoint
+ * with the user's authentication token.
  *
+ * If the request is successful, it returns the response data containing all applications.
  * If an error occurs during the request, it logs the error and throws an exception.
  *
+ * @param {string} token - The user's authentication token.
  * @returns {Promise<any>} A promise that resolves to the response data containing all applications.
  * @throws {Error} If an error occurs during the request process.
+ *
+ * @example
+ * // Usage of getAllApplications function:
+ * import apiModule from "../../integration/funtownApi";
+ *
+ * async function getAllApplications(token) {
+ *   try {
+ *     const applicationsData = await getAllApplications(token);
+ *     console.log('All applications fetched successfully:', applicationsData);
+ *     // Handle fetched applications data...
+ *   } catch (error) {
+ *     console.error('Failed to fetch all applications:', error.message);
+ *     // Handle fetch error...
+ *   }
+ * }
  */
 async function getAllApplications(token) {
+  //DONE doc
   try {
     const response = await axios.get(
       `${API_URL}/availability/allapplications`,
@@ -220,8 +271,8 @@ async function getAllApplications(token) {
  *   }
  * }
  */
-
 async function updateUserExperience(token, experience) {
+  //DONE doc
   try {
     const response = await axios.put(
       `${API_URL}/competenceprofiles/` + experience.competence_id,
@@ -233,6 +284,7 @@ async function updateUserExperience(token, experience) {
         },
       }
     );
+    return response.data;
   } catch (error) {
     console.error("An error occurred while fetching user experience:", error);
     throw error;
@@ -266,67 +318,98 @@ async function updateUserExperience(token, experience) {
  * }
  */
 async function updateUserAvailability(token, availability) {
+  //DONE doc
   try {
-    const response = await axiosWithAuth(token).put(
+    const response = await axios.put(
       `${API_URL}/user/availability/update`,
       availability
     );
+    return response.data;
   } catch (error) {
     console.error("An error occurred while fetching user availability:", error);
     throw error;
   }
 }
+
 /**
- * Makes a request to the backend API to fetch the user's experience.
+ * Makes a request to the backend API to remove user experience by ID.
  *
- * This function sends a GET request to the '/user/experience' endpoint
- * with the user's authentication token and username.
+ * This function sends a DELETE request to the '/competenceprofiles/:id' endpoint
+ * with the user's authentication token and the ID of the user experience to remove.
  *
- * If an error occurs during the request, it throws an error.
+ * If the removal is successful, it returns the response data.
+ * If an error occurs during the request, it logs the error and throws an exception.
  *
  * @param {string} token - The user's authentication token.
- * @param {string} username - The username of the user whose experience is to be fetched.
- * @returns {Promise<any>} A promise that resolves to the response data containing the user's experience.
- * @throws {Error} If an error occurs during the request process.
+ * @param {string} id - The ID of the user experience to remove.
+ * @returns {Promise<any>} A promise that resolves to the response data upon successful removal.
+ * @throws {Error} If an error occurs during the removal process.
  *
  * @example
- * // Usage of getUserExperience function:
+ * // Usage of removeUserExperience function:
  * import apiModule from "../../integration/funtownApi";
  *
- * async function fetchUserExperience(token, username) {
+ * async function deleteUserExperience(token, id) {
  *   try {
- *     const experienceData = await getUserExperience(token, username);
- *     console.log('User experience fetched successfully:', experienceData);
- *     // Process experience data...
+ *     const removedData = await removeUserExperience(token, id);
+ *     console.log('User experience removed successfully:', removedData);
+ *     // Handle successful removal...
  *   } catch (error) {
- *     console.error('Failed to fetch user experience:', error.message);
- *     // Handle error...
+ *     console.error('Failed to remove user experience:', error.message);
+ *     // Handle removal error...
  *   }
  * }
  */
-//TODO not working
-async function getUserExperience(token, username) {
-  try {
-    const response = await getExperienceByUsernameMock(token, username);
-    return response;
-  } catch (error) {
-    console.error("An error occurred while fetching user experience:", error);
-    throw error;
-  }
-}
-//TODO not working
 async function removeUserExperience(token, id) {
+  //DONE doc
   try {
-    const response = await getExperienceByUsernameMock(token, id);
-    return response;
+    const response = await axios.delete(`${API_URL}/competenceprofiles/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ? `Bearer ${token}` : "",
+      },
+    });
+    return response.data;
   } catch (error) {
-    console.error("An error occurred while fetching user experience:", error);
+    console.error(
+      "An error occurred during user inf fetching from user service:",
+      error.response || error
+    );
     throw error;
   }
 }
 
-//TODO this ep works
+/**
+ * Makes a request to the backend API to add user availability.
+ *
+ * This function sends a POST request to the '/availability/create' endpoint
+ * with the user's authentication token and availability data to add.
+ *
+ * If the addition is successful, it returns the response data containing the added availability.
+ * If an error occurs during the request, it logs the error and throws an exception.
+ *
+ * @param {string} token - The user's authentication token.
+ * @param {Object} availability - The availability data to add.
+ * @returns {Promise<any>} A promise that resolves to the response data upon successful addition.
+ * @throws {Error} If an error occurs during the addition process.
+ *
+ * @example
+ * // Usage of addUserAvailability function:
+ * import apiModule from "../../integration/funtownApi";
+ *
+ * async function addUserAvailability(token, availability) {
+ *   try {
+ *     const addedAvailability = await addUserAvailability(token, availability);
+ *     console.log('User availability added successfully:', addedAvailability);
+ *     // Handle successful addition...
+ *   } catch (error) {
+ *     console.error('Failed to add user availability:', error.message);
+ *     // Handle addition error...
+ *   }
+ * }
+ */
 async function addUserAvailability(token, availability) {
+  //DONE doc
   try {
     const response = await axios.post(
       `${API_URL}/availability/create`,
@@ -377,6 +460,7 @@ async function addUserAvailability(token, availability) {
  * }
  */
 async function getUserAvailability(token, username) {
+  //DONE doc
   try {
     const response = await axios.get(
       `${API_URL}/availability/username/` + username,
@@ -426,6 +510,7 @@ async function getUserAvailability(token, username) {
  * }
  */
 async function getByApplicationId(token, applicationId) {
+  //DONE doc
   try {
     const response = await axios.get(
       `${API_URL}/availability/id/${applicationId}`,
@@ -442,15 +527,6 @@ async function getByApplicationId(token, applicationId) {
       "An error occurred during user inf fetching from user service:",
       error.response || error
     );
-    throw error;
-  }
-}
-
-async function getAuth(username) {
-  try {
-    const response = await getAuthByUsername(username);
-    return response;
-  } catch (error) {
     throw error;
   }
 }
@@ -484,6 +560,7 @@ async function getAuth(username) {
  * }
  */
 async function getUserByUsername(token, username) {
+  //DONE doc
   try {
     const response = await axios.get(
       `${API_URL}/persons/username/${username}`,
@@ -509,14 +586,13 @@ const apiModule = {
   registration,
   registerUserInfo,
   getAllApplications,
-  getUserExperience,
   getUserAvailability,
-  addUserAvailability,
   getByApplicationId,
   getUserByUsername,
-  getAuth,
+  getPositionList,
+  addUserAvailability,
   updateUserExperience,
   updateUserAvailability,
-  getPositionList,
+  removeUserExperience,
 };
 export default apiModule;

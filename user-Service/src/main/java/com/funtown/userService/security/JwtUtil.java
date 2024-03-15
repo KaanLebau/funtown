@@ -116,7 +116,7 @@ public class JwtUtil {
      * @param userDetails UserDetails object containing the details of the user to validate against
      * @return Boolean true if the token corresponds to the user and is not expired, false otherwise
      */
-    public Boolean validateToken(String token, Person userDetails) {
+    public Boolean validateToken(String token, FullPersonDto userDetails) {
         final String username = extractUsername(token);
         if(isTokenExpired(token)) {
             logger.debug("NOOOOOOOOOO");

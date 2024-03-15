@@ -91,7 +91,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            Person userDetails;
+            FullPersonDto userDetails;
 
             try {
                 userDetails = personService.findByUsername(username);

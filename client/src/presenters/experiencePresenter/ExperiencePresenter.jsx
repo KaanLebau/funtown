@@ -1,4 +1,4 @@
-  import ExperienceView from "../../views/experienceView/ExperienceView";
+import ExperienceView from "../../views/experienceView/ExperienceView";
 import { useRecoilValue } from "recoil";
 import { experienceOptions, positionOptions } from "../../model/businessModel";
 import {
@@ -55,6 +55,17 @@ function ExperiencePresenter(props) {
     return req;
   }
 
+  function insertTocompetence() {
+    let competenceList = [];
+    experience.map((exp) => {
+      competenceList.push({
+        competence_id: 3,
+        person_id: theUser.id,
+        experience: exp.experience,
+      });
+    });
+    console.log(competenceList);
+  }
   async function apiCall() {
     let req = requestBuilder();
     console.log(req);
@@ -64,7 +75,10 @@ function ExperiencePresenter(props) {
   function handleAdd(exp) {
     const updatedExperience = [
       ...experience,
-      { position: exp.position, experience: exp.experience },
+      {
+        position: exp.position,
+        experience: exp.experience,
+      },
     ];
 
     setExperience(updatedExperience);

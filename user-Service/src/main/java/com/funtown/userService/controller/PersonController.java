@@ -69,7 +69,7 @@ public class PersonController {
      *         or a not found HTTP response otherwise.
      */
     @GetMapping("/username/{username}")
-    ResponseEntity<Person> getPersonByUsername(@PathVariable String username) {
+    ResponseEntity<FullPersonDto> getPersonByUsername(@PathVariable String username) {
 
         //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         //String client = auth.getPrincipal().toString();

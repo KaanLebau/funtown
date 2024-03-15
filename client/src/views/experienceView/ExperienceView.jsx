@@ -52,6 +52,7 @@ function ExperienceView(props) {
   const positionRef = useRef(null);
   const experienceRef = useRef(null);
   const experienceUpdateRef = useRef(null);
+  console.log(props.experience);
 
   return (
     <div data-testid="exp-view" className="competence-view">
@@ -153,7 +154,7 @@ function ExperienceView(props) {
                 !props.experience.some((exp) => exp.position === item.position)
               ) {
                 return (
-                  <option key={index} value={item.position}>
+                  <option key={item.id} value={item.position}>
                     {item.position}
                   </option>
                 );
@@ -183,6 +184,7 @@ function ExperienceView(props) {
             disabled={!positionRef || !experienceRef}
             onClick={() =>
               props.addExperience({
+                id: positionRef.current.key,
                 position: positionRef.current.value,
                 experience: experienceRef.current.value,
               })
