@@ -12,7 +12,7 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowedOrigins: "http://localhost:3000"
+            allowedOrigins: "*"
             allowedMethods: "*"
             allowedHeaders: "*"
       discovery:
@@ -31,5 +31,3 @@ spring:
           uri: http://localhost:5050
           predicates:
             - Path=/api/v1/persons/**, /api/v1/competence/**, /api/v1/competenceporfiles/**
-
-
