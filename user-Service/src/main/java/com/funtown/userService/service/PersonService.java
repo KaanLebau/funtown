@@ -68,4 +68,5 @@ public interface PersonService {
      *         or null if the person is not found in the database.
      */
     Person updatePerson(Integer id, Person personDetails);
+    FullPersonDto findByUsername(String username) throws UsernameNotFoundException;
 }

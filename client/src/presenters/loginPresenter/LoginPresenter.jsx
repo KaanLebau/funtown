@@ -33,6 +33,7 @@ function LoginPresenter() {
 
   async function getApplicantData(auth) {
     const client = await apiModule.getUserByUsername(auth.token, auth.username);
+    console.log(client);
 
     const experience = await apiModule.getUserExperience(
       auth.token,
@@ -55,7 +56,7 @@ function LoginPresenter() {
     });
   }
   async function getRecruiterData(auth) {
-    const client = await apiModule.getUserByUsername(auth.token, auth.username);
+    const client = await apiModule.getUserByUsername(auth.token);
     setUser({
       firstName: client.firstName,
       lastName: client.lastName,
@@ -81,6 +82,7 @@ function LoginPresenter() {
         role: decoded.roles[0],
         token: client.access_token,
       };
+      console.log(auth);
 
       if (auth.role === "APPLICANT") {
         await getApplicantData(auth);

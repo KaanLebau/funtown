@@ -3,6 +3,7 @@ package com.funtown.userService.controller;
 import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
+import com.funtown.userService.security.JwtUtil;
 import com.funtown.userService.service.PersonService;
 import com.funtown.userService.service.impl.PersonServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,52 +34,15 @@ import org.slf4j.LoggerFactory;
 public class PersonController {
 
     private final PersonServiceImpl personService;
+    private JwtUtil jwtToken;
     private static final Logger logger = LoggerFactory.getLogger(PersonController.class);
-
-
-
-
-    /**
-     * Test endpoint to verify JWT token for applicant role.
-     * It will print Principal and roles information from the security context.
-     *
-     * @param request HttpServletRequest received from the client.
-     * @return welcome message for authenticated applicant.
-     */
-    @GetMapping("/test-token")
-    @Secured("ROLE_APPLICANT")
-    public String verifyJwtToken(HttpServletRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("PRINCIPAL:");
-        logger.info(auth.getPrincipal().toString());
-        logger.info("roles:");
-        auth.getAuthorities().forEach(authority -> logger.info(authority.toString()));
-        return "welcome Applicant";
-    }
-    /**
-     * Test endpoint to verify JWT token for recruiter role.
-     * It will print Principal and roles information from the security context.
-     *
-     * @param request HttpServletRequest received from the client.
-     * @return welcome message for authenticated recruiter.
-     */
-    @GetMapping("/rec-token")
-    @Secured("ROLE_RECRUITER")
-    public String recruiterTest(HttpServletRequest request) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        logger.info("PRINCIPAL:");
-        logger.info(auth.getPrincipal().toString());
-        logger.info("roles:");
-        auth.getAuthorities().forEach(authority -> logger.info(authority.toString()));
-        return "welcome Recruiter";
-    }
 
     /**
      * Retrieves a list of all persons.
      *
      * @return A list of {@link PersonDto} instances representing all persons.
      */
-    @GetMapping
+    @GetMapping("/list")
     public List<PersonDto> getAllPersons() {
         return personService.findAll();
     }
@@ -89,7 +54,7 @@ public class PersonController {
      * @return A {@link ResponseEntity<FullPersonDto>} if the person is found,
      *         or a not found HTTP response otherwise.
      */
-    @GetMapping("/{id}")
+    @GetMapping("id/{id}")
     public ResponseEntity<FullPersonDto> getPersonById(@PathVariable Integer id) {
         try {
             return ResponseEntity.ok(personService.findById(id));
@@ -97,6 +62,28 @@ public class PersonController {
             return ResponseEntity.notFound().build();
         }
     }
+    /**
+     * Retrieves a specific person by their Username.
+     *
+     * @return A {@link ResponseEntity<FullPersonDto>} if the person is found,
+     *         or a not found HTTP response otherwise.
+     */
+    @GetMapping("/username/{username}")
+    ResponseEntity<FullPersonDto> getPersonByUsername(@PathVariable String username) {
+
+        //Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        //String client = auth.getPrincipal().toString();
+        System.out.println(username);
+
+        try{
+            return ResponseEntity.ok(personService.findByUsername(username)  );
+        }catch (UsernameNotFoundException e){
+            ResponseEntity.notFound().build();
+        }
+        return null;
+    }
+
+
 
     /**
      * Creates a new person and saves it to the database.

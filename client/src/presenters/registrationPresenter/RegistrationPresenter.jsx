@@ -36,7 +36,7 @@ function RegistrationPresenter() {
     try {
       const client = await apiModule.registration(username, password); //uath-service
       const decoded = jwtDecode(client.access_token);
-
+      console.log("auth done");
       const userInfo = await apiModule.registerUserInfo(client.access_token, {
         firstName: input.firstName,
         lastName: input.lastName,
@@ -45,6 +45,7 @@ function RegistrationPresenter() {
         pnr: input.pnr,
       }); //user-service
       //const positions = await apiModule.getPositionList(client.access_token);
+      console.log("user service works");
       setUser({
         ...user,
         id: userInfo.id,

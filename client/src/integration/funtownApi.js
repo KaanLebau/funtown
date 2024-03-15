@@ -134,6 +134,7 @@ async function registerUserInfo(token, userInfo) {
     });
     return response.data;
   } catch (error) {
+    console.log("funtown api failed");
     console.error(
       "An error occurred during registration:",
       error.response || error
@@ -461,9 +462,22 @@ async function getAuth(username) {
  */
 async function getUserByUsername(token, username) {
   try {
-    const response = await getUserByUsernameMock(token, username);
-    return response;
+    const response = await axios.get(
+      `${API_URL}/persons/username/${username}`,
+      username,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
+    return response.data;
   } catch (error) {
+    console.error(
+      "An error occurred during user inf fetching from user service:",
+      error.response || error
+    );
     throw error;
   }
 }

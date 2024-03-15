@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -41,16 +43,20 @@ private final AuthenticationManager AUTHENTICATION_MANAGER;
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest) {
-        AUTHENTICATION_MANAGER.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
+
+
         try{
+            AUTHENTICATION_MANAGER.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword()));
             Client client = PERSON_SERVICE.findByUsername(authenticationRequest.getUsername());
             String jwtToken = JWT_SERVICE.generateToken(client);
             return AuthenticationResponse.builder()
                     .accessToken(jwtToken)
                     .refreshToken(jwtToken)
                     .build();
-        }catch (Exception e){
+        }catch (UsernameNotFoundException e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Username not found");
+        }catch (AuthenticationException e){
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,"Password does not match");
         }
     }
 }

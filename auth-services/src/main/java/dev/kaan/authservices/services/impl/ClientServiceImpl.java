@@ -89,6 +89,16 @@ public class ClientServiceImpl implements ClientService {
      */
     @Override
     public Client findByUsername(String username) throws UsernameNotFoundException{
-        return CLIENT_REPOSITORY.findByUsername(username).orElseThrow(()-> new UsernameNotFoundException("Username not found"));
+        System.out.println("function findByUsername called");
+        Client client = null;
+        try{
+            System.out.println("looking for " + username);
+            client = CLIENT_REPOSITORY.findByUsername(username).get();
+            System.out.println("found somethink!");
+        }catch (Exception e){
+            System.out.println("username " + username + "is not in db");
+            throw new UsernameNotFoundException("Username not found");
+        }
+        return client;
     }
 }
