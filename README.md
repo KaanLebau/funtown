@@ -20,24 +20,24 @@ The development will adhere to the specified use cases including creating an acc
 The application consists of two parts, frontend and backend.
 
 To start the back-end, 
-* Clone this repository to your local machine:
+Clone this repository to your local machine:
   
-git clone https://github.com/KaanLebau/funtown.git
+* git clone https://github.com/KaanLebau/funtown.git
 
-* Navigate to projects directory then run the following to start all the servies using docker:
+Navigate to projects directory then run the following to start all the servies using docker:
   
-docker compose -f funtown-services.yaml up
+* docker compose -f funtown-services.yaml up
 
-* To safely shutdown the back-end run the following:
+To safely shutdown the back-end run the following:
   
-docker compose -f funtown-services.yaml down
+* docker compose -f funtown-services.yaml down
 
 To start the front-end part, navigate to the client folder usin the terminal and run the following:
-- npm install
-- npm start
+* npm install
+* npm start
 
 ### Development Environment
-* Deployment with digitalocean
+The project is hosted on a virtual machine on DigitalOcean.
 
 ### Developers
 Rabi Hanna
