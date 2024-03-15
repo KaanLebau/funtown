@@ -427,9 +427,21 @@ async function getUserAvailability(token, username) {
  */
 async function getByApplicationId(token, applicationId) {
   try {
-    const response = await getByApplicationIdMock(token, applicationId);
+    const response = await axios.get(
+      `${API_URL}/availability/id/${applicationId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
+    console.error(
+      "An error occurred during user inf fetching from user service:",
+      error.response || error
+    );
     throw error;
   }
 }

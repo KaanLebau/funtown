@@ -47,6 +47,6 @@ import java.math.BigDecimal;
 public class CompetenceProfileDto {
 
     private Integer competence_id;
-    private BigDecimal yearsOfExperience;
+    private String experience;
     private Integer person_id;
 }
