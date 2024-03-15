@@ -1,3 +1,5 @@
+Deployed app: 
+
 ## IV1201 VT24 Groupproject 
 ## About
 FunTown web app for job recruitment. The project will involve the development of a web-based recruitment application that caters to two types of users: applicants and recruiters. 
