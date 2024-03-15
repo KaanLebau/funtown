@@ -11,6 +11,7 @@ FunTown web app for job recruitment. The project will involve the development of
 * Docker
 * Java
 * Javescripts with react
+* Postgresql
 
 ## Use Cases:
 The development will adhere to the specified use cases including creating an account, login functionality, applying for a position, listing all applications, and displaying application details.
