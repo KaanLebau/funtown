@@ -19,11 +19,17 @@ The development will adhere to the specified use cases including creating an acc
 ### Setup and using the Webapp
 The application consists of two parts, frontend and backend.
 
-To start the back-end, open the terminal inside the projects main folder.
-Then run the following to run all the servies using docker:
+To start the back-end, 
+* Clone this repository to your local machine:
+  
+git clone https://github.com/KaanLebau/funtown.git
+
+* Navigate to projects directory then run the following to start all the servies using docker:
+  
 docker compose -f funtown-services.yaml up
 
-to safely shutdown the back-end run the following:
+* To safely shutdown the back-end run the following:
+  
 docker compose -f funtown-services.yaml down
 
 To start the front-end part, navigate to the client folder usin the terminal and run the following:
