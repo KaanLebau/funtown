@@ -55,6 +55,9 @@ public class Availability {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @Column(nullable = false)
+    private String fullname;
+
     /**
      * The name of the recruiter associated with this availability period.
      */
