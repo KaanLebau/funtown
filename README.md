@@ -23,7 +23,7 @@ The development will adhere to the specified use cases including creating an acc
 * Deployment with digitalocean
 
 ### Developers
-Rabi Hanna
-Youssef Moukhtar
-Kaan Özsan
-Dinh Vu
+Rabi Hanna,
+,Youssef Moukhtar
+,Kaan Özsan
+and Dinh Vu
