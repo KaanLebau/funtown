@@ -176,10 +176,21 @@ async function getPositionList(token) {
  */
 async function getAllApplications(token) {
   try {
-    const response = await getAllApplicationsMock(token);
+    const response = await axios.get(
+      `${API_URL}/availability/allapplications`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token ? `Bearer ${token}` : "",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
-    console.error("An error occurred while fetching applications:", error);
+    console.error(
+      "An error occurred during user inf fetching from user service:",
+      error.response || error
+    );
     throw error;
   }
 }
@@ -461,7 +472,6 @@ async function getAuth(username) {
  * }
  */
 async function getUserByUsername(token, username) {
-  console.log(username);
   try {
     const response = await axios.get(
       `${API_URL}/persons/username/${username}`,

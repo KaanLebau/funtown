@@ -3,7 +3,8 @@ import DetailedApplicationPresenter from "../../presenters/detailedApplicationPr
 import JobTablePresenter from "../../presenters/jobTabelPresenter/JobTablePresenter";
 import { useRecoilValue } from "recoil";
 import { currentUserState } from "../../model/userModel";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import apiModule from "../../integration/funtownApi";
 
 /**
  * Job Applications Page component.
@@ -26,7 +27,8 @@ import { useState } from "react";
 function JobApplicationsPage() {
   const user = useRecoilValue(currentUserState);
   const [detailedInfo, setDetailedInfo] = useState(null);
-  const applicationData = [
+  const [applicationData, setApplicationData] = useState([]);
+  const applicationsData = [
     {
       id: 14,
       firstName: "Bon",
@@ -111,6 +113,21 @@ function JobApplicationsPage() {
       }
     });
   }
+
+  async function getData() {
+    try {
+      let list = await apiModule.getAllApplications(user.token);
+      setApplicationData(list);
+      console.log(applicationData);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <div data-testid="job-applications-page" className="job-application-page">
       <div className="right">

@@ -1,6 +1,7 @@
 import LoginView from "../../views/loginView/LoginView";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "../../model/userModel";
+import { positionOptions } from "../../model/businessModel";
 import { userLoggedIn } from "../../model/userModel";
 import { useNavigate } from "react-router-dom";
 import apiModule from "../../integration/funtownApi";
@@ -29,6 +30,7 @@ function LoginPresenter() {
   const [user, setUser] = useRecoilState(currentUserState);
   const [loggedIn, setLoggedIn] = useRecoilState(userLoggedIn);
   const [loading, setLoading] = useState(false);
+  const [, setPositionOptions] = useRecoilState(positionOptions);
   const navigate = useNavigate();
 
   async function getApplicantData(auth) {
@@ -44,6 +46,9 @@ function LoginPresenter() {
       auth.token,
       auth.username
     );
+    const positionList = await apiModule.getPositionList(auth.token);
+    console.log(positionList);
+    setPositionOptions(positionList);
     setUser({
       firstName: client.firstName,
       lastName: client.lastName,

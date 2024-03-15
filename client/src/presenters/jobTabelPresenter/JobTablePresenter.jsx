@@ -67,7 +67,7 @@ function JobTablePresenter(props) {
     props.data.map((item) => {
       cleanData.push({
         id: item.id,
-        fullName: item.firstName + " " + item.lastName,
+        fullName: item.fullname,
         status: item.status,
       });
     });
