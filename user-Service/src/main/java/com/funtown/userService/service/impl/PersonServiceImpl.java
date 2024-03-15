@@ -21,7 +21,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 
-public class PersonServiceImpl implements PersonService, UserDetailsService {
+public class PersonServiceImpl implements PersonService {
 
     private final PersonRepository personRepository;
 
@@ -36,7 +36,8 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Person> personOptional = personRepository.findByUsername(username);
-
+        System.out.println("person optional");
+        System.out.println(personOptional);
         if (personOptional.isEmpty()) {
             throw new UsernameNotFoundException("Not found: " + username);
         }
@@ -127,15 +128,15 @@ public class PersonServiceImpl implements PersonService, UserDetailsService {
     }
 
     @Override
-    public FullPersonDto findByUsername(String username) throws UsernameNotFoundException {
+    public Person findByUsername(String username) throws UsernameNotFoundException {
         System.out.println("username is in the serviceimpl " + username);
-        Person person = null;
-        try{
-            person = personRepository.findByUsername(username).get();
-        }catch (Exception e) {
-            System.out.println("something wrong in the PersonServiceImpl");
-        }
+        //Person person = null;
 
-        return mapper.map(person, FullPersonDto.class);
+            return personRepository.findByUsername(username).orElseThrow(
+                    () -> new UsernameNotFoundException("user with this username not found")
+            );
+
+
+        //return mapper.map(person, FullPersonDto.class);
     }
 }

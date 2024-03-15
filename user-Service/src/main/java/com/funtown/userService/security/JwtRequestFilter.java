@@ -1,6 +1,9 @@
 package com.funtown.userService.security;
 
+import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.model.Person;
 import com.funtown.userService.service.PersonService;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +25,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * A filter for validating incoming user requests based on JWT tokens included in the request headers.
@@ -66,10 +71,15 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
         String jwt = authHeader.substring(7);  // Exclude Bearer prefix
         String username;
+        Claims claims;
+        List<GrantedAuthority> authorities;
 
         try {
-            username = jwtUtil.extractUsername(jwt);
-            logger.debug("Username: " + username);
+            claims = jwtUtil.extractAllClaims(jwt);
+            username = claims.getSubject();
+            authorities = jwtUtil.extractAuthoritiesFromToken(claims);
+            System.out.println("auth : "+ authorities);
+            logger.debug("claims: " + claims);
         } catch (ExpiredJwtException e) {
             logger.warn("The token has expired", e);
             filterChain.doFilter(request, response);
@@ -81,10 +91,10 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            UserDetails userDetails;
+            Person userDetails;
 
             try {
-                userDetails = personService.loadUserByUsername(username);
+                userDetails = personService.findByUsername(username);
             } catch (UsernameNotFoundException e) {
                 logger.error("User not found: {}", username);
                 filterChain.doFilter(request, response);
@@ -93,7 +103,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
             if (jwtUtil.validateToken(jwt, userDetails)) {
                 UsernamePasswordAuthenticationToken authToken =
-                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                        new UsernamePasswordAuthenticationToken(userDetails.getUsername(), null, authorities);
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }

@@ -1,5 +1,7 @@
 package com.funtown.userService.security;
 
+import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.model.Person;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
@@ -9,10 +11,14 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import java.security.Key;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import java.util.function.Function;
 
 /**
@@ -110,12 +116,24 @@ public class JwtUtil {
      * @param userDetails UserDetails object containing the details of the user to validate against
      * @return Boolean true if the token corresponds to the user and is not expired, false otherwise
      */
-    public Boolean validateToken(String token, UserDetails userDetails) {
+    public Boolean validateToken(String token, Person userDetails) {
         final String username = extractUsername(token);
         if(isTokenExpired(token)) {
             logger.debug("NOOOOOOOOOO");
         }
         return !isTokenExpired(token) && username.equals(userDetails.getUsername());
+    }
+
+    public List<GrantedAuthority> extractAuthoritiesFromToken(Claims claims) {
+        List<String> roles = (List<String>) claims.get("roles");
+        System.out.println("filter roles : " + roles);
+        if (roles != null || roles.size() != 0) {
+            return roles.stream().map(
+                    (String role) -> (GrantedAuthority) new SimpleGrantedAuthority("ROLE_" + role)
+            ).toList();
+        } else {
+            return Collections.emptyList();
+        }
     }
     @PostConstruct
     private void init() {
