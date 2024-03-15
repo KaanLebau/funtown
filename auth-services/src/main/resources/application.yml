@@ -1,0 +1,39 @@
+server:
+  port: 5000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/auth_service
+    username: newuser
+    password: password
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+      database: postgresql
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+    defer-datasource-initialization: true
+  application:
+    name: auth-service
+  sql:
+    init:
+      mode: always
+
+  logging:
+    level:
+      org.springframework: DEBUG
+      org.hibernate.SQL: DEBUG
+      org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+application:
+  security:
+    jwt:
+      secret-key: cf3e42fb25c974013a0358098d01cc3f31b9ee25a27d6a24df92ab9c87e4081e
+      expiration: 6000000 # one minute : 60000
+      refresh-token:
+        expiration: 864000000 # 1 day
