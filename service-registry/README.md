@@ -1,15 +1,11 @@
-# FunTown Service
+# FunTown Service-Registrey
 
 ## Description
 
-FunTown microservice for .
+FunTown microservice for Service-registrey.
 
 ## Usage
-Before starting the microservice, you need to have a postgressql instance running on your PC with a user called newuser and password set to 'password'. 
-The user must also be assigned the role superuser.
-Also, in order for this microservice to start correctly, you need to start the service_registery service first.
-
-To start the microservice, change directory to inside the service's folder.
+This service must be started before any other service so that they can see and idetifiy each other.
 
 Install the maven wrapper to create an executable package:
 ```bash
