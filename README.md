@@ -22,13 +22,13 @@ The development will adhere to the specified use cases including creating an acc
 The application consists of two parts, frontend and backend.
 
 To start the back-end, 
-1. Clone this repository to your local machine:
+Clone this repository to your local machine:
   
 ```bash
 git clone https://github.com/KaanLebau/funtown.git
 ```
 
-2. Navigate to projects directory then run the following to start all the servies using docker:
+Navigate to projects directory then run the following to start all the servies using docker:
 ```bash  
  docker compose -f funtown-services.yaml up
 ```
