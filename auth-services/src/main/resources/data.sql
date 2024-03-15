@@ -1,4 +1,4 @@
-INSERT INTO client (id ,username, role, password) VALUES (1, 'JoelleWilkinson', 'RECRUITER', '$2a$10$vNrMDhXVxozmoD5rtp9PNuEtGcgTx0yTxGn4GmRHkJXyVrmWZXaUW ');
+INSERT INTO client (id ,username, role, password) VALUES (1, 'JoelleWilkinson', 'RECRUITER', '$2a$10$Nr3Od1itYi6bI2ttpFlN6.g6nuzusREIZPLJfBRXZgtxAAjBrUVwq');
 INSERT INTO client (id ,username, role, password) VALUES (2, 'MartinCummings', 'RECRUITER', '$2a$10$brxLGjIQZLuwq07OY7Ufs.KYn3LYq5JlpZk.fxPRmnekSSOv2dweG');
 INSERT INTO client (id ,username, role, password) VALUES (3, 'DanteMason', 'RECRUITER', '$2a$10$.aeLxxLY0O6C0nllSewzMu4tprzq8paq/3upNe.IlrnmhvslAb4M6');
 INSERT INTO client (id ,username, role, password) VALUES (4, 'RisaMayer', 'RECRUITER', '$2a$10$KgNvA1YHyiPg1bJtSCKIlO700yrtmxErLIXMffgbiQoOOooPTTwRm');
