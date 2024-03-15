@@ -16,7 +16,7 @@ The development will adhere to the specified use cases including creating an acc
 ### Prerequisites
 * Docker - check at [docker.com](https://www.docker.com/)
 
-### Setup and using the Webapp
+## Setup and using the Webapp
 The application consists of two parts, frontend and backend.
 
 To start the back-end, 
@@ -36,10 +36,10 @@ To start the front-end part, navigate to the client folder usin the terminal and
 * npm install
 * npm start
 
-### Development Environment
+## Development Environment
 The project is hosted on a virtual machine on DigitalOcean.
 
-### Developers
+## Developers
 Rabi Hanna
 ,Youssef Moukhtar
 ,Kaan Özsan
