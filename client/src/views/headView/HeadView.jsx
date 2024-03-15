@@ -113,7 +113,7 @@ const HeadView = (props) => {
                     className="user-controller-element"
                     title={props.language.logout}
                     onClick={(e) => {
-                      props.props.logout();
+                      props.logout();
                     }}
                   >
                     <MdOutlineLogout
