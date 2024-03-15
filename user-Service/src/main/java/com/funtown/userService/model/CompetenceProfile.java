@@ -37,7 +37,7 @@ public class CompetenceProfile {
     @Column(name = "competence_id")
     private Integer competenceId;
 
-    @Column(name = "years_of_experience")
+    @Column(name = "experience")
     private String experience;
 
     @ManyToOne
