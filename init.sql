@@ -1,0 +1,8 @@
+CREATE USER newuser WITH PASSWORD 'password';
+ALTER USER newuser WITH SUPERUSER;
+CREATE DATABASE application;
+CREATE DATABASE user_service;
+CREATE DATABASE auth_service;
+GRANT ALL PRIVILEGES ON DATABASE application TO newuser;
+GRANT ALL PRIVILEGES ON DATABASE user_service TO newuser;
+GRANT ALL PRIVILEGES ON DATABASE auth_service TO newuser;
