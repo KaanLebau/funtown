@@ -76,7 +76,6 @@ public class AvailabilityController {
    @PutMapping("/update")
    @Secured("ROLE_APPLICANT")
    @ResponseStatus(HttpStatus.OK)
-   @Transactional
    public ResponseEntity<Object> changeAvailability(@RequestBody Availability availability){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
@@ -91,7 +90,6 @@ public class AvailabilityController {
    // update status only for recruiter
    @PutMapping("/status")
    @Secured("ROLE_RECRUITER")
-   @Transactional
    public ResponseEntity<Availability> changeStatus(@RequestBody UpdateStatusRequest request){
       try{
          return ResponseEntity.ok(service.updateStatus(request));

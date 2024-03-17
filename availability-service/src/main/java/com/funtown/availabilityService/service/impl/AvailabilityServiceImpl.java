@@ -48,6 +48,7 @@ public class AvailabilityServiceImpl implements AvailabilityService {
         return av;
     }
 
+    @Transactional
     @Override
     public List<Availability> saveAll(List<CreateAvailabilityRequest> availList) throws Exception {
         List<Availability> response = new ArrayList<>();
