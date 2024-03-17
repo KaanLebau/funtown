@@ -1,0 +1,295 @@
+.detailed-application-view {
+  background-color: #395b64;
+  border: 1px solid #e7f6f2;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3vh;
+  width: inherit;
+  height: inherit;
+  .detailed-application-view-top {
+    flex: 1;
+    background: transparent;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .detailed-application-view-title {
+      background: transparent;
+
+      p {
+        font-size: 5vh;
+        background: transparent;
+      }
+    }
+  }
+  .detailed-application-view-middle {
+    background: transparent;
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 4;
+    padding: 30px;
+    .detailed-application-view-content {
+      border: 1px solid #e7f6f2;
+      border-radius: 20px;
+      background: transparent;
+      width: 100%;
+      height: 100%;
+
+      .applicant-with-data {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 3vh;
+        gap: 4vh;
+
+        .applicant-with-data-right {
+          background: transparent;
+          min-width: 250px;
+          border-radius: 10px;
+          border: 1px solid #e7f6f2;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .updating-application-status {
+            background: transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .updating-application-label {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              margin-bottom: 10px;
+              align-self: flex-start;
+            }
+            select {
+              align-self: flex-end;
+              background: transparent;
+              color: #e7f6f2;
+              border: 1px solid #e7f6f2;
+              padding: 1vh;
+              border-radius: 10px;
+              font-weight: bold;
+              margin: 10px;
+              option {
+                background: transparent;
+                background-color: #395b64;
+                color: #e7f6f2;
+                border-radius: 10px;
+              }
+            }
+          }
+          .current-application-status {
+            background: transparent;
+          }
+          .applicant-status {
+            flex: 1;
+            background: transparent;
+            padding: 5px;
+
+            .aplicant-status-icon-container {
+              background: transparent;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              .position-icon {
+                background: transparent;
+                font-size: 8vh;
+
+                align-self: flex-start;
+                justify-self: flex-start;
+              }
+              .status-icon {
+                background: transparent;
+                font-size: 2vh;
+
+                align-self: flex-start;
+                justify-self: flex-start;
+              }
+            }
+
+            .applicant-status-info-container {
+              background: transparent;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+
+              .label {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 2vh;
+                justify-self: left;
+                align-self: flex-start;
+                margin-left: 10px;
+              }
+              .position {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 3vh;
+                align-self: flex-end;
+                width: 70%;
+              }
+              .contact {
+                background: transparent;
+                color: #e7f6f2;
+                font-weight: bold;
+                font-size: 2vh;
+                align-self: flex-end;
+                margin-right: 10px;
+              }
+            }
+          }
+        }
+        .applicant-with-data-middle {
+          flex: 2;
+          background: transparent;
+          border: 1px solid #e7f6f2;
+          border-radius: 10px;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .person-info {
+            background: transparent;
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-end;
+              margin-left: 10px;
+            }
+            .date {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-start;
+              margin-left: 10px;
+            }
+            .label {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              align-self: flex-start;
+            }
+          }
+        }
+        .applicant-with-data-left {
+          background: transparent;
+          flex: 3;
+          border: 1px solid #e7f6f2;
+          border-radius: 10px;
+          padding: 20px;
+          min-height: 250px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          margin-top: 20px;
+          .applicant-experience-title {
+            background: transparent;
+            color: #e7f6f2;
+            font-weight: bold;
+            font-size: 3vh;
+            margin-bottom: 20px;
+          }
+          .applicant-experience {
+            background: transparent;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #e7f6f2;
+            .experience-position,
+            .experience-duration {
+              background: transparent;
+              color: #e7f6f2;
+              font-weight: bold;
+              font-size: 2vh;
+              justify-self: left;
+              margin-left: 10px;
+            }
+          }
+          .no-data-icon {
+            background: transparent;
+            font-size: 5vh;
+            color: rgb(173, 25, 25);
+            margin: 15px;
+          }
+          .no-data-msg {
+            background: transparent;
+            font-size: 3vh;
+            color: #e7f6f2;
+            margin: 15px;
+          }
+        }
+      }
+      .aplicant-with-no-data {
+        background: transparent;
+        .no-data-icon {
+          background: transparent;
+          font-size: 5vh;
+          color: rgb(173, 25, 25);
+          margin: 15px;
+        }
+        .no-data-msg {
+          background: transparent;
+          font-size: 3vh;
+          color: #e7f6f2;
+          margin: 15px;
+        }
+      }
+    }
+  }
+  .detailed-application-view-bottom {
+    flex: 1;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .detailed-application-view-bottom-controller {
+      background-color: #395b64;
+      button {
+        background: transparent;
+        color: #e7f6f2;
+        border: 1px solid #e7f6f2;
+        border-radius: 10px;
+        padding: 1vh;
+        font-size: 2vh;
+        font-weight: bold;
+        margin: 1vh;
+
+        &:hover {
+          cursor: pointer;
+          background-color: #e7f6f2;
+          color: #395b64;
+        }
+      }
+    }
+  }
+}

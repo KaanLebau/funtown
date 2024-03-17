@@ -1,0 +1,19 @@
+.recuiter-page{
+    height: 80vh;
+    .work-plane{
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content:flex-start;
+        
+        .aplications{
+            background: transparent;
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+    }
+}

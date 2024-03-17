@@ -1,0 +1,148 @@
+.competence-view {
+  background: #395b64;
+  color: #e7f6f2;
+  border: 1px solid #e7f6f2;
+  padding: 10px;
+  border-radius: 20px;
+  width: auto;
+  .exp-view-title {
+    background: transparent;
+    color: #e7f6f2;
+    text-align: left;
+  }
+  .list {
+    background: transparent;
+    .no-experience {
+      background: transparent;
+      color: #e7f6f2;
+      font-size: 2em;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .experience {
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px;
+
+      select {
+        background: transparent;
+        color: #e7f6f2;
+        padding: 1px;
+        border: 1px solid #e7f6f2;
+        option {
+          background-color: #395b64;
+          color: #e7f6f2;
+        }
+      }
+      p {
+        background: transparent;
+      }
+      .not-saved {
+        background: transparent;
+        color: red;
+      }
+
+      .the-experience {
+        display: flex;
+        padding: 10px;
+        align-items: center;
+        justify-content: space-between;
+        background: transparent;
+        width: 100%;
+      }
+      .icons-right {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 15px;
+        .icon {
+          background: transparent;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      .icons-left {
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 15px;
+        .icon {
+          background: transparent;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+  .full-experience {
+    background: transparent;
+    color: #e7f6f2;
+    font-size: 1em;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+  }
+  .dashboard-check {
+    background: transparent;
+    color: #e7f6f2;
+    button {
+      background: transparent;
+      color: #e7f6f2;
+      border: 1px solid #e7f6f2;
+      border-radius: 10px;
+      padding: 1vh;
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1vh;
+      &:hover {
+        cursor: pointer;
+        background-color: #e7f6f2;
+        color: #395b64;
+      }
+    }
+  }
+  .controller {
+    background: transparent;
+    select {
+      background: transparent;
+      color: #e7f6f2;
+      border: 1px solid #e7f6f2;
+      padding: 1vh;
+      border-radius: 10px;
+      font-weight: bold;
+      margin: 10px;
+      option {
+        background: transparent;
+        background-color: #395b64;
+        color: #e7f6f2;
+        border-radius: 10px;
+      }
+    }
+
+    button {
+      background: transparent;
+      color: #e7f6f2;
+      border: 1px solid #e7f6f2;
+      border-radius: 10px;
+      padding: 1vh;
+      font-size: 1em;
+      font-weight: bold;
+      margin: 1vh;
+      &:hover {
+        cursor: pointer;
+        background-color: #e7f6f2;
+        color: #395b64;
+      }
+    }
+  }
+}
