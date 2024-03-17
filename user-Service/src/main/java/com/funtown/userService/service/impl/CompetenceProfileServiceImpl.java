@@ -5,7 +5,10 @@ import com.funtown.userService.repository.CompetenceProfileRepository;
 import com.funtown.userService.service.CompetenceProfileService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -37,6 +40,17 @@ public class CompetenceProfileServiceImpl implements CompetenceProfileService {
     @Override
     public Optional<CompetenceProfile> findById(Integer id) {
         return competenceProfileRepository.findById(id);
+    }
+
+    @Override
+    public List<CompetenceProfile> findByPersonId(Integer id) throws NoSuchElementException {
+        List<CompetenceProfile> competenceProfile = new ArrayList<>();
+        try{
+            competenceProfile = competenceProfileRepository.findByPersonId(id);
+        } catch (Exception e ){
+            throw new NoSuchElementException("Competences do not exist");
+        }
+        return competenceProfile;
     }
 
     /**

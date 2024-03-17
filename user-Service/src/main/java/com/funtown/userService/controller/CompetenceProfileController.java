@@ -19,6 +19,11 @@ import java.util.List;
 public class CompetenceProfileController {
 
     private final CompetenceProfileService competenceProfileService;
+        @GetMapping("/")
+        public String userServiceCompetence(){
+            System.out.println("service is online");
+        return "Welcome to Competence profiles section of userservice";
+        }
 
     /**
      * Retrieves all competence profiles.
@@ -29,7 +34,10 @@ public class CompetenceProfileController {
     public List<CompetenceProfile> getAllCompetenceProfiles() {
         return competenceProfileService.findAll();
     }
-
+@GetMapping("/personId/{id}")
+public List<CompetenceProfile> getUsersCompetenceProfiles(@PathVariable Integer id){
+        return competenceProfileService.findByPersonId(id);
+}
     /**
      * Retrieves a single competence profile by its ID.
      *

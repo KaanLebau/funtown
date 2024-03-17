@@ -2,6 +2,7 @@ package com.funtown.userService.service;
 
 import com.funtown.userService.model.CompetenceProfile;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 /**
@@ -24,6 +25,8 @@ public interface CompetenceProfileService {
      * @return An {@link Optional} containing the found {@link CompetenceProfile} or empty if not found.
      */
     Optional<CompetenceProfile> findById(Integer id);
+
+    List<CompetenceProfile> findByPersonId(Integer id) throws NoSuchElementException;
 
     /**
      * Saves a given competence profile. This can be used for both creating new profiles and updating existing ones.
