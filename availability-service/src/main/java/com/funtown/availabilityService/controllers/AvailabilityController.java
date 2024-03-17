@@ -77,7 +77,7 @@ public class AvailabilityController {
    @Secured("ROLE_APPLICANT")
    @ResponseStatus(HttpStatus.OK)
    @Transactional
-   public ResponseEntity<Object> updateAvailability(@RequestBody Availability availability){
+   public ResponseEntity<Object> changeAvailability(@RequestBody Availability availability){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
          return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
