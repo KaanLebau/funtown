@@ -1,6 +1,7 @@
 package com.funtown.availabilityService.filter;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -60,15 +61,14 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain)
             throws ServletException, IOException {
-        System.out.println("FILTER");
         final String AUTH_HEADER = request.getHeader("Authorization");
-        System.out.println("authHeader: "+ AUTH_HEADER);
+
         if(AUTH_HEADER == null || !AUTH_HEADER.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
         }
         String token = AUTH_HEADER.substring(7);
-        System.out.println("TOKEN : "+ token);
+
             try{
                 // Validate and parse the JWT token
                 Claims claims = Jwts.parserBuilder()
@@ -77,17 +77,22 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                         .parseClaimsJws(token)
                         .getBody();
                 // Extract user details from the token
-                // maybe check if user is already authenticated or not
                 String username = claims.getSubject();
-                System.out.println("filter username : "+ username);
-                // You can extract other user claims here as needed
+
+                // extract authorities
                 List<GrantedAuthority> authorities = extractAuthoritiesFromToken(claims);
                 // Set user details in the security context
                 UsernamePasswordAuthenticationToken authenticationToken =
                         new UsernamePasswordAuthenticationToken(username, null, authorities);
                 SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-             }catch (Exception e) {
-                System.out.println("EXCEEEEPTIOOOOOONNNNNNNNNNNNNNN");
+             }catch (ExpiredJwtException e) {
+                logger.warn("The token has expired", e);
+                filterChain.doFilter(request, response);
+                return;
+            } catch (Exception e) {
+                logger.warn("Unable to parse JWT", e);
+                filterChain.doFilter(request, response);
+                return;
             }
          filterChain.doFilter(request, response);
     }
@@ -100,7 +105,6 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     private List<GrantedAuthority> extractAuthoritiesFromToken(Claims claims) {
         List<String> roles = (List<String>) claims.get("roles");
-        System.out.println("filter roles : " + roles);
         if (roles != null || roles.size() != 0) {
             return roles.stream().map(
                      (String role) -> (GrantedAuthority) new SimpleGrantedAuthority("ROLE_" + role)

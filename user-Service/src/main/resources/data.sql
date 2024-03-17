@@ -3600,6 +3600,20 @@ VALUES
     (900, 'Simon', 'Gallagher', '20040911-1699', 'sgallagher8213@finnsinte.se', 'SimonGallagher');
 SELECT setval('person_id_seq', 901, false);
 
+INSERT INTO competence
+    (id, position)
+VALUES
+    (1	, 'ticket sales');
+INSERT INTO competence
+    (id, position)
+VALUES
+    (2	, 'lotteries');
+INSERT INTO competence
+    (id, position)
+VALUES
+    (3, 'roller coaster operation');
+SELECT setval('competence_id_seq', 4, false);
+
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (4971, 1, '0 -> 1 year', 11);
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (4972, 2, '3 -> 4 year', 11);
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (4973, 3, '1 -> 2 year', 11);
@@ -4957,19 +4971,5 @@ INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (6325, 3, '1 -> 2 year', 898);
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (6326, 3, '2 -> 3 year', 900);
 INSERT INTO competence_profile (id, competence_id, experience, person_id) VALUES (6327, 1, '1 -> 2 year', 900);
-
-INSERT INTO competence
-    (id, position)
-VALUES
-    (1	, 'ticket sales');
-INSERT INTO competence
-    (id, position)
-VALUES
-    (2	, 'lotteries');
-INSERT INTO competence
-    (id, position)
-VALUES
-    (3, 'roller coaster operation');
-SELECT setval('competence_id_seq', 4, false);
 
 

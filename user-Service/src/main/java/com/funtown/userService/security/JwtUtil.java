@@ -1,6 +1,7 @@
 package com.funtown.userService.security;
 
 import com.funtown.userService.Dtos.FullPersonDto;
+import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -116,7 +117,7 @@ public class JwtUtil {
      * @param userDetails UserDetails object containing the details of the user to validate against
      * @return Boolean true if the token corresponds to the user and is not expired, false otherwise
      */
-    public Boolean validateToken(String token, FullPersonDto userDetails) {
+    public Boolean validateToken(String token, PersonDto userDetails) {
         final String username = extractUsername(token);
         if(isTokenExpired(token)) {
             logger.debug("NOOOOOOOOOO");

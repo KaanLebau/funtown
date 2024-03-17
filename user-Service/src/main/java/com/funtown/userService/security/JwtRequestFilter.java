@@ -1,7 +1,7 @@
 package com.funtown.userService.security;
 
 import com.funtown.userService.Dtos.FullPersonDto;
-import com.funtown.userService.model.Person;
+import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.service.PersonService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -11,18 +11,13 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullApi;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.List;
@@ -78,7 +73,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             claims = jwtUtil.extractAllClaims(jwt);
             username = claims.getSubject();
             authorities = jwtUtil.extractAuthoritiesFromToken(claims);
-            System.out.println("auth : "+ authorities);
             logger.debug("claims: " + claims);
         } catch (ExpiredJwtException e) {
             logger.warn("The token has expired", e);
@@ -91,8 +85,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         }
 
         if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-            FullPersonDto userDetails;
-
+            PersonDto userDetails;
             try {
                 userDetails = personService.findByUsername(username);
             } catch (UsernameNotFoundException e) {

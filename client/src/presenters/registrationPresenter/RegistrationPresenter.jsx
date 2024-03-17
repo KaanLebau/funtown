@@ -46,6 +46,7 @@ function RegistrationPresenter() {
       }); //user-service
       //const positions = await apiModule.getPositionList(client.access_token);
       console.log("user service works");
+
       setUser({
         ...user,
         id: userInfo.id,

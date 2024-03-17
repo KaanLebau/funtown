@@ -123,6 +123,20 @@ function DetailedApplicationView(props) {
   const statusList = useRecoilValue(statusOptions);
   const positionRef = useRef(null);
   const statusRef = useRef(null);
+  console.log(props)
+
+  function getPosition(id) {
+
+    return positionList.filter((pos) => {
+      if (pos.id === id) {
+
+        return pos
+      }
+
+    })
+  }
+
+
 
   return (
     <div
@@ -318,8 +332,11 @@ function DetailedApplicationView(props) {
                         data-testid="applicant-experience-position"
                         className="experience-position"
                       >
-                        {exp.position}
-                      </p>
+                        {
+
+                          getPosition(exp.competenceId)[0].position
+
+                        }  </p>
                       <p
                         data-testid="applicant-experience-duration"
                         className="experience-duration"

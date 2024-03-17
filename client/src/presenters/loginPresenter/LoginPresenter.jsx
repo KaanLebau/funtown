@@ -38,10 +38,10 @@ function LoginPresenter() {
     const client = await apiModule.getUserByUsername(auth.token, auth.username);
     console.log(client);
 
-    const experience = await apiModule.getUserExperience(
-      auth.token,
-      auth.username
-    );
+    /* const experience = await apiModule.getUserExperience(
+       auth.token,
+       auth.username
+     );*/
     const availability = await apiModule.getUserAvailability(
       auth.token,
       auth.username
@@ -56,7 +56,7 @@ function LoginPresenter() {
       pnr: client.pnr,
       role: auth.role,
       token: auth.token,
-      experience: experience,
+      experience: client.competenceProfiles,
       availability: availability,
     });
   }
@@ -72,7 +72,7 @@ function LoginPresenter() {
       role: auth.role,
       token: auth.token,
     });
-    const positionList = apiModule.getPositionList(auth.token);
+    const positionList = await apiModule.getPositionList(auth.token);
     setPositionOptions(positionList);
   }
   async function handleLogin(credential) {

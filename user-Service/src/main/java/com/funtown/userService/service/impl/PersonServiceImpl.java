@@ -1,4 +1,5 @@
 package com.funtown.userService.service.impl;
+import com.funtown.userService.Dtos.CompetenceProfileDto;
 import com.funtown.userService.Dtos.FullPersonDto;
 import com.funtown.userService.Dtos.PersonDto;
 import com.funtown.userService.model.Person;
@@ -128,15 +129,21 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public FullPersonDto findByUsername(String username) throws UsernameNotFoundException {
-        System.out.println("username is in the serviceimpl " + username);
-        //Person person = null;
+    public FullPersonDto findFullByUsername(String username) throws UsernameNotFoundException {
 
         Person person = personRepository.findByUsername(username).orElseThrow(
                     () -> new UsernameNotFoundException("user with this username not found")
             );
+        return mapper.map(person,FullPersonDto.class);
+    }
 
+    @Override
+    public PersonDto findByUsername(String username) throws UsernameNotFoundException {
 
-        return mapper.map(person, FullPersonDto.class);
+        Person person = personRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("user with this username not found")
+        );
+
+        return mapper.map(person,PersonDto.class);
     }
 }
