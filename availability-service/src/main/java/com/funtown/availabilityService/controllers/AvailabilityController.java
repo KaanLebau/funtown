@@ -4,6 +4,7 @@ import com.funtown.availabilityService.model.Availability;
 import com.funtown.availabilityService.model.api.CreateAvailabilityRequest;
 import com.funtown.availabilityService.model.api.UpdateStatusRequest;
 import com.funtown.availabilityService.service.AvailabilityService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,6 +76,7 @@ public class AvailabilityController {
    @PutMapping("/update")
    @Secured("ROLE_APPLICANT")
    @ResponseStatus(HttpStatus.OK)
+   @Transactional
    public ResponseEntity<Object> updateAvailability(@RequestBody Availability availability){
       Authentication auth = SecurityContextHolder.getContext().getAuthentication();
       if(!auth.getPrincipal().toString().equals(availability.getUsername())) {
@@ -89,6 +91,7 @@ public class AvailabilityController {
    // update status only for recruiter
    @PutMapping("/status")
    @Secured("ROLE_RECRUITER")
+   @Transactional
    public ResponseEntity<Availability> changeStatus(@RequestBody UpdateStatusRequest request){
       try{
          return ResponseEntity.ok(service.updateStatus(request));
