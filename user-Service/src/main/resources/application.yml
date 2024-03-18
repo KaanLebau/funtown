@@ -31,3 +31,13 @@ application:
       expiration: 60000 # one minute
       refresh-token:
         expiration: 864000000 # 1 day
+
+eureka:
+  instance:
+    hostname: user_service
+    prefer-ip-address: true
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://eureka-server:8761/eureka/

@@ -16,14 +16,17 @@ services:
     command: [ "postgres", "-c", "log_statement=all" ]
 
   service-registry:
-    image: moukhtar99/service-registry:latest #v1.1
+    image: moukhtar99/service-registry:latest
+    container_name: service-registry
+    hostname: eureka-server
     depends_on:
       - "postgres"
     ports:
       - "8761:8761"
 
   api-gateway:
-    image: moukhtar99/api-gateway:latest #v1.1
+    image: moukhtar99/api-gateway:latest
+    container_name: api-gateway
     depends_on:
       - "postgres"
       - "service-registry"
@@ -31,7 +34,8 @@ services:
       - "8765:8765"
 
   availability-service:  #application previously
-    image: moukhtar99/availability-service:latest #v1.1
+    image: moukhtar99/availability-service:latest
+    container_name: availability-service
     depends_on:
       - "postgres"
       - "service-registry"
@@ -39,7 +43,8 @@ services:
       - "8090:8090"
 
   user_service:
-    image: moukhtar99/user-service:latest  #v1.0
+    image: moukhtar99/user-service:latest
+    container_name: user_service
     depends_on:
       - "postgres"
       - "service-registry"
@@ -47,7 +52,8 @@ services:
       - "5050:5050"
 
   auth_services:
-    image: moukhtar99/auth-services:latest  #v1.0
+    image: moukhtar99/auth-services:latest
+    container_name: auth_services
     depends_on:
       - "postgres"
       - "service-registry"
