@@ -1,0 +1,5 @@
+
+> client@0.1.0 build
+> react-scripts build && npm run docs && npm run coverage
+
+Creating an optimized production build...

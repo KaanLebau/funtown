@@ -1,7 +1,7 @@
 #!/bin/bash
 cd client
 echo running npm install
-npm install
+npm installnpm
 echo building the application
 npm run build
 echo sending the build to the cloud

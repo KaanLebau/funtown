@@ -59,7 +59,7 @@ function LoginView(props) {
                   type="text"
                   id="username"
                   name="username"
-                  placeholder="Johnny"
+                  placeholder="Rohnny"
                   title={language.username}
                 />
                 <ErrorMessage

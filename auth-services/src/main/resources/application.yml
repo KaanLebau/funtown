@@ -40,7 +40,7 @@ application:
 
 eureka:
   instance:
-    hostname: user_service
+    hostname: auth_service
     prefer-ip-address: true
   client:
     registerWithEureka: true
