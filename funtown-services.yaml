@@ -17,7 +17,7 @@ services:
 
   service-registry:
     image: moukhtar99/service-registry:latest
-    container_name: service-registry
+    container_name: eureka-server
     hostname: eureka-server
     depends_on:
       - "postgres"

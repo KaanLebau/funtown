@@ -3,10 +3,10 @@ server:
 eureka:
   instance:
     hostname: api-gateway
-    prefer-ip-address: true
+    #prefer-ip-address: true
   client:
-    registerWithEureka: true
-    fetchRegistry: true
+    registerWithEureka: false
+    #fetchRegistry: true
     serviceUrl:
       defaultZone: http://eureka-server:8761/eureka/
 spring:
@@ -29,14 +29,14 @@ spring:
           enabled: true
       routes:
         - id: application
-          uri: http://localhost:8090
+          uri: lb://AVAILABILITY-SERVICE
           predicates:
             - Path=/api/v1/availability/**
         - id: auth-service
-          uri: http://localhost:5000
+          uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/v1/auth/**
         - id: user-service
-          uri: http://localhost:5050
+          uri: lb://USER-SERVICE
           predicates:
             - Path=/api/v1/persons/**, /api/v1/competence/**, /api/v1/competenceporfiles/**
